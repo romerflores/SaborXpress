@@ -10,7 +10,7 @@ class ConexionBD
     private $port="3306";
     private $user="root";
     private $password="";
-    private $dataBase="Pollos-Cristians";
+    private $dataBase="pollos-cris";
     private $charset="utf8mb4";
 
     public function __construct()
