@@ -1,3 +1,4 @@
 <?php
 echo "Pollos Criss";
-echo "prueba php storm";
+echo "Hola mundo";
+echo "esto es una prueba";
