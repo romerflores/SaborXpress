@@ -1,1 +1,2 @@
 git pull origin master --> para actualizae mi repositorio local, con el repositorio remoto
+git status --> para verificar el estado de mi reposirtorio local
