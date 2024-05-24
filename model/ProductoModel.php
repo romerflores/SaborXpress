@@ -51,7 +51,6 @@ class ProductoModel extends ModeloBasePDO
         array_push($param, [':p_filtro', $p_filtro, PDO::PARAM_STR]);
         $var1 =  parent::gselect($sqlcount, $param);
         $var['LENGTH'] = $var1['DATA'][0]['cant'];
-
         return $var;
     }
 
