@@ -11,6 +11,8 @@ define('ROOT_VIEW',RUTA_BASE.'pollosCristians/view');
 define('ROOT_REPORT',RUTA_BASE.'pollosCristians/reports');
 define('ROOT_REPORT_DOWN',RUTA_BASE.'pollosCristians/reports_download');
 
+define("URL_RESOURCES", HTTP_BASE."/public/");
+
 define('SECRET_KEY','POLLOSCRISS.jksdfwonfeaSDGMSDM345Lgomsda435lkfnsdalfASD7MGSDL2345FJSADOGJsadf232');
 define('ALGORITHM','HS256');
 ;
