@@ -88,11 +88,11 @@ class ProductoModel extends ModeloBasePDO
     public function update($p_id_producto, $p_descripcion_producto, $p_precio, $p_estado)
     {
         $sql = "UPDATE producto 
-        SET id_producto=':p_id_producto',
+        SET
         descripcion_producto=':p_descripcion_producto',
         precio=':p_precio',
         estado=':p_estado' 
-        WHERE id_producto=2";
+        WHERE id_producto=':p_id_producto'";
         $param = array();
 
         array_push($param, [':p_id_producto', $p_id_producto, PDO::PARAM_INT]);

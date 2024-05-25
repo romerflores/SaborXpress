@@ -61,5 +61,18 @@ class ClienteModel extends ModeloBasePDO
 
         return parent::ginsert($sql, $param);
     }
+
+    //para modificar un cliente
+    public function update($p_id_cliente,$p_nombre)
+    {
+
+        $sql="UPDATE `cliente` SET `nombre`=':p_nombre' WHERE `id_cliente`=':p_id_cliente'";
+        $param=array();
+        array_push($param,[':p_id_cliente',$p_id_cliente,PDO::PARAM_STR]);
+        array_push($param,[':p_nombre',$p_nombre,PDO::PARAM_STR]);
+
+        return parent::gupdate($sql,$param);
+    }
+
     
 }
