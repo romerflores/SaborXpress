@@ -7,8 +7,7 @@ header("Content-Type: application/json; charset=UTF-8");
 
 session_start();
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/appweb/config/global.php");
-
+require_once($_SERVER['DOCUMENT_ROOT'] . "/pollosCristians/config/global.php");
 require_once(ROOT_DIR . "/model/ClienteModel.php");
 
 
@@ -25,6 +24,7 @@ switch ($method) {
     case 'GET': //consulta
 
         $p_ope = !empty($input['ope']) ? $input['ope'] : $_GET['ope'];
+        
         if (!empty($p_ope)) {
 
             if ($p_ope == 'filterId') {
@@ -37,7 +37,8 @@ switch ($method) {
         }
 
         break;
-    case 'POST': //inserta
+    case 'POST': //inserta}
+        
         insert($input);
         break;
     case 'PUT': //actualiza
