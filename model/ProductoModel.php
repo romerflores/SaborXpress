@@ -65,7 +65,7 @@ class ProductoModel extends ModeloBasePDO
         array_push($param, [':p_descripcion_producto', $p_descripcion_producto, PDO::PARAM_STR]);
 
         //PREGUNTAR POR FLOAT:
-        array_push($param, [':p_precio', $p_precio, PDO::PARAM_INT]);
+        array_push($param, [':p_precio', $p_precio, PDO::PARAM_STR]);
         array_push($param, [':p_estado', $p_estado, PDO::PARAM_BOOL]);
 
         return parent::ginsert($sql, $param);
@@ -97,7 +97,7 @@ class ProductoModel extends ModeloBasePDO
 
         array_push($param, [':p_id_producto', $p_id_producto, PDO::PARAM_INT]);
         array_push($param, [':p_descripcion_producto', $p_descripcion_producto, PDO::PARAM_STR]);
-        array_push($param, [':p_precio', $p_precio, PDO::PARAM_INT]);
+        array_push($param, [':p_precio', $p_precio, PDO::PARAM_STR]);
         array_push($param, [':p_estado', $p_estado, PDO::PARAM_BOOL]);
 
         return parent::gupdate($sql, $param);
