@@ -5,12 +5,12 @@ class ClienteModel extends ModeloBasePDO
 {
     public function __construct()
     {
-        
+        parent::__construct();
     }
     //filtrar todos los clientes
     public function findAll()
     {
-        $sql = "SELECT `id_cliente`, `nombre` FROM `cliente`";
+        $sql = "SELECT id_cliente, nombre FROM cliente";
         $param = array();
         return parent::gselect($sql, $param);
     }
@@ -19,10 +19,11 @@ class ClienteModel extends ModeloBasePDO
 
     public function findid($p_id_cliente)
     {
-        $sql="SELECT `id_cliente`, `nombre` FROM `cliente` WHERE id_cliente=:p_id_cliente";
+        $sql="SELECT id_cliente, nombre FROM cliente WHERE id_cliente=:p_id_cliente";
         $param= array();
         //tenemos el atributo como string ya que el id(carnet o nit) puede tener complemento
         array_push($param,[':p_id_cliente',$p_id_cliente,PDO::PARAM_STR]);
+        return parent::gselect($sql, $param);
     }
     public function findpaginateall($p_filtro, $p_limit, $p_offset)
     {
@@ -54,7 +55,7 @@ class ClienteModel extends ModeloBasePDO
     //crear nuevo cliente
     public function insert($p_id_cliente,$p_nombre)
     {
-        $sql="INSERT INTO `cliente`(`id_cliente`, `nombre`) VALUES (:p_id_cliente,:p_nombre)";
+        $sql="INSERT INTO cliente(id_cliente, nombre) VALUES (:p_id_cliente,:p_nombre); ";
         $param=array();
         array_push($param,[':p_id_cliente',$p_id_cliente,PDO::PARAM_STR]);
         array_push($param,[':p_nombre',$p_nombre,PDO::PARAM_STR]);
@@ -66,7 +67,7 @@ class ClienteModel extends ModeloBasePDO
     public function update($p_id_cliente,$p_nombre)
     {
 
-        $sql="UPDATE `cliente` SET `nombre`=':p_nombre' WHERE `id_cliente`=':p_id_cliente'";
+        $sql="UPDATE cliente SET nombre=:p_nombre WHERE id_cliente=':p_id_cliente'";
         $param=array();
         array_push($param,[':p_id_cliente',$p_id_cliente,PDO::PARAM_STR]);
         array_push($param,[':p_nombre',$p_nombre,PDO::PARAM_STR]);

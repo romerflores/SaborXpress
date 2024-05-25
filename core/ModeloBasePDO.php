@@ -33,6 +33,7 @@ class ModeloBasePDO {
 
     function gselect($query, $param ) {
         $array = array();
+        //var_dump($query);
         try {
             $result = $this->_db->prepare($query);
 
@@ -49,6 +50,7 @@ class ModeloBasePDO {
             $array['ESTADO'] = false;
             $array['ERROR'] = $e->getMessage();
         }
+        //var_dump($array);
         return $array;
     }
     function ginsert($query, $param ) {
