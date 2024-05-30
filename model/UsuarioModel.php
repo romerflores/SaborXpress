@@ -47,16 +47,17 @@ class UsuarioModel extends ModeloBasePDO
         $var['LENGTH'] = $var1['DATA'][0]['cant'];
         return $var;
     }
-    public function register($p_nombre,$p_apellido,$p_ci,$p_fecha_nacimiento,$p_password)
+    public function register($p_nombre,$p_apellido,$p_ci,$p_fecha_nacimiento,$p_password,$p_rol)
     {
-        $sql="INSERT INTO usuario(nombre, apellido, ci, fecha_nacimiento, fecha_alta,password) 
-        VALUES (:p_nombre,:p_apellido,:p_ci,:p_fecha_nacimiento,NOW(),:p_password);";
+        $sql="INSERT INTO usuario(nombre, apellido, ci, fecha_nacimiento, fecha_alta,password,rol) 
+        VALUES (:p_nombre,:p_apellido,:p_ci,:p_fecha_nacimiento,NOW(),:p_password,:p_rol);";
         $param=array();
         array_push($param,[':p_nombre',$p_nombre,PDO::PARAM_STR]);
         array_push($param,[':p_apellido',$p_apellido,PDO::PARAM_STR]);
         array_push($param,[':p_ci',$p_ci,PDO::PARAM_STR]);
         array_push($param,[':p_fecha_nacimiento',$p_fecha_nacimiento,PDO::PARAM_STR]);
         array_push($param,[':p_password',$p_password,PDO::PARAM_STR]);
+        array_push($param,[':p_rol',$p_rol,PDO::PARAM_STR]);
 
         return parent::ginsert($sql, $param);
     }
@@ -85,7 +86,7 @@ class UsuarioModel extends ModeloBasePDO
 
         array_push($param, [':p_ci', $p_ci, PDO::PARAM_STR]);
         array_push($param,[':p_password',$p_password,PDO::PARAM_STR]);
-        parent::gselect($sql,$param);
+        return parent::gselect($sql,$param);
     }
 
 }

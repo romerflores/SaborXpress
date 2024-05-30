@@ -48,6 +48,7 @@ if ($segments[0] === 'pollosCristians' || $segments[0]=== 'PollosCristians') {
                 case 'logout':
                     session_destroy();
                     echo '<script>window.location.href="'.HTTP_BASE.'/login"</script>';
+                
             }
         case 'home':
             home();
