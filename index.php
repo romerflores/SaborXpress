@@ -60,6 +60,5 @@ if ($segments[0] === 'pollosCristians' || $segments[0]=== 'PollosCristians') {
     }
 } else {
     error404();
-    //home();
 }
 
