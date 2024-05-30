@@ -53,7 +53,9 @@ if ($segments[0] === 'pollosCristians' || $segments[0]=== 'PollosCristians') {
         case 'home':
             home();
             break;
-
+        case '':
+            home();
+            break;
         default:
             //verificarlogin();
             error404();
