@@ -1,5 +1,5 @@
-(function($) {
-  showSwal = function(type) {
+(function ($) {
+  showSwal = function (type) {
     'use strict';
     if (type === 'basic') {
       swal({
@@ -44,9 +44,9 @@
         timer: 2000,
         button: false
       }).then(
-        function() {},
+        function () { },
         // handling the promise rejection
-        function(dismiss) {
+        function (dismiss) {
           if (dismiss === 'timer') {
             console.log('I was closed by the timer')
           }

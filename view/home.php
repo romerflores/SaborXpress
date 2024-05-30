@@ -1,10 +1,22 @@
 <?php require(ROOT_VIEW.'/templates/header.php')?>
+
+
+    <!-- <div class="row" id="proBanner">
+      <div class="col-12">
+        <span class="d-flex align-items-center purchase-popup">
+          <p>Get tons of UI components, Plugins, multiple layouts, 20+ sample pages, and more!</p>
+          <a href="https://www.bootstrapdash.com/product/celestial-admin-template/?utm_source=organic&utm_medium=banner&utm_campaign=free-preview" target="_blank" class="btn download-button purchase-button ml-auto">Upgrade To Pro</a>
+          <i class="typcn typcn-delete-outline" id="bannerClose"></i>
+        </span>
+      </div>
+    </div> -->
+
 <div class="container-scroller">
   <!-- partial:partials/_navbar.html -->
   <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-      <a class="navbar-brand brand-logo" href="index.html"><img src="images/logo.svg" alt="logo" /></a>
-      <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo" /></a>
+      <a class="navbar-brand brand-logo" href="index.html"><img src="<?php echo URL_RESOURCES?>celestialAdmin/template/images/logo.svg" alt="logo" /></a>
+      <a class="navbar-brand brand-logo-mini" href="index.html"><img src="<?php echo URL_RESOURCES?>celestialAdmin/template/images/logo-mini.svg" alt="logo" /></a>
       <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button" data-toggle="minimize">
         <span class="typcn typcn-th-menu"></span>
       </button>
@@ -42,7 +54,7 @@
             <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
             <a class="dropdown-item preview-item">
               <div class="preview-thumbnail">
-                <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
+                <img src="<?php echo URL_RESOURCES?>celestialAdmin/template/images/faces/face4.jpg" alt="image" class="profile-pic">
               </div>
               <div class="preview-item-content flex-grow">
                 <h6 class="preview-subject ellipsis font-weight-normal">David Grey
@@ -54,7 +66,7 @@
             </a>
             <a class="dropdown-item preview-item">
               <div class="preview-thumbnail">
-                <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
+                <img src="<?php echo URL_RESOURCES?>celestialAdmin/template/images/faces/face2.jpg" alt="image" class="profile-pic">
               </div>
               <div class="preview-item-content flex-grow">
                 <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
@@ -66,7 +78,7 @@
             </a>
             <a class="dropdown-item preview-item">
               <div class="preview-thumbnail">
-                <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
+                <img src="<?php echo URL_RESOURCES?>celestialAdmin/template/images/faces/face3.jpg" alt="image" class="profile-pic">
               </div>
               <div class="preview-item-content flex-grow">
                 <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
@@ -183,7 +195,7 @@
         <li class="nav-item">
           <div class="d-flex sidebar-profile">
             <div class="sidebar-profile-image">
-              <img src="images/faces/face29.png" alt="image">
+              <img src="<?php echo URL_RESOURCES?>celestialAdmin/template/images/faces/face29.png" alt="image">
               <span class="sidebar-status-indicator"></span>
             </div>
             <div class="sidebar-profile-name">
@@ -221,9 +233,9 @@
           </a>
           <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+              <li class="nav-item"> <a class="nav-link" href="<?php echo URL_RESOURCES?>celestialAdmin/template/pages/ui-features/buttons.html">Buttons</a></li>
+              <li class="nav-item"> <a class="nav-link" href="<?php echo URL_RESOURCES?>celestialAdmin/template/pages/ui-features/dropdowns.html">Dropdowns</a></li>
+              <li class="nav-item"> <a class="nav-link" href="<?php echo URL_RESOURCES?>celestialAdmin/template/pages/ui-features/typography.html">Typography</a></li>
             </ul>
           </div>
         </li>
@@ -235,7 +247,7 @@
           </a>
           <div class="collapse" id="form-elements">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
+              <li class="nav-item"><a class="nav-link" href="<?php echo URL_RESOURCES?>celestialAdmin/template/pages/forms/basic_elements.html">Basic Elements</a></li>
             </ul>
           </div>
         </li>
@@ -247,7 +259,7 @@
           </a>
           <div class="collapse" id="charts">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
+              <li class="nav-item"> <a class="nav-link" href="<?php echo URL_RESOURCES?>celestialAdmin/template/pages/charts/chartjs.html">ChartJs</a></li>
             </ul>
           </div>
         </li>
@@ -259,7 +271,7 @@
           </a>
           <div class="collapse" id="tables">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
+              <li class="nav-item"> <a class="nav-link" href="<?php echo URL_RESOURCES?>celestialAdmin/template/pages/tables/basic-table.html">Basic table</a></li>
             </ul>
           </div>
         </li>
@@ -271,7 +283,7 @@
           </a>
           <div class="collapse" id="icons">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Mdi icons</a></li>
+              <li class="nav-item"> <a class="nav-link" href="<?php echo URL_RESOURCES?>celestialAdmin/template/pages/icons/mdi.html">Mdi icons</a></li>
             </ul>
           </div>
         </li>
@@ -283,8 +295,8 @@
           </a>
           <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
+              <li class="nav-item"> <a class="nav-link" href="<?php echo URL_RESOURCES?>celestialAdmin/template/pages/samples/login.html"> Login </a></li>
+              <li class="nav-item"> <a class="nav-link" href="<?php echo URL_RESOURCES?>celestialAdmin/template/pages/samples/register.html"> Register </a></li>
             </ul>
           </div>
         </li>
@@ -296,13 +308,13 @@
           </a>
           <div class="collapse" id="error">
             <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-              <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
+              <li class="nav-item"> <a class="nav-link" href="<?php echo URL_RESOURCES?>celestialAdmin/template/pages/samples/error-404.html"> 404 </a></li>
+              <li class="nav-item"> <a class="nav-link" href="<?php echo URL_RESOURCES?>celestialAdmin/template/pages/samples/error-500.html"> 500 </a></li>
             </ul>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="pages/documentation/documentation.html">
+          <a class="nav-link" href="<?php echo URL_RESOURCES?>celestialAdmin/template/pages/documentation/documentation.html">
             <i class="typcn typcn-document-text menu-icon"></i>
             <span class="menu-title">Documentation</span>
           </a>
@@ -700,7 +712,7 @@
                       <tr>
                         <td>
                           <div class="d-flex">
-                            <img class="img-sm rounded-circle mb-md-0 mr-2" src="images/faces/face30.png" alt="profile image">
+                            <img class="img-sm rounded-circle mb-md-0 mr-2" src="<?php echo URL_RESOURCES?>celestialAdmin/template/images/faces/face30.png" alt="profile image">
                             <div>
                               <div> Company</div>
                               <div class="font-weight-bold mt-1">volkswagen</div>
@@ -726,7 +738,7 @@
                       <tr>
                         <td>
                           <div class="d-flex">
-                            <img class="img-sm rounded-circle mb-md-0 mr-2" src="images/faces/face31.png" alt="profile image">
+                            <img class="img-sm rounded-circle mb-md-0 mr-2" src="<?php echo URL_RESOURCES?>celestialAdmin/template/images/faces/face31.png" alt="profile image">
                             <div>
                               <div> Company</div>
                               <div class="font-weight-bold  mt-1">Land Rover</div>
@@ -752,7 +764,7 @@
                       <tr>
                         <td>
                           <div class="d-flex">
-                            <img class="img-sm rounded-circle mb-md-0 mr-2" src="images/faces/face32.png" alt="profile image">
+                            <img class="img-sm rounded-circle mb-md-0 mr-2" src="<?php echo URL_RESOURCES?>celestialAdmin/template/images/faces/face32.png" alt="profile image">
                             <div>
                               <div> Company</div>
                               <div class="font-weight-bold  mt-1">Bentley </div>
@@ -778,7 +790,7 @@
                       <tr>
                         <td>
                           <div class="d-flex">
-                            <img class="img-sm rounded-circle mb-md-0 mr-2" src="images/faces/face33.png" alt="profile image">
+                            <img class="img-sm rounded-circle mb-md-0 mr-2" src="<?php echo URL_RESOURCES?>celestialAdmin/template/images/faces/face33.png" alt="profile image">
                             <div>
                               <div> Company</div>
                               <div class="font-weight-bold  mt-1">Morgan </div>
@@ -804,7 +816,7 @@
                       <tr>
                         <td>
                           <div class="d-flex">
-                            <img class="img-sm rounded-circle mb-md-0 mr-2" src="images/faces/face34.png" alt="profile image">
+                            <img class="img-sm rounded-circle mb-md-0 mr-2" src="<?php echo URL_RESOURCES?>celestialAdmin/template/images/faces/face34.png" alt="profile image">
                             <div>
                               <div> Company</div>
                               <div class="font-weight-bold  mt-1">volkswagen</div>
