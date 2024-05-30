@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    margin: 0 auto;
+    background-color: #fbbbca;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.colortit {
+    background-color: #f74f76;
+}
+
+.titulo {
+    padding: 30px;
+}
+
+header h1 {
+    color: #fff;
+    margin: 0;
+}
+
+.menu {
+    text-align: center;
+}
+
+nav {
+    background-color: #f74f76;
+    padding: 10px 0;
+    margin-right: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #fceff2;
+    color: #f74f76;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #e4073b;
+    border-radius: 5px;
+    margin-top: 10%;
+    margin-left: 90%;
+    padding: 20px;
+    z-index: 1;
+    top: 100%;
+}
+
+.dropdown-content a {
+    display: block;
+    color: #fff;
+    padding: 5px 0;
+    text-decoration: none;
+}
+
+.dropdown-content a:hover {
+    background-color: #fceff2;
+    color: #f74f76;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.logo img {
+    width: 50px; 
+    margin-left: 40%;
+}
+
+.bienvenido {
+    padding: 10px;
+    color: #fff;
+}
+
+.button-container {
+    margin-top: 10px;
+    margin-left: 100px;
+    margin-bottom: 10px;
+}
+
+.button-container button {
+    background-color: #ff69b4;
+    color: white;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.styled-table {
+    width: 80%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.styled-table th {
+    background-color: #ff69b4;
+    color: white;
+    padding: 10px;
+}
+
+.styled-table td {
+    padding: 10px;
+    text-align: center;
+}
+
+.styled-table tr:nth-child(even) {
+    background-color: #fce4ec;
+}
+
+.styled-table tr:hover {
+    background-color: #f8bbd0;
+}
