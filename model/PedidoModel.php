@@ -8,7 +8,7 @@ class PedidoModel extends ModeloBasePDO
     }
     public function findAll() //Esto listara todos los pedidos con su producto y categoria respectiva
     {
-        $sql = "SELECT `id_pedido`, `cantidad`, `sub_total`, `nota_venta_nro_venta`, producto.descripcion_producto, categoria.nombre_categoria 
+        $sql = "SELECT id_pedido, cantidad, sub_total, nota_venta_nro_venta, producto.descripcion_producto, categoria.nombre_categoria 
         FROM pedido 
         INNER JOIN producto 
         ON producto_id_producto= producto.id_producto 
@@ -19,7 +19,7 @@ class PedidoModel extends ModeloBasePDO
     }
     public function findid($p_id_pedido)//buscar por carnet
     {
-        $sql="SELECT `id_pedido`, `cantidad`, `sub_total`, `nota_venta_nro_venta`, producto.descripcion_producto, categoria.nombre_categoria 
+        $sql="SELECT id_pedido, cantidad, sub_total, nota_venta_nro_venta, producto.descripcion_producto, categoria.nombre_categoria 
         FROM pedido 
         INNER JOIN producto 
         ON producto_id_producto= producto.id_producto 
@@ -33,7 +33,7 @@ class PedidoModel extends ModeloBasePDO
     }
     public function findpaginateall($p_filtro, $p_limit, $p_offset)
     {
-        $sql = "SELECT `id_pedido`, `cantidad`, `sub_total`, `nota_venta_nro_venta`, producto.descripcion_producto, categoria.nombre_categoria 
+        $sql = "SELECT id_pedido, cantidad, sub_total, nota_venta_nro_venta, producto.descripcion_producto, categoria.nombre_categoria 
         FROM pedido 
         INNER JOIN producto 
         ON producto_id_producto= producto.id_producto 
@@ -68,7 +68,7 @@ class PedidoModel extends ModeloBasePDO
     public function insertar($p_cantidad,$p_sub_total,$p_nota_venta_nro_venta,$p_producto_id_producto,$p_producto_categoria_id_categoria) //crear pedido
     {
         $p_estado='ACTIVO';
-        $sql="INSERT INTO `pedido`(`cantidad`, `sub_total`, `nota_venta_nro_venta`, `producto_id_producto`, `producto_categoria_id_categoria`) 
+        $sql="INSERT INTO pedido(cantidad, sub_total, nota_venta_nro_venta, producto_id_producto, producto_categoria_id_categoria) 
         VALUES (:p_cantidad,:p_sub_total,:p_nota_venta_nro_venta,:p_producto_id_producto,:p_producto_categoria_id_categoria)";
         $param=array();
         array_push($param,[':p_cantidad',$p_cantidad,PDO::PARAM_INT]);
