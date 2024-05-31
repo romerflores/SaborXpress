@@ -8,7 +8,7 @@ header("Content-Type: application/json; charset=UTF-8"); //nos dice que se devol
 session_start();
 
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/pollosCristians/config/global.php"); //importamos la configuracion global
+require_once($_SERVER['DOCUMENT_ROOT'] . "/SaborXpress/config/global.php"); //importamos la configuracion global
 require_once(ROOT_DIR . "/model/ProductoModel.php"); //importamos el modelo de Producto
 
 //que metodo vendra:
@@ -32,7 +32,7 @@ switch ($method)
         if (!empty($p_ope)) {
             if ($p_ope == 'filterall' || $p_ope == 'filterAll') {
                 filterAll($input);
-            } elseif ($p_ope == 'filterId' || $p_ope == 'filterid') {
+            } elseif ($p_ope == 'filterId' || $p_ope=='filterid') {
                 filterId($input);
             } elseif ($p_ope == 'filterSearch' || $p_ope == 'filtersearch') {
                 filterPaginateAll($input);
@@ -86,12 +86,13 @@ function filterPaginateAll($input)
 function insert($input)
 {
     $p_descripcion_producto = !empty($input['descripcion_producto']) ? $input['descripcion_producto'] : $_POST['descripcion_producto'];
-    $p_precio = !empty($input['precio']) ? $input['precio'] : $_POST['precio'];
-    $p_estado = !empty($input['estado']) ? $input['estado'] : $_POST['estado'];
+    $p_precio_producto = !empty($input['precio_producto']) ? $input['precio_producto'] : $_POST['precio_producto'];
+    $p_estado_producto = !empty($input['estado_producto']) ? $input['estado_producto'] : $_POST['estado_producto'];
+    $p_categoria_id_categoria = !empty($input['categoria_id_categoria']) ? $input['categoria_id_categoria'] : $_POST['categoria_id_categoria'];
 
 
     $obj_Producto = new ProductoModel();
-    $var = $obj_Producto->insert($p_descripcion_producto, $p_precio, $p_estado);
+    $var = $obj_Producto->insert($p_descripcion_producto, $p_precio_producto, $p_estado_producto,$p_categoria_id_categoria);
     echo json_encode($var);
 
 }
@@ -99,11 +100,12 @@ function update($input)
 {
     $p_id_producto = !empty($input['id_producto']) ? $input['id_producto'] : $_POST['id_producto'];
     $p_descripcion_producto = !empty($input['descripcion_producto']) ? $input['descripcion_producto'] : $_POST['descripcion_producto'];
-    $p_precio = !empty($input['precio']) ? $input['precio'] : $_POST['precio'];
-    $p_estado = !empty($input['estado']) ? $input['estado'] : $_POST['estado'];
+    $p_precio_producto = !empty($input['precio_producto']) ? $input['precio_producto'] : $_POST['precio_producto'];
+    $p_estado_producto = !empty($input['estado_producto']) ? $input['estado_producto'] : $_POST['estado_producto'];
+    $p_categoria_id_categoria = !empty($input['categoria_id_categoria']) ? $input['categoria_id_categoria'] : $_POST['categoria_id_categoria'];
 
     $obj_Producto = new ProductoModel();
-    $var = $obj_Producto->update($p_id_producto, $p_descripcion_producto, $p_precio,$p_estado);
+    $var = $obj_Producto->update($p_id_producto, $p_descripcion_producto, $p_precio_producto, $p_estado_producto,$p_categoria_id_categoria);
     echo json_encode($var);
 
 }

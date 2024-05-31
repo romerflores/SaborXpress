@@ -2,14 +2,14 @@
 if($_SERVER['REQUEST_METHOD']== 'POST')
 {
     $ope='login';
-    $p_ci=$_POST['ci'];//clave primaria
+    $p_ci_usuario=$_POST['ci_usuario'];//clave primaria
     $p_password=$_POST['password'];
 
     try
     {
         $data=[
             'ope'=>$ope,
-            'ci'=>$p_ci,
+            'ci_usuario'=>$p_ci_usuario,
             'password'=>$p_password
         ];
         $context= stream_context_create(
@@ -28,7 +28,7 @@ if($_SERVER['REQUEST_METHOD']== 'POST')
         if($result["ESTADO"] && isset($result['DATA']) && !empty($result['DATA']))
         {
             $_SESSION['login']= $result['DATA'][0];
-            if(isset($_SESSION['login']['ci']))
+            if(isset($_SESSION['login']['ci_usuario']))
             {
                 echo "<script>alert('Se Logeo Correctamente')</script>";
                 echo '<script>window.location.href="'.HTTP_BASE.'/home";</script>';
@@ -82,7 +82,7 @@ if($_SERVER['REQUEST_METHOD']== 'POST')
               <h6 class="font-weight-light">Sign in to continue.</h6>
               <form class="pt-3" method="POST" action="">
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Carnet de Identidad" name="ci">
+                  <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Carnet de Identidad" name="ci_usuario">
                 </div>
                 <div class="form-group">
                   <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Contraseña" name="password">

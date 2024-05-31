@@ -7,7 +7,7 @@ header("Content-Type: application/json; charset=UTF-8");
 
 session_start();
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/pollosCristians/config/global.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/SaborXpress/config/global.php");
 
 require_once(ROOT_DIR . "/model/UsuarioModel.php");
 
@@ -38,11 +38,11 @@ switch ($method) {
 
 function  login($input)
 {
-    $p_ci = !empty($input['ci']) ? $input['ci'] : $_POST['ci'];
+    $p_ci_usuario = !empty($input['ci_usuario']) ? $input['ci_usuario'] : $_POST['ci_usuario'];
     $p_password = !empty($input['password']) ? $input['password'] : $_POST['password'];
     $p_password = hash('sha512', md5($p_password));
     $su   = new UsuarioModel();
-    $var = $su->verificarlogin($p_ci, $p_password);
+    $var = $su->verificarlogin($p_ci_usuario, $p_password);
     //var_dump($var);
     if (count($var['DATA']) > 0) {
         $_SESSION['login'] = $var['DATA'][0];
@@ -58,17 +58,18 @@ function  login($input)
 }
 function register($input)
 {
+    $p_ci_usuario = !empty($input['ci_usuario']) ? $input['ci_usuario'] : $_POST['ci_usuario'];
     $p_nombre = !empty($input['nombre']) ? $input['nombre'] : $_POST['nombre'];
     $p_apellido = !empty($input['apellido']) ? $input['apellido'] : $_POST['apellido'];
-    $p_ci = !empty($input['ci']) ? $input['ci'] : $_POST['ci'];
     $p_fecha_nacimiento = !empty($input['fecha_nacimiento']) ? $input['fecha_nacimiento'] : $_POST['fecha_nacimiento'];
+    $p_rol_usuario = !empty($input['rol']) ? $input['rol'] : $_POST['rol'];
     $p_password = !empty($input['password']) ? $input['password'] : $_POST['password'];
-    $p_rol = !empty($input['rol']) ? $input['rol'] : $_POST['rol'];
+
     $p_password = hash('sha512', md5($p_password));
     
 
     $tseg_usuario = new UsuarioModel();
-    $var = $tseg_usuario->register($p_nombre,$p_apellido,$p_ci,$p_fecha_nacimiento,$p_password,$p_rol);
+    $var = $tseg_usuario->register($p_ci_usuario,$p_nombre,$p_apellido,$p_fecha_nacimiento,$p_rol_usuario,$p_password);
 
     echo json_encode($var);
 }

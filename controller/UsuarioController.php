@@ -8,7 +8,7 @@ header("Content-Type: application/json; charset=UTF-8"); //nos dice que se devol
 session_start();
 
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/pollosCristians/config/global.php"); //importamos la configuracion global
+require_once($_SERVER['DOCUMENT_ROOT'] . "/SaborXpress/config/global.php"); //importamos la configuracion global
 require_once(ROOT_DIR . "/model/UsuarioModel.php"); //importamos el modelo de Usuario
 
 //que metodo vendra:
@@ -33,7 +33,7 @@ switch ($method)
         if (!empty($p_ope)) {
             if ($p_ope == 'filterall' || $p_ope == 'filterAll') {
                 filterAll($input);
-            } elseif ($p_ope == 'filterId' || $p_ope == 'filterid') {
+            } elseif ($p_ope == 'filterId' || $p_ope=='filterid') {
                 filterId($input);
             } elseif ($p_ope == 'filterSearch' || $p_ope == 'filtersearch') {
                 filterPaginateAll($input);
@@ -64,9 +64,9 @@ function filterAll($input)
 function filterId($input)
 {
     //aca consulto por el &id_producto=x
-    $p_id_usuario = !empty($input['id_usuario']) ? $input['id_usuario'] : $_GET['id_usuario'];
+    $p_ci_usuario_usuario = !empty($input['ci_usuario']) ? $input['ci_usuario'] : $_GET['ci_usuario'];
     $obj_Usuario = new UsuarioModel();
-    $var = $obj_Usuario->findid($p_id_usuario);
+    $var = $obj_Usuario->findid($p_ci_usuario_usuario);
     echo json_encode($var);
 }
 function filterPaginateAll($input)
@@ -85,29 +85,29 @@ function filterPaginateAll($input)
 
 function insert($input)
 {
+    $p_ci_usuario = !empty($input['ci_usuario']) ? $input['ci_usuario'] : $_POST['ci_usuario'];
     $p_nombre = !empty($input['nombre']) ? $input['nombre'] : $_POST['nombre'];
     $p_apellido = !empty($input['apellido']) ? $input['apellido'] : $_POST['apellido'];
-    $p_ci = !empty($input['ci']) ? $input['ci'] : $_POST['ci'];
     $p_fecha_nacimiento = !empty($input['fecha_nacimiento']) ? $input['fecha_nacimiento'] : $_POST['fecha_nacimiento'];
+    $p_rol_usuario = !empty($input['rol_usuario']) ? $input['rol_usuario'] : $_POST['rol_usuario'];
     $p_password = !empty($input['password']) ? $input['password'] : $_POST['password'];
-    $p_rol = !empty($input['rol']) ? $input['rol'] : $_POST['rol'];
-
 
     $obj_Usuario = new UsuarioModel();
-    $var = $obj_Usuario->register($p_nombre,$p_apellido,$p_ci,$p_fecha_nacimiento,$p_password,$p_rol);
+    $var = $obj_Usuario->register($p_ci_usuario,$p_nombre,$p_apellido,$p_fecha_nacimiento,$p_rol_usuario,$p_password);
     echo json_encode($var);
 
 }
 function update($input)
 {
-    $p_id_usuario = !empty($input['id_usuario']) ? $input['id_usuario'] : $_GET['id_usuario'];
+    $p_ci_usuario = !empty($input['ci_usuario']) ? $input['ci_usuario'] : $_POST['ci_usuario'];
     $p_nombre = !empty($input['nombre']) ? $input['nombre'] : $_POST['nombre'];
     $p_apellido = !empty($input['apellido']) ? $input['apellido'] : $_POST['apellido'];
-    $p_ci = !empty($input['ci']) ? $input['ci'] : $_POST['ci'];
     $p_fecha_nacimiento = !empty($input['fecha_nacimiento']) ? $input['fecha_nacimiento'] : $_POST['fecha_nacimiento'];
+    $p_rol_usuario = !empty($input['rol_usuario']) ? $input['rol_usuario'] : $_POST['rol_usuario'];
+    $p_estado = !empty($input['estado']) ? $input['estado'] : $_POST['estado'];
 
     $obj_Usuario = new UsuarioModel();
-    $var = $obj_Usuario->update($p_id_usuario,$p_nombre,$p_apellido,$p_ci,$p_fecha_nacimiento);
+    $var = $obj_Usuario->update($p_ci_usuario,$p_nombre,$p_apellido,$p_fecha_nacimiento,$p_rol_usuario,$p_estado);
     echo json_encode($var);
 
 }

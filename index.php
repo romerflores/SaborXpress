@@ -27,13 +27,13 @@ function error404()
 }
 function verificarLogin()
 {
-    if(!isset($_SESSION['login']['ci']))
+    if(!isset($_SESSION['login']['ci_usuario']))
     {
         echo '<script>window.location.href="'.HTTP_BASE.'/login/login"</script>';
     }
 }
 
-if ($segments[0] === 'pollosCristians' || $segments[0]=== 'PollosCristians') {
+if ($segments[0] === 'SaborXpress' || $segments[0]=== 'SaborXpress') {
     switch ($segments[1] ?? '') {
 
         case 'login':
@@ -43,7 +43,7 @@ if ($segments[0] === 'pollosCristians' || $segments[0]=== 'PollosCristians') {
                     require ROOT_VIEW.'/login/login.php';
                     break;
                 case 'register':
-                    verificarLogin();
+                    //verificarLogin();
                     require ROOT_VIEW.'/login/register.php';
                     break;
                 case 'logout':
