@@ -41,10 +41,10 @@ class ConexionBD
                 );
                 $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
                 //echo "conectado exitosamente";
-            }catch (\PDOException $e)
+            }catch (PDOException $e)
             {
                 //echo "Error en la conexion";
-                throw new \PDOException($e->getMessage(),(int)$e->getCode());
+                throw new PDOException($e->getMessage(),(int)$e->getCode());
 
             }
         }
