@@ -32,6 +32,14 @@ function verificarLogin()
         echo '<script>window.location.href="'.HTTP_BASE.'/login/login"</script>';
     }
 }
+function verificarLoginActivo()
+{
+    http_response_code(302);
+    if(isset($_SESSION['login']['ci_usuario']))
+    {
+        echo '<script>window.location.href="'.HTTP_BASE.'/home"</script>';
+    }
+}
 
 if ($segments[0] === 'SaborXpress' || $segments[0]=== 'SaborXpress') {
     switch ($segments[1] ?? '') {
@@ -40,6 +48,7 @@ if ($segments[0] === 'SaborXpress' || $segments[0]=== 'SaborXpress') {
             switch ($segments[2] ?? '')
             {
                 case 'login':
+                    verificarLoginActivo();
                     require ROOT_VIEW.'/login/login.php';
                     break;
                 case 'register':
@@ -55,6 +64,10 @@ if ($segments[0] === 'SaborXpress' || $segments[0]=== 'SaborXpress') {
                     break;
                 
             }
+            break;
+        case 'productos':
+            verificarlogin();
+            require ROOT_VIEW.'/productos/listarProductos.php';
             break;
         case 'home':
             verificarlogin();
