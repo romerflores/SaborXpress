@@ -1,6 +1,6 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/pollosCristians/config/global.php");
-require_once(ROOT_DIR . "/model/ClienteModel.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/SaborXpress/config/global.php");
+require_once(ROOT_DIR . "/model/ProductoModel.php");
 include(ROOT_CORE . "/fpdf/fpdf.php");
 
 class PDF extends FPDF {
@@ -10,7 +10,7 @@ class PDF extends FPDF {
 
     function Header() {
         $this->SetFont('Arial', 'B', 20);
-        $this->Cell(0, 20, "Reporte de Clientes", 0, 1, 'C');
+        $this->Cell(0, 20, "Reporte de Productos", 0, 1, 'C');
 
         $currentDate = date('d/m/Y');
         $currentTime = date('H:i:s');
@@ -28,7 +28,7 @@ class PDF extends FPDF {
 // Configurar la zona horaria adecuada para Bolivia
 date_default_timezone_set('America/La_Paz');
 
-$rpt = new ClienteModel();
+$rpt = new ProductoModel();
 $records = $rpt->findall();
 $records = $records['DATA'];
 
@@ -37,23 +37,36 @@ $pdf->AliasNbPages();
 $pdf->AddPage();
 
 // Cabecera
-$pdf->SetFont('Courier', 'B', 11);
-$header = array($pdf->convertxt("IdCliente"), $pdf->convertxt("Nombre"));
-$widths = array(25, 60);  // Ajustar los anchos de las celdas si es necesario
+$pdf->SetFont('helvetica', 'B', 11);
+$header = array($pdf->convertxt("IdProducto"), $pdf->convertxt("Descripcion"), $pdf->convertxt("Precio"), $pdf->convertxt("Estado"), $pdf->convertxt("Categoria"));
+$widths = array(30, 40, 20, 20, 40);  // Ajustar los anchos de las celdas si es necesario
+
+// Estilo para la cabecera
+$pdf->SetFillColor(173, 216, 230); // Color azul claro de fondo
+$pdf->SetTextColor(0, 0, 0); // Color azul nítido para el texto
+$pdf->SetDrawColor(0); // Color del borde (negro)
 
 for ($i = 0; $i < count($header); $i++) {
-    $pdf->Cell($widths[$i], 10, $header[$i], 1);
+    $pdf->Cell($widths[$i], 10, $header[$i], 1, 0, 'C', true);
 }
 $pdf->Ln();
 
 // Cuerpo
 $pdf->SetFont('Arial', '', 10);
+$pdf->SetFillColor(224, 235, 255); // Color de fondo para las filas
+$pdf->SetTextColor(0); // Color del texto (negro)
+$fill = false; // Alternar el color de fondo
 
 foreach ($records as $row) {
-    $pdf->Cell($widths[0], 6, $pdf->convertxt($row['id_cliente']), 1);
-    $pdf->Cell($widths[1], 6, $pdf->convertxt($row['nombre']), 1);
+    $pdf->Cell($widths[0], 6, $pdf->convertxt($row['id_producto']), 1, 0, 'C', $fill);
+    $pdf->Cell($widths[1], 6, $pdf->convertxt($row['descripcion_producto']), 1, 0, 'C', $fill);
+    $pdf->Cell($widths[2], 6, $pdf->convertxt($row['precio_producto']), 1, 0, 'C', $fill);
+    $pdf->Cell($widths[3], 6, $pdf->convertxt($row['estado_producto']), 1, 0, 'C', $fill);
+    $pdf->Cell($widths[4], 6, $pdf->convertxt($row['categoria_id_categoria']), 1, 0, 'C', $fill);
     $pdf->Ln();
+    $fill = !$fill; // Alternar el color de fondo
 }
 
 $pdf->Output();
 ?>
+

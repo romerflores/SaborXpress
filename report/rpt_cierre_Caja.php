@@ -1,6 +1,6 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/SaborXpress/config/global.php");
-require_once(ROOT_DIR . "/model/ClienteModel.php");
+require_once(ROOT_DIR . "/model/Detalle_CajaModel.php");
 include(ROOT_CORE . "/fpdf/fpdf.php");
 
 class PDF extends FPDF {
@@ -38,7 +38,7 @@ $pdf->AddPage();
 
 // Cabecera
 $pdf->SetFont('Courier', 'B', 11);
-$header = array($pdf->convertxt("IdCliente"), $pdf->convertxt("Nombre"));
+$header = array($pdf->convertxt("IdCliente"), $pdf->convertxt("Razon Social"));
 $widths = array(25, 60);  // Ajustar los anchos de las celdas si es necesario
 
 for ($i = 0; $i < count($header); $i++) {
@@ -51,7 +51,7 @@ $pdf->SetFont('Arial', '', 10);
 
 foreach ($records as $row) {
     $pdf->Cell($widths[0], 6, $pdf->convertxt($row['id_cliente']), 1);
-    $pdf->Cell($widths[1], 6, $pdf->convertxt($row['nombre']), 1);
+    $pdf->Cell($widths[1], 6, $pdf->convertxt($row['razon_social']), 1);
     $pdf->Ln();
 }
 
