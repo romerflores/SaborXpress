@@ -9,7 +9,7 @@ session_start();
 
 
 require_once($_SERVER['DOCUMENT_ROOT'] . "/SaborXpress/config/global.php"); //importamos la configuracion global
-require_once(ROOT_DIR . "/model/PedidoModel.php"); //importamos el modelo de Producto
+require_once(ROOT_DIR . "/model/PedidoModel.php"); //importamos el modelo de Pedido
 
 //que metodo vendra:
 $method = $_SERVER['REQUEST_METHOD'];
@@ -42,12 +42,12 @@ switch ($method)
     case 'POST':
         insert($input);
         break;
-    case 'PUT':
-        update($input);
-        break;
-    case 'DELETE':
-        delete($input);
-        break;
+    // case 'PUT':
+    //     update($input);
+    //     break;
+    // case 'DELETE':
+    //     delete($input);
+    //     break;
     default:
         echo 'No soportado';
 }
@@ -55,17 +55,17 @@ switch ($method)
 
 function filterAll($input)
 {
-    $obj_Producto = new PedidoModel();
-    $var = $obj_Producto->findall();
+    $obj_Pedido = new PedidoModel();
+    $var = $obj_Pedido->findall();
     echo json_encode($var);
 }
 
 function filterId($input)
 {
     //aca consulto por el &id_producto=x
-    $p_id_producto = !empty($input['id_producto']) ? $input['id_producto'] : $_GET['id_producto'];
-    $obj_Producto = new PedidoModel();
-    $var = $obj_Producto->findid($p_id_producto);
+    $p_id_pedido = !empty($input['id_pedido']) ? $input['id_pedido'] : $_GET['id_pedido'];
+    $obj_Pedido = new PedidoModel();
+    $var = $obj_Pedido->findid($p_id_pedido);
     echo json_encode($var);
 }
 function filterPaginateAll($input)
@@ -77,43 +77,22 @@ function filterPaginateAll($input)
     $p_offset=0;
     $p_offset=abs(($page-1)* $nro_record_page);
 
-    $obj_Producto = new PedidoModel();
-    $var = $obj_Producto->findpaginateall($filter,$p_limit,$p_offset);
+    $obj_Pedido = new PedidoModel();
+    $var = $obj_Pedido->findpaginateall($filter,$p_limit,$p_offset);
     echo json_encode($var);
 
 }
 
 function insert($input)
 {
-    $p_descripcion_producto = !empty($input['descripcion_producto']) ? $input['descripcion_producto'] : $_POST['descripcion_producto'];
-    $p_precio_producto = !empty($input['precio_producto']) ? $input['precio_producto'] : $_POST['precio_producto'];
-    $p_estado_producto = !empty($input['estado_producto']) ? $input['estado_producto'] : $_POST['estado_producto'];
-    $p_categoria_id_categoria = !empty($input['categoria_id_categoria']) ? $input['categoria_id_categoria'] : $_POST['categoria_id_categoria'];
+    $p_cantidad = !empty($input['cantidad']) ? $input['cantidad'] : $_POST['cantidad'];
+    $p_sub_total= !empty($input['sub_total']) ? $input['sub_total'] : $_POST['sub_total'];
+    $p_nota_venta_numero_venta= !empty($input['nota_venta_numero_venta']) ? $input['nota_venta_numero_venta'] : $_POST['nota_venta_numero_venta'];
+    $p_producto_id_producto = !empty($input['producto_id_producto']) ? $input['producto_id_producto'] : $_POST['producto_id_producto'];
+    $p_producto_categoria_id_categoria = !empty($input['producto_categoria_id_categoria']) ? $input['producto_categoria_id_categoria'] : $_POST['producto_categoria_id_categoria'];
 
-
-    $obj_Producto = new PedidoModel();
-    $var = $obj_Producto->insert($p_descripcion_producto, $p_precio_producto, $p_estado_producto,$p_categoria_id_categoria);
-    echo json_encode($var);
-
-}
-function update($input)
-{
-    $p_id_producto = !empty($input['id_producto']) ? $input['id_producto'] : $_POST['id_producto'];
-    $p_descripcion_producto = !empty($input['descripcion_producto']) ? $input['descripcion_producto'] : $_POST['descripcion_producto'];
-    $p_precio_producto = !empty($input['precio_producto']) ? $input['precio_producto'] : $_POST['precio_producto'];
-    $p_estado_producto = !empty($input['estado_producto']) ? $input['estado_producto'] : $_POST['estado_producto'];
-    $p_categoria_id_categoria = !empty($input['categoria_id_categoria']) ? $input['categoria_id_categoria'] : $_POST['categoria_id_categoria'];
-
-    $obj_Producto = new PedidoModel();
-    $var = $obj_Producto->update($p_id_producto, $p_descripcion_producto, $p_precio_producto, $p_estado_producto,$p_categoria_id_categoria);
-    echo json_encode($var);
-
-}
-function delete($input)
-{
-    $p_id_producto = !empty($input['id_producto']) ? $input['id_producto'] : $_POST['id_producto'];
-    $obj_Producto = new PedidoModel();
-    $var = $obj_Producto->delete($p_id_producto);
+    $obj_Pedido = new PedidoModel();
+    $var = $obj_Pedido->insertar($p_cantidad,$p_sub_total, $p_nota_venta_numero_venta, $p_producto_id_producto,$p_producto_categoria_id_categoria);
     echo json_encode($var);
 
 }
