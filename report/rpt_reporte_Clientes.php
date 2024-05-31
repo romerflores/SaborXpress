@@ -1,8 +1,7 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/app/config/global.php");
-require_once(ROOT_DIR . "/model/InscripcionesModel.php");
+require_once(ROOT_DIR . "/model/ClienteModel.php.php");
 include(ROOT_CORE . "/fpdf/fpdf.php");
-
 
 class PDF extends FPDF{
     function convertxt($p_txt)
@@ -22,7 +21,7 @@ class PDF extends FPDF{
     }
 }
 
-$rpt = new ();
+$rpt = new ClienteModel();
 $records = $rpt -> findall();
 $records = $records['DATA'];
 
@@ -52,7 +51,6 @@ foreach($records as $row)
     $pdf -> Cell($widths[4], 6, $pdf -> convertxt($row['nivel']), 1);
     $pdf -> Ln();
 }
-
 
 $pdf -> Output();
 
