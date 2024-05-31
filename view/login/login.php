@@ -25,7 +25,6 @@ if($_SERVER['REQUEST_METHOD']== 'POST')
         $url = HTTP_BASE."/controller/LoginController.php";
         $response = file_get_contents($url,false,$context);
         $result= json_decode($response,true);
-
         if($result["ESTADO"] && isset($result['DATA']) && !empty($result['DATA']))
         {
             $_SESSION['login']= $result['DATA'][0];
@@ -35,7 +34,7 @@ if($_SERVER['REQUEST_METHOD']== 'POST')
                 echo '<script>window.location.href="'.HTTP_BASE.'/home";</script>';
             }
             else{
-
+                
             }
             
         }

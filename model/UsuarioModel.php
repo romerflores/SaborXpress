@@ -79,7 +79,7 @@ class UsuarioModel extends ModeloBasePDO
 
     public function verificarLogin($p_ci,$p_password)
     {
-        $sql="SELECT ci,password 
+        $sql="SELECT nombre,apellido,ci,password
         FROM usuario 
         WHERE ci=:p_ci AND password=:p_password";
         $param = array();

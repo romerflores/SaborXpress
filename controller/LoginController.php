@@ -43,6 +43,7 @@ function  login($input)
     $p_password = hash('sha512', md5($p_password));
     $su   = new UsuarioModel();
     $var = $su->verificarlogin($p_ci, $p_password);
+    //var_dump($var);
     if (count($var['DATA']) > 0) {
         $_SESSION['login'] = $var['DATA'][0];
         echo json_encode($var);
