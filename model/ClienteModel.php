@@ -33,6 +33,7 @@ class ClienteModel extends ModeloBasePDO
         like concat('%',upper(IFNULL(:p_filtro,'')),'%') 
         limit :p_limit
         offset :p_offset"; //limit es para la cantidad de registros que se mostrara, y el offset es para decir desde que numero empezara la consulta
+        
         $param = array();
         array_push($param, [':p_filtro', $p_filtro, PDO::PARAM_STR]);
         array_push($param, [':p_limit', $p_limit, PDO::PARAM_INT]);
@@ -74,6 +75,6 @@ class ClienteModel extends ModeloBasePDO
 
         return parent::gupdate($sql,$param);
     }
-
-    
 }
+
+?>
