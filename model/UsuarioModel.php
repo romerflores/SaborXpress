@@ -6,26 +6,25 @@ class UsuarioModel extends ModeloBasePDO
     {
         parent::__construct();
     }
-    //consultar si se añadira el campo de rol
-    public function findAll()
+    public function findAll() //buscar todos los usuarios
     {
-        $sql = "SELECT id_usuario, nombre, apellido, ci, fecha_nacimiento, fecha_alta FROM usuario";
+        $sql = "SELECT ci_usuario, nombre, apellido, fecha_nacimiento, fecha_y_hora_alta, rol_usuario, estado FROM usuario";
         $param = array();
         return parent::gselect($sql, $param);
     }
-    public function findid($p_id_usuario)
+    public function findid($p_ci_usuario)//buscar por carnet
     {
-        $sql="SELECT id_usuario, nombre, apellido, ci, fecha_nacimiento, fecha_alta FROM usuario WHERE id_usuario=:p_id_usuario";
+        $sql="SELECT ci_usuario, nombre, apellido, fecha_nacimiento, fecha_y_hora_alta, rol_usuario, estado FROM usuario WHERE ci_usuario=:p_ci_usuario";
         $param= array();
         //tenemos el atributo como string ya que el id(carnet o nit) puede tener complemento
-        array_push($param,[':p_id_usuario',$p_id_usuario,PDO::PARAM_INT]);
+        array_push($param,[':p_ci_usuario',$p_ci_usuario,PDO::PARAM_STR]);
         return parent::gselect($sql, $param);
     }
     public function findpaginateall($p_filtro, $p_limit, $p_offset)
     {
-        $sql = "SELECT id_usuario, nombre, apellido, ci, fecha_nacimiento, fecha_alta 
-        FROM usuario 
-        WHERE upper(concat(IFNULL(id_usuario,''),IFNULL(nombre,''),IFNULL(apellido,''),IFNULL(ci,''),IFNULL(fecha_nacimiento,''),IFNULL(fecha_alta,''))) 
+        $sql = "SELECT ci_usuario, nombre, apellido, fecha_nacimiento, fecha_y_hora_alta, rol_usuario, estado 
+        FROM usuario
+        WHERE upper(concat(IFNULL(ci_usuario,''),IFNULL(nombre,''),IFNULL(apellido,''),IFNULL(fecha_nacimiento,''),IFNULL(fecha_y_hora_alta,''),IFNULL(rol_usuario,''),IFNULL(estado,''))) 
         like concat('%',upper(IFNULL(:p_filtro,'')),'%') 
         limit :p_limit
         offset :p_offset"; //limit es para la cantidad de registros que se mostrara, y el offset es para decir desde que numero empezara la consulta
@@ -39,52 +38,59 @@ class UsuarioModel extends ModeloBasePDO
         //esto es para contar
         $sqlcount = "SELECT count(1) as cant
         FROM usuario
-        WHERE upper(concat(IFNULL(id_usuario,''),IFNULL(nombre,''),IFNULL(apellido,''),IFNULL(ci,''),IFNULL(fecha_nacimiento,''),IFNULL(fecha_alta,''))) 
-        like concat('%',upper(IFNULL(:p_filtro,'')),'%')";
+        WHERE upper(concat(IFNULL(ci_usuario,''),IFNULL(nombre,''),IFNULL(apellido,''),IFNULL(fecha_nacimiento,''),IFNULL(fecha_y_hora_alta,''),IFNULL(rol_usuario,''),IFNULL(estado,''))) 
+        like concat('%',upper(IFNULL(:p_filtro,'')),'%') ";
         $param = array();
         array_push($param, [':p_filtro', $p_filtro, PDO::PARAM_STR]);
         $var1 =  parent::gselect($sqlcount, $param);
         $var['LENGTH'] = $var1['DATA'][0]['cant'];
         return $var;
     }
-    public function register($p_nombre,$p_apellido,$p_ci,$p_fecha_nacimiento,$p_password,$p_rol)
+    public function register($p_ci_usuario,$p_nombre,$p_apellido,$p_fecha_nacimiento,$p_rol_usuario,$p_password)
     {
-        $sql="INSERT INTO usuario(nombre, apellido, ci, fecha_nacimiento, fecha_alta,password,rol) 
-        VALUES (:p_nombre,:p_apellido,:p_ci,:p_fecha_nacimiento,NOW(),:p_password,:p_rol);";
+        $p_estado='ACTIVO';
+        $sql="INSERT INTO usuario(ci_usuario, nombre, apellido, fecha_nacimiento, fecha_y_hora_alta, rol_usuario, password, estado) 
+        VALUES (:p_ci_usuario,:p_nombre,:p_apellido,:p_fecha_nacimiento,NOW(),:p_rol_usuario,:p_password,:p_estado)";
         $param=array();
+        array_push($param,[':p_ci_usuario',$p_ci_usuario,PDO::PARAM_STR]);
         array_push($param,[':p_nombre',$p_nombre,PDO::PARAM_STR]);
         array_push($param,[':p_apellido',$p_apellido,PDO::PARAM_STR]);
-        array_push($param,[':p_ci',$p_ci,PDO::PARAM_STR]);
         array_push($param,[':p_fecha_nacimiento',$p_fecha_nacimiento,PDO::PARAM_STR]);
+        array_push($param,[':p_rol_usuario',$p_rol_usuario,PDO::PARAM_STR]);
         array_push($param,[':p_password',$p_password,PDO::PARAM_STR]);
-        array_push($param,[':p_rol',$p_rol,PDO::PARAM_STR]);
+        array_push($param,[':p_estado',$p_estado,PDO::PARAM_STR]);
 
         return parent::ginsert($sql, $param);
     }
 
-    public function update($p_id_usuario,$p_nombre,$p_apellido,$p_ci,$p_fecha_nacimiento)
+    public function update($p_ci_usuario,$p_nombre,$p_apellido,$p_fecha_nacimiento,$p_rol_usuario,$p_estado)
     {
         $sql = "UPDATE usuario 
-        SET nombre=':p_nombre',apellido=':p_apellido',ci=':p_ci',fecha_nacimiento=':p_fecha_nacimiento' 
-        WHERE id_usuario=':p_id_usuario';";
+        SET nombre=:p_nombre,
+        apellido=:p_apellido,
+        fecha_nacimiento=:p_fecha_nacimiento,
+        rol_usuario=:p_rol_usuario,
+        estado=:p_estado
+        WHERE ci_usuario=:p_ci_usuario";
         $param = array();
 
-        array_push($param, [':p_id_usuario', $p_id_usuario, PDO::PARAM_INT]);
+        array_push($param, [':p_ci_usuario', $p_ci_usuario, PDO::PARAM_STR]);
         array_push($param,[':p_nombre',$p_nombre,PDO::PARAM_STR]);
         array_push($param,[':p_apellido',$p_apellido,PDO::PARAM_STR]);
-        array_push($param,[':p_ci',$p_ci,PDO::PARAM_STR]);
         array_push($param,[':p_fecha_nacimiento',$p_fecha_nacimiento,PDO::PARAM_STR]);
+        array_push($param,[':p_rol_usuario',$p_rol_usuario,PDO::PARAM_STR]);
+        array_push($param,[':p_estado',$p_estado,PDO::PARAM_STR]);
         return parent::gupdate($sql, $param);
     }
 
-    public function verificarLogin($p_ci,$p_password)
+    public function verificarLogin($p_ci_usuario,$p_password)
     {
-        $sql="SELECT nombre,apellido,ci,password
+        $sql="SELECT ci_usuario, nombre, apellido, rol_usuario
         FROM usuario 
-        WHERE ci=:p_ci AND password=:p_password";
+        WHERE ci_usuario=:p_ci_usuario AND password=:p_password";
         $param = array();
 
-        array_push($param, [':p_ci', $p_ci, PDO::PARAM_STR]);
+        array_push($param, [':p_ci_usuario', $p_ci_usuario, PDO::PARAM_STR]);
         array_push($param,[':p_password',$p_password,PDO::PARAM_STR]);
         return parent::gselect($sql,$param);
     }
