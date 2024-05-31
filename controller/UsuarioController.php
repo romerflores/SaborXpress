@@ -90,10 +90,11 @@ function insert($input)
     $p_ci = !empty($input['ci']) ? $input['ci'] : $_POST['ci'];
     $p_fecha_nacimiento = !empty($input['fecha_nacimiento']) ? $input['fecha_nacimiento'] : $_POST['fecha_nacimiento'];
     $p_password = !empty($input['password']) ? $input['password'] : $_POST['password'];
+    $p_rol = !empty($input['rol']) ? $input['rol'] : $_POST['rol'];
 
 
     $obj_Usuario = new UsuarioModel();
-    $var = $obj_Usuario->register($p_nombre,$p_apellido,$p_ci,$p_fecha_nacimiento,$p_password);
+    $var = $obj_Usuario->register($p_nombre,$p_apellido,$p_ci,$p_fecha_nacimiento,$p_password,$p_rol);
     echo json_encode($var);
 
 }

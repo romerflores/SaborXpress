@@ -29,7 +29,7 @@ function verificarLogin()
 {
     if(!isset($_SESSION['login']['ci']))
     {
-        echo '<script>window.location.href="'.HTTP_BASE.'/login"</script>';
+        echo '<script>window.location.href="'.HTTP_BASE.'/login/login"</script>';
     }
 }
 
@@ -43,18 +43,28 @@ if ($segments[0] === 'pollosCristians' || $segments[0]=== 'PollosCristians') {
                     require ROOT_VIEW.'/login/login.php';
                     break;
                 case 'register':
+                    verificarLogin();
                     require ROOT_VIEW.'/login/register.php';
                     break;
                 case 'logout':
                     session_destroy();
-                    echo '<script>window.location.href="'.HTTP_BASE.'/login"</script>';
+                    echo '<script>window.location.href="'.HTTP_BASE.'/login/login"</script>';
+                    break;
+                default:
+                    error404();
+                    break;
+                
             }
+            break;
         case 'home':
+            verificarlogin();
             home();
             break;
-
+        case '':
+            verificarlogin();
+            home();
+            break;
         default:
-            //verificarlogin();
             error404();
             break;
     }

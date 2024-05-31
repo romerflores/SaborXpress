@@ -2,7 +2,7 @@
   'use strict';
   $(function() {
     // Remove pro banner on close
-    document.querySelector('#bannerClose').addEventListener('click',function() {
+    document.querySelector('#bannerClose').addEventListener('click',function() { // en caso de error descomentar estas tres lineas de abajo
       document.querySelector('#proBanner').classList.add('d-none');
     });
     if ($('#circleProgress6').length) {
