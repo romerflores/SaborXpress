@@ -218,7 +218,7 @@
                   <?php echo $_SESSION['login']['nombre']." ".$_SESSION['login']['apellido']?>
                 </p>
                 <p class="sidebar-designation">
-                  Welcome
+                <?php echo $_SESSION['login']['rol_usuario']?>
                 </p>
               </div>
             </div>

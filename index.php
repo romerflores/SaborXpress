@@ -41,7 +41,7 @@ function verificarLoginActivo()
     }
 }
 
-if ($segments[0] === 'SaborXpress' || $segments[0]=== 'SaborXpress') {
+if ($segments[0] === 'SaborXpress' || $segments[0]=== 'saborxpress') {
     switch ($segments[1] ?? '') {
 
         case 'login':
