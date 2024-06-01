@@ -44,7 +44,7 @@ $header = array(
     $pdf->convertxt("Monto Final"),
 
 );
-$widths = array(20, 25, 25, 25, 30, 30);  // Ajustar los anchos de las celdas si es necesario
+$widths = array(10, 15, 13, 12, 15, 15);  // Ajustar los anchos de las celdas si es necesario
 
 for ($i = 0; $i < count($header); $i++) {
     $pdf->Cell($widths[$i], 10, $header[$i], 1);
@@ -52,12 +52,12 @@ for ($i = 0; $i < count($header); $i++) {
 $pdf->Ln();
 
 // Cuerpo
-$pdf->SetFont('Arial', '', 10);
+$pdf->SetFont('Arial', '', 1.5);
 
 foreach ($records as $row) {
-    $pdf->Cell($widths[0], 6, $pdf->convertxt($row['id_caja']), 1);
-    $pdf->Cell($widths[1], 6, $pdf->convertxt($row['monto_inicio']), 1);
-    $pdf->Cell($widths[2], 6, $pdf->convertxt($row['monto_final']), 1);
+    $pdf->Cell($widths[0], 3, $pdf->convertxt($row['id_caja']), 1);
+    $pdf->Cell($widths[1], 3, $pdf->convertxt($row['monto_inicio']), 1);
+    $pdf->Cell($widths[2], 3, $pdf->convertxt($row['monto_final']), 1);
 
     $pdf->Ln();
 }
