@@ -10,7 +10,7 @@ class PDF extends FPDF {
 
     function Header() {
         $this->SetFont('Arial', 'B', 20);
-        $this->Cell(0, 20, "Reporte de Clientes", 0, 1, 'C');
+        $this->Cell(0, 20, "Reporte Cierre de Caja", 0, 1, 'C');
 
         $currentDate = date('d/m/Y');
         $currentTime = date('H:i:s');
@@ -28,8 +28,8 @@ class PDF extends FPDF {
 // Configurar la zona horaria adecuada para Bolivia
 date_default_timezone_set('America/La_Paz');
 
-$rpt = new ClienteModel();
-$records = $rpt->findall();
+$rpt = new Detalle_Caja();
+$records = $rpt->findAll();
 $records = $records['DATA'];
 
 $pdf = new PDF();
@@ -38,8 +38,13 @@ $pdf->AddPage();
 
 // Cabecera
 $pdf->SetFont('Courier', 'B', 11);
-$header = array($pdf->convertxt("IdCliente"), $pdf->convertxt("Razon Social"));
-$widths = array(25, 60);  // Ajustar los anchos de las celdas si es necesario
+$header = array(
+    $pdf->convertxt("ID"),
+    $pdf->convertxt("Monto Inicial"),
+    $pdf->convertxt("Monto Final"),
+
+);
+$widths = array(20, 25, 25, 25, 30, 30);  // Ajustar los anchos de las celdas si es necesario
 
 for ($i = 0; $i < count($header); $i++) {
     $pdf->Cell($widths[$i], 10, $header[$i], 1);
@@ -50,8 +55,10 @@ $pdf->Ln();
 $pdf->SetFont('Arial', '', 10);
 
 foreach ($records as $row) {
-    $pdf->Cell($widths[0], 6, $pdf->convertxt($row['id_cliente']), 1);
-    $pdf->Cell($widths[1], 6, $pdf->convertxt($row['razon_social']), 1);
+    $pdf->Cell($widths[0], 6, $pdf->convertxt($row['id_caja']), 1);
+    $pdf->Cell($widths[1], 6, $pdf->convertxt($row['monto_inicio']), 1);
+    $pdf->Cell($widths[2], 6, $pdf->convertxt($row['monto_final']), 1);
+
     $pdf->Ln();
 }
 
