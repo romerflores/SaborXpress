@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $filter = urlencode(trim(isset($_POST['filter']) ? $_POST['filter'] : ''));
 }
 
-$url = HTTP_BASE . "/controller/ProductoController.php?ope=filterSearch&page=" . $page . "&filter=" . $filter;
+$url = HTTP_BASE . "/controller/ClienteController.php?ope=filterSearch&page=" . $page . "&filter=" . $filter;
 $filter = urldecode($filter);
 $response = file_get_contents($url);
 $responseData = json_decode($response, true);
@@ -25,30 +25,24 @@ try {
 <div class="col-lg-6 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Listado Productos</h4>
+            <h4 class="card-title">Clientes</h4>
             <p class="card-description">
-                 <code>Tabla</code>
+                <code>Tabla</code>
             </p>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Descripcion</th>
-                            <th>Precio</th>
-                            <th>Estado</th>
-                            <th>Categoria</th>
+                            <th>CI</th>
+                            <th>Razon Social</th>
+
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($records as $producto) : ?>
                             <tr>
-                                <td><?= htmlspecialchars($producto['id_producto']) ?></td>
-                                <td><?= htmlspecialchars($producto['descripcion_producto']) ?></td>
-                                <td><?= htmlspecialchars($producto['precio_producto']) ?></td>
-                                <td><div class="badge badge-primary"><?= htmlspecialchars($producto['estado_producto']) ?></div></td>
-                                
-                                <td><?= htmlspecialchars($producto['nombre_categoria']) ?></td>
+                                <td><?= htmlspecialchars($producto['id_cliente']) ?></td>
+                                <td><?= htmlspecialchars($producto['razon_social']) ?></td>                                
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

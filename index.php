@@ -68,6 +68,8 @@ if ($segments[0] === 'SaborXpress' || $segments[0]=== 'saborxpress') {
         case 'productos':
             verificarlogin();
             require ROOT_VIEW.'/productos/listarProductos.php';
+            require ROOT_VIEW.'/productos/pedidos.php';
+            require ROOT_VIEW.'/productos/clientes.php';
             break;
         case 'home':
             verificarlogin();
