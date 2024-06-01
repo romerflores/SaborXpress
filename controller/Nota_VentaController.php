@@ -8,7 +8,7 @@ header("Content-Type: application/json; charset=UTF-8");
 session_start();
 
 require_once($_SERVER['DOCUMENT_ROOT'] . "/SaborXpress/config/global.php");
-require_once(ROOT_DIR . "/model/Detalle_CajaModelModel.php");
+require_once(ROOT_DIR . "/model/Nota_VentaModel.php");
 
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -33,19 +33,17 @@ switch ($method) {
                 filterPaginateAll($input);
             } elseif ($p_ope ==  'filterall') {
                 filterAll($input);
-            } elseif ($p_ope ==  'filterDate' || $p_ope ==  'filterdate' ) {
-                filterDate($input);
             }
         }
 
         break;
-    case 'POST': //insertar
+    case 'POST': //inserta}
         
-        abrirCaja($input);
+        insert($input);
         break;
-    case 'PUT': //actualiza
-        cerrarCaja($input);
-        break;
+    // case 'PUT': //actualiza
+    //     update($input);
+    //     break;
     // case 'DELETE': //elimina
     //     delete($input);
     //     break;
@@ -56,17 +54,17 @@ switch ($method) {
 
 function filterAll($input)
 {
-    $obj_Detalle=new Detalle_CajaModel();
-    $var = $obj_Detalle->findall();
+    $obj_Nota_Venta=new Nota_VentaModel();
+    $var = $obj_Nota_Venta->findall();
     echo json_encode($var);
 }
 
 function filterId($input)
 {
     //aca consulto por el &id_producto=x
-    $p_id_detalle = !empty($input['id_detalle']) ? $input['id_detalle'] : $_GET['id_detalle'];
-    $obj_Detalle = new Detalle_CajaModel();
-    $var = $obj_Detalle->findid($p_id_detalle);
+    $p_nro_venta = !empty($input['nro_venta']) ? $input['nro_venta'] : $_GET['nro_venta'];
+    $obj_Nota_Venta = new Nota_VentaModel();
+    $var = $obj_Nota_Venta->findid($p_nro_venta);
     echo json_encode($var);
 }
 function filterPaginateAll($input)
@@ -78,35 +76,21 @@ function filterPaginateAll($input)
     $p_offset=0;
     $p_offset=abs(($page-1)* $nro_record_page);
 
-    $obj_Detalle = new Detalle_CajaModel();
-    $var = $obj_Detalle->findpaginateall($filter,$p_limit,$p_offset);
+    $obj_Nota_Venta = new Nota_VentaModel();
+    $var = $obj_Nota_Venta->findpaginateall($filter,$p_limit,$p_offset);
     echo json_encode($var);
 
 }
-function filterDate($input)
-{
-    //aca consulto por el &id_producto=x
-    $p_inicio = !empty($input['inicio']) ? $input['inicio'] : $_GET['inicio'];
-    $p_fin = !empty($input['fin']) ? $input['fin'] : $_GET['fin'];
-    $obj_Detalle = new Detalle_CajaModel();
-    $var = $obj_Detalle->findDate($p_inicio,$p_fin);
-    echo json_encode($var);
-}
 
-function abrirCaja($input)
+function insert($input)
 {
-    $p_monto_inicio = !empty($input['monto_inicio']) ? $input['monto_inicio'] : $_POST['monto_inicio'];
-    $obj_Detalle = new Detalle_CajaModel();
-    $var = $obj_Detalle->abrirCaja( $p_monto_inicio);
-    echo json_encode($var);
-}
-function cerrarCaja($input)
-{
-    $p_id_detalle = !empty($input['id_detalle']) ? $input['id_detalle'] : $_POST['id_detalle'];
-    $p_monto_final = !empty($input['monto_fin']) ? $input['monto_fin'] : $_POST['monto_fin'];
+    $p_total = !empty($input['p_total']) ? $input['p_total'] : $_POST['p_total'];
+    $p_cliente_id_cliente = !empty($input['cliente_id_cliente']) ? $input['cliente_id_cliente'] : $_POST['cliente_id_cliente'];
+    $p_usuario_ci_usuario = !empty($input['usuario_ci_usuario']) ? $input['usuario_ci_usuario'] : $_POST['usuario_ci_usuario'];
+   
 
-    $obj_Detalle = new Detalle_CajaModel();
-    $var = $obj_Detalle->cerrarCaja( $p_id_detalle,$p_monto_final);
+    $obj_Nota_Venta = new Nota_VentaModel();
+    $var = $obj_Nota_Venta->insert($p_total, $p_cliente_id_cliente, $p_usuario_ci_usuario);
     echo json_encode($var);
 }
 ?>

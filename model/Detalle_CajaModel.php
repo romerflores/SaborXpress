@@ -1,7 +1,7 @@
 <?php
 include_once("../core/ModeloBasePDO.php");
 
-class Detalle_Caja extends ModeloBasePDO
+class Detalle_CajaModel extends ModeloBasePDO
 {
     public function __construct()
     {
