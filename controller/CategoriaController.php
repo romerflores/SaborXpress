@@ -8,7 +8,7 @@ header("Content-Type: application/json; charset=UTF-8");
 session_start();
 
 require_once($_SERVER['DOCUMENT_ROOT'] . "/SaborXpress/config/global.php");
-require_once(ROOT_DIR . "/model/ClienteModel.php");
+require_once(ROOT_DIR . "/model/CategoriaModel.php");
 
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -54,17 +54,17 @@ switch ($method) {
 
 function filterAll($input)
 {
-    $obj_Cliente=new ClienteModel();
-    $var = $obj_Cliente->findall();
+    $obj_Categoria=new CategoriaModel();
+    $var = $obj_Categoria->findall();
     echo json_encode($var);
 }
 
 function filterId($input)
 {
     //aca consulto por el &id_producto=x
-    $p_id_cliente = !empty($input['id_cliente']) ? $input['id_cliente'] : $_GET['id_cliente'];
-    $obj_Cliente = new ClienteModel();
-    $var = $obj_Cliente->findid($p_id_cliente);
+    $p_id_categoria = !empty($input['id_categoria']) ? $input['id_categoria'] : $_GET['id_categoria'];
+    $obj_Categoria = new CategoriaModel();
+    $var = $obj_Categoria->findid($p_id_categoria);
     echo json_encode($var);
 }
 function filterPaginateAll($input)
@@ -76,29 +76,29 @@ function filterPaginateAll($input)
     $p_offset=0;
     $p_offset=abs(($page-1)* $nro_record_page);
 
-    $obj_Cliente = new ClienteModel();
-    $var = $obj_Cliente->findpaginateall($filter,$p_limit,$p_offset);
+    $obj_Categoria = new CategoriaModel();
+    $var = $obj_Categoria->findpaginateall($filter,$p_limit,$p_offset);
     echo json_encode($var);
 
 }
 
 function insert($input)
 {
-    $p_id_cliente = !empty($input['id_cliente']) ? $input['id_cliente'] : $_POST['id_cliente'];
-    $p_razon_social = !empty($input['razon_social']) ? $input['razon_social'] : $_POST['razon_social'];
+    $p_id_categoria = !empty($input['id_categoria']) ? $input['id_categoria'] : $_POST['id_categoria'];
+    $p_nombre_categoria = !empty($input['nombre_categoria']) ? $input['nombre_categoria'] : $_POST['nombre_categoria'];
    
 
-    $obj_Cliente = new ClienteModel();
-    $var = $obj_Cliente->insert($p_id_cliente,$p_razon_social);
+    $obj_Categoria = new CategoriaModel();
+    $var = $obj_Categoria->insert($p_id_categoria,$p_nombre_categoria);
     echo json_encode($var);
 }
 function update($input)
 {
-    $p_id_cliente = !empty($input['id_cliente']) ? $input['id_cliente'] : $_POST['id_cliente'];
-    $p_razon_social = !empty($input['razon_social']) ? $input['razon_social'] : $_POST['razon_social'];
+    $p_id_categoria = !empty($input['id_categoria']) ? $input['id_categoria'] : $_POST['id_categoria'];
+    $p_nombre_categoria = !empty($input['nombre_categoria']) ? $input['nombre_categoria'] : $_POST['nombre_categoria'];
 
-    $obj_Cliente = new ClienteModel();
-    $var = $obj_Cliente->update($p_id_cliente,$p_razon_social);
+    $obj_Categoria = new CategoriaModel();
+    $var = $obj_Categoria->update($p_id_categoria,$p_nombre_categoria);
     echo json_encode($var);
 }
 ?>

@@ -8,7 +8,7 @@ header("Content-Type: application/json; charset=UTF-8");
 session_start();
 
 require_once($_SERVER['DOCUMENT_ROOT'] . "/SaborXpress/config/global.php");
-require_once(ROOT_DIR . "/model/ClienteModel.php");
+require_once(ROOT_DIR . "/model/Nota_VentaModel.php");
 
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -41,9 +41,9 @@ switch ($method) {
         
         insert($input);
         break;
-    case 'PUT': //actualiza
-        update($input);
-        break;
+    // case 'PUT': //actualiza
+    //     update($input);
+    //     break;
     // case 'DELETE': //elimina
     //     delete($input);
     //     break;
@@ -54,17 +54,17 @@ switch ($method) {
 
 function filterAll($input)
 {
-    $obj_Cliente=new ClienteModel();
-    $var = $obj_Cliente->findall();
+    $obj_Nota_Venta=new Nota_VentaModel();
+    $var = $obj_Nota_Venta->findall();
     echo json_encode($var);
 }
 
 function filterId($input)
 {
     //aca consulto por el &id_producto=x
-    $p_id_cliente = !empty($input['id_cliente']) ? $input['id_cliente'] : $_GET['id_cliente'];
-    $obj_Cliente = new ClienteModel();
-    $var = $obj_Cliente->findid($p_id_cliente);
+    $p_nro_venta = !empty($input['nro_venta']) ? $input['nro_venta'] : $_GET['nro_venta'];
+    $obj_Nota_Venta = new Nota_VentaModel();
+    $var = $obj_Nota_Venta->findid($p_nro_venta);
     echo json_encode($var);
 }
 function filterPaginateAll($input)
@@ -76,29 +76,21 @@ function filterPaginateAll($input)
     $p_offset=0;
     $p_offset=abs(($page-1)* $nro_record_page);
 
-    $obj_Cliente = new ClienteModel();
-    $var = $obj_Cliente->findpaginateall($filter,$p_limit,$p_offset);
+    $obj_Nota_Venta = new Nota_VentaModel();
+    $var = $obj_Nota_Venta->findpaginateall($filter,$p_limit,$p_offset);
     echo json_encode($var);
 
 }
 
 function insert($input)
 {
-    $p_id_cliente = !empty($input['id_cliente']) ? $input['id_cliente'] : $_POST['id_cliente'];
-    $p_razon_social = !empty($input['razon_social']) ? $input['razon_social'] : $_POST['razon_social'];
+    $p_total = !empty($input['p_total']) ? $input['p_total'] : $_POST['p_total'];
+    $p_cliente_id_cliente = !empty($input['cliente_id_cliente']) ? $input['cliente_id_cliente'] : $_POST['cliente_id_cliente'];
+    $p_usuario_ci_usuario = !empty($input['usuario_ci_usuario']) ? $input['usuario_ci_usuario'] : $_POST['usuario_ci_usuario'];
    
 
-    $obj_Cliente = new ClienteModel();
-    $var = $obj_Cliente->insert($p_id_cliente,$p_razon_social);
-    echo json_encode($var);
-}
-function update($input)
-{
-    $p_id_cliente = !empty($input['id_cliente']) ? $input['id_cliente'] : $_POST['id_cliente'];
-    $p_razon_social = !empty($input['razon_social']) ? $input['razon_social'] : $_POST['razon_social'];
-
-    $obj_Cliente = new ClienteModel();
-    $var = $obj_Cliente->update($p_id_cliente,$p_razon_social);
+    $obj_Nota_Venta = new Nota_VentaModel();
+    $var = $obj_Nota_Venta->insert($p_total, $p_cliente_id_cliente, $p_usuario_ci_usuario);
     echo json_encode($var);
 }
 ?>

@@ -27,23 +27,32 @@ function error404()
 }
 function verificarLogin()
 {
-    if(!isset($_SESSION['login']['ci']))
+    if(!isset($_SESSION['login']['ci_usuario']))
     {
         echo '<script>window.location.href="'.HTTP_BASE.'/login/login"</script>';
     }
 }
+function verificarLoginActivo()
+{
+    http_response_code(302);
+    if(isset($_SESSION['login']['ci_usuario']))
+    {
+        echo '<script>window.location.href="'.HTTP_BASE.'/home"</script>';
+    }
+}
 
-if ($segments[0] === 'pollosCristians' || $segments[0]=== 'PollosCristians') {
+if ($segments[0] === 'SaborXpress' || $segments[0]=== 'saborxpress') {
     switch ($segments[1] ?? '') {
 
         case 'login':
             switch ($segments[2] ?? '')
             {
                 case 'login':
+                    verificarLoginActivo();
                     require ROOT_VIEW.'/login/login.php';
                     break;
                 case 'register':
-                    verificarLogin();
+                    //verificarLogin();
                     require ROOT_VIEW.'/login/register.php';
                     break;
                 case 'logout':
@@ -55,6 +64,10 @@ if ($segments[0] === 'pollosCristians' || $segments[0]=== 'PollosCristians') {
                     break;
                 
             }
+            break;
+        case 'productos':
+            verificarlogin();
+            require ROOT_VIEW.'/productos/listarProductos.php';
             break;
         case 'home':
             verificarlogin();

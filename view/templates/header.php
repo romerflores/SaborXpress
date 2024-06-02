@@ -14,7 +14,7 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="<?php echo URL_RESOURCES;?>/AdminCelestial/template/css/vertical-layout-light/style.css">
     <!-- endinject -->
-    <link rel="shortcut icon" href="<?php echo URL_RESOURCES;?>/AdminCelestial/template/images/favicon.png" />
+    <link rel="shortcut icon" href="<?php echo URL_RESOURCES;?>/images/favicon.ico" />
   </head>
   <body>
     <div class="row" id="proBanner">
@@ -30,7 +30,7 @@
       <!-- partial:partials/_navbar.html -->
       <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-          <a class="navbar-brand brand-logo" href="index.html"><img src="images/logo.svg" alt="logo"/></a>
+          <a class="navbar-brand brand-logo" href="<?php echo HTTP_BASE;?>/home"><img src="<?php echo URL_RESOURCES;?>images/logo.png" alt="logo"/></a>
           <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"/></a>
           <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button" data-toggle="minimize">
             <span class="typcn typcn-th-menu"></span>
@@ -215,10 +215,10 @@
               </div>
               <div class="sidebar-profile-name">
                 <p class="sidebar-name">
-                  Kenneth Osborne
+                  <?php echo $_SESSION['login']['nombre']." ".$_SESSION['login']['apellido']?>
                 </p>
                 <p class="sidebar-designation">
-                  Welcome
+                <?php echo $_SESSION['login']['rol_usuario']?>
                 </p>
               </div>
             </div>
@@ -235,20 +235,20 @@
             <p class="sidebar-menu-title">Dash menu</p>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="<?php echo HTTP_BASE;?>/home">
               <i class="typcn typcn-device-desktop menu-icon"></i>
-              <span class="menu-title">Dashboard <span class="badge badge-primary ml-3">New</span></span>
+              <span class="menu-title">Inicio</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="typcn typcn-briefcase menu-icon"></i>
-              <span class="menu-title">UI Elements</span>
+              <span class="menu-title">Productos</span>
               <i class="typcn typcn-chevron-right menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos">Listar</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
               </ul>

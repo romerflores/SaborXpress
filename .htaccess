@@ -2,7 +2,7 @@ RewriteEngine On
 Options -Indexes
 
 # Establecer la base del directorio para las reescrituras
-RewriteBase /pollosCristians/
+RewriteBase /SaborXpress/
 
 # # Prevenir repeticiones consecutivas en la URL
 # RewriteCond %{REQUEST_URI} ^/(.+/)?(listar/){2,} [NC]
@@ -10,7 +10,7 @@ RewriteBase /pollosCristians/
 
 # # Redirigir rutas repetitivas al home
 # RewriteCond %{REQUEST_URI} ^/(.*)/(.*)/\2/ [NC]
-# RewriteRule .* /pollosCristians/home [R=301,L]
+# RewriteRule .* /SaborXpress/home [R=301,L]
 
 # Redireccionar todas las solicitudes a index.php excepto para archivos y directorios reales
 RewriteCond %{REQUEST_FILENAME} !-f
