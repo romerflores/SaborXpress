@@ -1,6 +1,8 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/SaborXpress/config/global.php");
 require_once(ROOT_DIR . "/model/Nota_VentaModel.php");
+require_once(ROOT_DIR . "/model/UsuarioModel.php");
+require_once(ROOT_DIR . "/model/ProductoModel.php");
 include(ROOT_CORE . "/fpdf/fpdf.php");
 
 class PDF extends FPDF {
@@ -29,7 +31,7 @@ class PDF extends FPDF {
 date_default_timezone_set('America/La_Paz');
 
 $rpt = new Nota_VentaModel();
-$records = $rpt->findall();
+$records = $rpt->findAll();
 $records = $records['DATA'];
 
 $pdf = new PDF();

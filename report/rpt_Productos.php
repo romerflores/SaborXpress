@@ -1,6 +1,7 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/SaborXpress/config/global.php");
 require_once(ROOT_DIR . "/model/ProductoModel.php");
+require_once(ROOT_DIR . "/model/CategoriaModel.php");
 include(ROOT_CORE . "/fpdf/fpdf.php");
 
 class PDF extends FPDF {
@@ -62,7 +63,7 @@ foreach ($records as $row) {
     $pdf->Cell($widths[1], 6, $pdf->convertxt($row['descripcion_producto']), 1, 0, 'C', $fill);
     $pdf->Cell($widths[2], 6, $pdf->convertxt($row['precio_producto']), 1, 0, 'C', $fill);
     $pdf->Cell($widths[3], 6, $pdf->convertxt($row['estado_producto']), 1, 0, 'C', $fill);
-    $pdf->Cell($widths[4], 6, $pdf->convertxt($row['categoria_id_categoria']), 1, 0, 'C', $fill);
+    $pdf->Cell($widths[4], 6, $pdf->convertxt($row['nombre_categoria']), 1, 0, 'C', $fill);
     $pdf->Ln();
     $fill = !$fill; // Alternar el color de fondo
 }

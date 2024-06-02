@@ -1,0 +1,113 @@
+<?php
+// Incluir encabezado
+require(ROOT_VIEW . '/templates/header.php');
+
+// Verificar si la solicitud es POST para manejar la actualización del producto
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Obtener datos del formulario
+    $id_producto = trim($_POST['id_producto']);
+    $descripcion = trim($_POST['descripcion_producto']);
+    $precio = trim($_POST['precio_producto']);
+    $estado = trim($_POST['estado_producto']);
+    $categoria = trim($_POST['categoria_id_categoria']);
+
+    // Validar los datos antes de enviarlos
+    if ($id_producto && $descripcion && $precio && $estado && $categoria) {
+        // Preparar la URL para la solicitud POST
+        $url = HTTP_BASE . "/controller/ProductoController.php";
+        
+        // Crear datos para enviar
+        $data = array(
+            'id_producto' => $id_producto,
+            'descripcion_producto' => $descripcion,
+            'precio_producto' => $precio,
+            'estado_producto' => $estado,
+            'categoria_id_categoria' => $categoria,
+            'ope' => 'update' // Operación de actualización
+        );
+
+        // Configurar opciones de la solicitud POST
+        $options = array(
+            'http' => array(
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($data)
+            )
+        );
+
+        // Crear contexto de la solicitud
+        $context  = stream_context_create($options);
+        
+        // Enviar solicitud y obtener respuesta
+        $response = file_get_contents($url, false, $context);
+        
+        // Manejar la respuesta
+        if ($response === FALSE) {
+            echo "Error al actualizar el producto.";
+        } else {
+            echo "Producto actualizado exitosamente.";
+        }
+    } else {
+        echo "Todos los campos son obligatorios.";
+    }
+} else {
+    // Obtener el ID del producto a editar de la URL
+    $id_producto = isset($_GET['id_producto']) ? $_GET['id_producto'] : '';
+
+    // Validar si se ha proporcionado un ID
+    if ($id_producto) {
+        // Preparar la URL para obtener los detalles del producto
+        $url = HTTP_BASE . "/controller/ProductoController.php?ope=filterId&id_producto=" . $id_producto;
+
+        // Obtener detalles del producto
+        $response = file_get_contents($url);
+        $producto = json_decode($response, true);
+
+        // Validar si se encontró el producto y si la clave 'id_producto' está definida
+        if (!$producto || !isset($producto['id_producto'])) {
+            echo "ID de producto no proporcionado o producto no encontrado.";
+            exit;
+        }
+    } else {
+        echo "ID de producto no proporcionado.";
+    }
+}
+
+?>
+
+<div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Modificar Producto</h4>
+            <p class="card-description">
+                <code>Formulario</code>
+            </p>
+            <form method="POST" action="">
+                <input type="hidden" name="id_producto" value="<?= htmlspecialchars($producto['id_producto'] ?? '') ?>">
+                <div class="form-group">
+                    <label for="descripcion_producto">Descripción</label>
+                    <input type="text" class="form-control" id="descripcion_producto" name="descripcion_producto" value="<?= htmlspecialchars($producto['descripcion_producto'] ?? '') ?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="precio_producto">Precio</label>
+                    <input type="text" class="form-control" id="precio_producto" name="precio_producto" value="<?= htmlspecialchars($producto['precio_producto'] ?? '') ?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="estado_producto">Estado</label>
+                    <input type="text" class="form-control" id="estado_producto" name="estado_producto" value="<?= htmlspecialchars($producto['estado_producto'] ?? '') ?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="categoria_id_categoria">Categoría</label>
+                    <input type="text" class="form-control" id="categoria_id_categoria" name="categoria_id_categoria" value="<?= htmlspecialchars($producto['categoria_id_categoria'] ?? '') ?>" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Actualizar Producto</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<?php
+// Incluir pie de página
+require(ROOT_VIEW . '/templates/footer.php');
+?>
+

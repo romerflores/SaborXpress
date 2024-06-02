@@ -30,8 +30,8 @@
       <!-- partial:partials/_navbar.html -->
       <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-          <a class="navbar-brand brand-logo" href="<?php echo HTTP_BASE;?>/home"><img src="<?php echo URL_RESOURCES;?>images/logo.png" alt="logo"/></a>
-          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="<?php echo HTTP_BASE;?>/home"><img src="<?php echo URL_RESOURCES;?>images/logo.jpg" alt="logo" style="max-width: 55px; height: auto;"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo" style="max-width: 30px; height: auto;"/></a>
           <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button" data-toggle="minimize">
             <span class="typcn typcn-th-menu"></span>
           </button>
@@ -39,7 +39,7 @@
         <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
           <ul class="navbar-nav mr-lg-2">
             <li class="nav-item  d-none d-lg-flex">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="">
                 Calendario
               </a>
             </li>
@@ -61,7 +61,7 @@
                 <span class="count bg-success">2</span>
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-                <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
+                <p class="mb-0 font-weight-normal float-left dropdown-header">Mensajes</p>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
@@ -106,7 +106,7 @@
                 <span class="count bg-danger">2</span>
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                <p class="mb-0 font-weight-normal float-left dropdown-header">Notificationes</p>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
                     <div class="preview-icon bg-success">
@@ -176,7 +176,7 @@
           <li class="nav-item">
             <div class="d-flex sidebar-profile">
               <div class="sidebar-profile-image">
-                <img src="images/faces/face29.png" alt="image">
+                <img src="/public/AdminCelestial/template/images/faces/face31.jpg" >
                 <span class="sidebar-status-indicator"></span>
               </div>
               <div class="sidebar-profile-name">
@@ -209,14 +209,14 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="typcn typcn-briefcase menu-icon"></i>
-              <span class="menu-title">Productos</span>
+              <span class="menu-title">Registros</span>
               <i class="typcn typcn-chevron-right menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos">Listar</a></li>
-                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos">Pedidos</a></li>
-                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos">Clientes</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos">productos</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/pedidos">pedidos</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/clientes">clientes</a></li>
               </ul>
             </div>
           </li>
@@ -242,8 +242,10 @@
         </ul>
         <ul class="sidebar-legend">
           <li>
-            <p class="sidebar-menu-title">Categoria</p>
+            <p class="sidebar-menu-title">Redes Sociales</p>
           </li>
-          <li class="nav-item"><a href="#" class="nav-link">#Sales</a></li>
+          <li class="nav-item"><a href="https://www.facebook.com/Isabellaelalto" class="nav-link">#Instagram</a></li>
+          <li class="nav-item"><a href="https://www.facebook.com/profile.php?id=61554076509372" class="nav-link">#Facebook</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">#Youtube</a></li>
         </ul>
       </nav>

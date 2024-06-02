@@ -67,10 +67,25 @@ if ($segments[0] === 'SaborXpress' || $segments[0]=== 'saborxpress') {
             break;
         case 'productos':
             verificarlogin();
+            require ROOT_VIEW.'/productos/creaProductos.php';
+            require ROOT_VIEW.'/productos/deleteProductos.php';
+            require ROOT_VIEW.'/productos/editProductos.php';
             require ROOT_VIEW.'/productos/listarProductos.php';
-            require ROOT_VIEW.'/productos/pedidos.php';
-            require ROOT_VIEW.'/productos/clientes.php';
             break;
+        case 'pedidos':
+            verificarlogin();
+            require ROOT_VIEW.'/pedidos/creaPedidos.php';
+            require ROOT_VIEW.'/pedidos/deletePedidos.php';
+            require ROOT_VIEW.'/pedidos/editPedidos.php';
+            require ROOT_VIEW.'/pedidos/listarPedidos.php';
+            break;
+        case 'clientes':
+            verificarlogin();
+            require ROOT_VIEW.'/clientes/creaClientes.php';
+            require ROOT_VIEW.'/clientes/deleteClientes.php';
+            require ROOT_VIEW.'/clientes/editClientes.php';
+            require ROOT_VIEW.'/clientes/listarClientes.php';
+            break;                
         case 'home':
             verificarlogin();
             home();
