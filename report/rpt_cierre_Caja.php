@@ -1,69 +1,76 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/SaborXpress/config/global.php");
-require_once(ROOT_DIR . "/model/Detalle_CajaModel.php");
+require_once(ROOT_DIR . "/model/ClienteModel.php");
 include(ROOT_CORE . "/fpdf/fpdf.php");
 
-class PDF extends FPDF {
-    function convertxt($p_txt) {
-        return iconv('UTF-8', 'ISO-8859-1', $p_txt);
-    }
+define('BOLIVIANOS', 'Bs.'); // Constante con el símbolo de Bolivianos
 
-    function Header() {
-        $this->SetFont('Arial', 'B', 20);
-        $this->Cell(0, 20, "Reporte Cierre de Caja", 0, 1, 'C');
+$pdf = new FPDF('P', 'mm', array(80, 150)); // Tamaño ticket 80mm x 150 mm (largo aprox)
 
-        $currentDate = date('d/m/Y');
-        $currentTime = date('H:i:s');
-        $this->SetFont('Arial', 'B', 11);
-        $this->Cell(0, 8, $this->convertxt("Fecha: $currentDate Hora: $currentTime"), 0, 3, 'R');
-    }
+// Agregar una página antes de añadir contenido
+$pdf->AddPage();
 
-    function Footer() {
-        $this->SetY(-15);
-        $this->SetFont('Arial', 'B', 8);
-        $this->Cell(0, 11, $this->convertxt("Página ") . $this->PageNo() . '/{nb}', 0, 0, 'C');
-    }
-}
+// CABECERA
+$pdf->SetFont('Helvetica', 'B', 12);
+$pdf->Cell(60, 4, 'Cierre de Caja', 0, 1, 'C');
+$pdf->SetFont('Helvetica', '', 8);
+$pdf->Cell(60, 4, 'SaborXpress', 0, 1, 'C');
+$pdf->Cell(60, 4, 'Av. Portugal Z. Rectangular #345', 0, 1, 'C');
+$pdf->Cell(60, 4, 'Cel. 69904901', 0, 1, 'C');
+$pdf->Cell(60, 4, 'SaborXpressS.A.@gmail.com', 0, 1, 'C');
 
 // Configurar la zona horaria adecuada para Bolivia
 date_default_timezone_set('America/La_Paz');
+$currentDate = date('d/m/Y');
+$currentTime = date('H:i:s');
 
-$rpt = new Detalle_CajaModel();
-$records = $rpt->findAll();
-$records = $records['DATA'];
+// Agregar fecha y hora actual
+$pdf->Ln(1);
+$pdf->SetFont('Helvetica', 'B', 7);
+$pdf->Cell(60, 4, "Fecha Impresion: $currentDate  $currentTime", 0, 1, 'C');
 
-$pdf = new PDF();
-$pdf->AliasNbPages();
-$pdf->AddPage();
+// COLUMNAS
+$pdf->SetFont('Helvetica', '', 7);
+$pdf->Ln(2);
+$pdf->Cell(25, 10, 'MONTO INICIAL', 0);    
+$pdf->Cell(20, 10, '', 0);
+$pdf->Cell(15, 10, number_format(round((round(12.25, 2) / 1.21), 2), 2, ',', ' ') . BOLIVIANOS, 0, 0, 'R');
+$pdf->Ln(3);    
+$pdf->Cell(25, 10, 'MONTO FINAL', 0);    
+$pdf->Cell(20, 10, '', 0);
+$pdf->Cell(15, 10, number_format(round((round(12.25, 2)), 2) - round((round(2 * 3, 2) / 1.21), 2), 2, ',', ' ') . BOLIVIANOS, 0, 0, 'R');
+$pdf->Ln(3);
+$pdf->Cell(25, 10, 'FECHA HORA INICIAL', 0);    
+$pdf->Cell(20, 10, '', 0);
+$pdf->Cell(15, 10, number_format(round((round(12.25, 2)), 2) - round((round(2 * 3, 2) / 1.21), 2), 2, ',', ' ') . BOLIVIANOS, 0, 0, 'R');
+$pdf->Ln(3);
+$pdf->Cell(25, 10, 'FECHA HORA CIERRE', 0);    
+$pdf->Cell(20, 10, '', 0);
+$pdf->Cell(15, 10, number_format(round((round(12.25, 2)), 2) - round((round(2 * 3, 2) / 1.21), 2), 2, ',', ' ') . BOLIVIANOS, 0, 0, 'R');
+$pdf->Ln(3);
+$pdf->Cell(25, 10, 'TOTAL', 0);    
+$pdf->Cell(20, 10, '', 0);
+$pdf->Cell(15, 10, number_format(round(12.25, 2), 2, ',', ' ') . BOLIVIANOS, 0, 0, 'R');
 
-// Cabecera
-$pdf->SetFont('Courier', 'B', 11);
-$header = array(
-    $pdf->convertxt("ID"),
-    $pdf->convertxt("Monto Inicial"),
-    $pdf->convertxt("Monto Final"),
-    $pdf->convertxt(""),
-    $pdf->convertxt("Monto Final"),
-    $pdf->convertxt("Monto Final"),
 
-);
-$widths = array(20, 25, 25, 25, 30, 30);  // Ajustar los anchos de las celdas si es necesario
+$pdf->Ln(22);
+//FIRMAS ADMIN
+$pdf->Cell(60, 0, '', 'T');
+$pdf->Ln(3);
+$pdf->Cell(60, 4, "FIRMA CAJERO", 0, 1, 'C');
 
-for ($i = 0; $i < count($header); $i++) {
-    $pdf->Cell($widths[$i], 10, $header[$i], 1);
-}
-$pdf->Ln();
+$pdf->Ln(8);
+$pdf->Cell(60, 0, '', 'T');
+$pdf->Ln(3);
+$pdf->Cell(60, 4, "FIRMA ADMIN", 0, 1, 'C');
 
-// Cuerpo
-$pdf->SetFont('Arial', '', 10);
 
-foreach ($records as $row) {
-    $pdf->Cell($widths[0], 6, $pdf->convertxt($row['id_caja']), 1);
-    $pdf->Cell($widths[1], 6, $pdf->convertxt($row['monto_inicio']), 1);
-    $pdf->Cell($widths[2], 6, $pdf->convertxt($row['monto_final']), 1);
+// PIE DE PAGINA
+$pdf->Ln(10);
+$texto = '"UNA VEZ DECLARADO SU CIERRE DE CAJA NO SE PUEDE ADICIONAR MAS DINERO"';
+$pdf->SetFont('Arial', '', 6); // Puedes ajustar el tamaño de la fuente según sea necesario
+$pdf->MultiCell(60, 4, $texto, 0, 'C');
 
-    $pdf->Ln();
-}
 
-$pdf->Output();
+$pdf->Output('ticket.pdf', 'I');
 ?>

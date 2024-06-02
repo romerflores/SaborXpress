@@ -14,8 +14,8 @@ class PDF extends FPDF {
 
         $currentDate = date('d/m/Y');
         $currentTime = date('H:i:s');
-        $this->SetFont('Arial', 'B', 11);
-        $this->Cell(0, 8, $this->convertxt("Fecha: $currentDate Hora: $currentTime"), 0, 3, 'R');
+        $this->SetFont('Arial', '', 11);
+        $this->Cell(0, 8, $this->convertxt("Fecha de impresion: $currentDate $currentTime"), 0, 3, 'C');
     }
 
     function Footer() {
@@ -47,7 +47,7 @@ $pdf->SetTextColor(0, 0, 0); // Color azul nítido para el texto
 $pdf->SetDrawColor(0); // Color del borde (negro)
 
 for ($i = 0; $i < count($header); $i++) {
-    $pdf->Cell($widths[$i], 10, $header[$i], 1, 0, 'C', true);
+    $pdf->Cell($widths[$i], 6, $header[$i], 1, 0, 'C', true);
 }
 $pdf->Ln();
 
