@@ -1,102 +1,98 @@
-<?php include ROOT_VIEW . "/template/header.php"; ?>
 <?php
-$pId = $_GET['id'] ?? null;
+// Incluir encabezado
+require(ROOT_VIEW . '/templates/header.php');
 
-$record = null;
-
+// Verificar si la solicitud es POST para manejar la actualización del pedido
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $data = [
-        'id' => $_POST['id'],
-        'nombre' => $_POST['nombre'],
-        'apellido' => $_POST['apellido'],
-        'curso' => $_POST['curso'],
-        'nivel' => $_POST['nivel'],
-    ];
-    $context = stream_context_create([
-        'http' => [
-            'method' => 'PUT',
-            'header' => "Content-Type: application/json",
-            'content' => json_encode($data),
-        ]
-    ]);
-    $url = HTTP_BASE . '/controller/InscripcionesController.php';
-    $response = file_get_contents($url, false, $context);
-    $result = json_decode($response, true);
-    if ($result["ESTADO"]) {
-        echo "<script>alert('Operacion realizada con Exito.');</script>";
-    } else {
-        echo "<script>alert('Hubo un problema, se debe contactar con el adminsitrador.');</script>";
-    }
-}
-if ($pId) {
-    $url = HTTP_BASE . '/controller/InscripcionesController.php?ope=filterId&id=' . $pId;
-    $reponse = file_get_contents($url);
-    $reponseData = json_decode($reponse, true);
-    if ($reponseData &&  $reponseData['ESTADO'] == 1 && !empty($reponseData['DATA'])) {
-        $record = $reponseData['DATA'][0];
-    } else {
-        $record = null;
-    }
-}
+    // Obtener datos del formulario
+    $id_pedido = trim($_POST['id_pedido']);
+    $cantidad = trim($_POST['cantidad']);
+    $sub_total = trim($_POST['sub_total']);
 
+    // Validar los datos antes de enviarlos
+    if ($id_pedido && $cantidad && $sub_total) {
+        // Preparar la URL para la solicitud POST
+        $url = HTTP_BASE . "/controller/PedidoController.php";
+        
+        // Crear datos para enviar
+        $data = array(
+            'id_pedido' => $id_pedido,
+            'cantidad' => $cantidad,
+            'sub_total' => $sub_total,
+            'ope' => 'update' // Operación de actualización
+        );
+
+        // Configurar opciones de la solicitud POST
+        $options = array(
+            'http' => array(
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($data)
+            )
+        );
+
+        // Crear contexto de la solicitud
+        $context  = stream_context_create($options);
+        
+        // Enviar solicitud y obtener respuesta
+        $response = file_get_contents($url, false, $context);
+        
+        // Manejar la respuesta
+        if ($response === FALSE) {
+            echo "Error al actualizar el pedido.";
+        } else {
+            echo "Pedido actualizado exitosamente.";
+        }
+    } else {
+        echo "Todos los campos son obligatorios.";
+    }
+} else {
+    // Obtener el ID del pedido a editar de la URL
+    $id_pedido = isset($_GET['id_pedido']) ? $_GET['id_pedido'] : '';
+
+    // Validar si se ha proporcionado un ID
+    if ($id_pedido) {
+        // Preparar la URL para obtener los detalles del pedido
+        $url = HTTP_BASE . "/controller/PedidoController.php?ope=filterId&id_pedido=" . $id_pedido;
+
+        // Obtener detalles del pedido
+        $response = file_get_contents($url);
+        $pedido = json_decode($response, true);
+
+        // Validar si se encontró el pedido
+        $p_id_pedido = isset($pedido['id_pedido']) ? $pedido['id_pedido'] : null;
+        if ($p_id_pedido === null) {
+            echo "ID de pedido no proporcionado.";
+            exit;
+        }
+    }
+}
 ?>
-<div class="wrapper">
-    <div class="content-wrapper">
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Modificar Inscrito</h1>
-                    </div>
+
+<div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Modificar Pedido</h4>
+            <p class="card-description">
+                <code>Formulario</code>
+            </p>
+            <form method="POST" action="">
+                <input type="hidden" name="id_pedido" value="<?= htmlspecialchars($pedido['id_pedido'] ?? '') ?>">
+                <div class="form-group">
+                    <label for="cantidad">Cantidad</label>
+                    <input type="text" class="form-control" id="cantidad" name="cantidad" value="<?= htmlspecialchars($pedido['cantidad'] ?? '') ?>" required>
                 </div>
-            </div>
-        </section>
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">Editar Inscrito</h3>
-                            </div>
-                            <form action="" method="post">
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="id">Nro Registro</label>
-                                        <input type="hidden" class="form-control" name="id" value="<?php echo $record['id']; ?>">
-                                        <input type="text" class="form-control" value="<?php echo $record['id']; ?>" disabled>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nombre">Nombre</label>
-                                        <input type="text" class="form-control" name="nombre" required value="<?php echo $record['nombre']; ?>">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="apellido">Apellido</label>
-                                        <input type="text" class="form-control" name="apellido" required value="<?php echo $record['apellido']; ?>">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="curso">Curso</label>
-                                        <input type="text" class="form-control" name="curso" required value="<?php echo $record['curso']; ?>">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nivel">Nivel</label>
-                                        <select class="form-control" id="estado" name="nivel">
-                                            <option value="Básico" <?php echo (isset($record['nivel']) && $record['nivel'] == 'Básico') ? 'selected' : ''; ?>>Básico</option>
-                                            <option value="Intermedio" <?php echo (isset($record['nivel']) && $record['nivel'] == 'Intermedio') ? 'selected' : ''; ?>>Intermedio</option>
-                                            <option value="Avanzado" <?php echo (isset($record['nivel']) && $record['nivel'] == 'Avanzado') ? 'selected' : ''; ?>>Avanzado</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">GUARDAR</button>
-                                    <a class="btn btn-default" href="<?php echo HTTP_BASE; ?>/web/ins/list">Volver</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="sub_total">Sub Total</label>
+                    <input type="text" class="form-control" id="sub_total" name="sub_total" value="<?= htmlspecialchars($pedido['sub_total'] ?? '') ?>" required>
                 </div>
-            </div>
-        </section>
+                <button type="submit" class="btn btn-primary">Actualizar Pedido</button>
+            </form>
+        </div>
     </div>
 </div>
-<?php include ROOT_VIEW . "/template/footer.php"; ?>
+
+<?php
+// Incluir pie de página
+require(ROOT_VIEW . '/templates/footer.php');
+?>

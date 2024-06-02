@@ -1,85 +1,75 @@
-<?php include ROOT_VIEW . "/template/header.php"; ?>
 <?php
+// Incluir encabezado
+require(ROOT_VIEW . '/templates/header.php');
 
+// Verificar si la solicitud es POST para manejar la creación del pedido
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $data = [
-       
-        'nombre' => $_POST['nombre'],
-        'apellido' => $_POST['apellido'],
-        'curso' => $_POST['curso'],
-        'nivel' => $_POST['nivel'],
-    ];
-    $context = stream_context_create([
-        'http' => [
-            'method' => 'POST',
-            'header' => "Content-Type: application/json",
-            'content' => json_encode($data),
-        ]
-    ]);
-    $url = HTTP_BASE . '/controller/InscripcionesController.php';
-    $response = file_get_contents($url, false, $context);
-    $result = json_decode($response, true);
-    if ($result["ESTADO"]) {
-        echo "<script>alert('Operacion realizada con Exito.');</script>";
+    // Obtener datos del formulario
+    $cantidad = trim($_POST['cantidad']);
+    $sub_total = trim($_POST['sub_total']);
+
+    // Validar los datos antes de enviarlos
+    if ($cantidad && $sub_total) {
+        // Preparar la URL para la solicitud POST
+        $url = HTTP_BASE . "/controller/PedidoController.php";
+        
+        // Crear datos para enviar
+        $data = array(
+            'cantidad' => $cantidad,
+            'sub_total' => $sub_total,
+            'ope' => 'create' // Operación de creación
+        );
+
+        // Configurar opciones de la solicitud POST
+        $options = array(
+            'http' => array(
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($data)
+            )
+        );
+
+        // Crear contexto de la solicitud
+        $context  = stream_context_create($options);
+        
+        // Enviar solicitud y obtener respuesta
+        $response = file_get_contents($url, false, $context);
+        
+        // Manejar la respuesta
+        if ($response === FALSE) {
+            echo "Error al crear el pedido.";
+        } else {
+            echo "Pedido creado exitosamente.";
+        }
     } else {
-        echo "<script>alert('Hubo un problema, se debe contactar con el adminsitrador.');</script>";
+        echo "Todos los campos son obligatorios.";
     }
 }
-
-
 ?>
-<div class="wrapper">
-    <div class="content-wrapper">
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Modificar Inscrito</h1>
-                    </div>
+
+<div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Crear Pedido</h4>
+            <p class="card-description">
+                <code>Formulario</code>
+            </p>
+            <form method="POST" action="">
+                <div class="form-group">
+                    <label for="cantidad">Cantidad</label>
+                    <input type="text" class="form-control" id="cantidad" name="cantidad" required>
                 </div>
-            </div>
-        </section>
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">Editar Inscrito</h3>
-                            </div>
-                            <form action="" method="post">
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="nombre">Nombre</label>
-                                        <input type="text" class="form-control" name="nombre" required value="">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="apellido">Apellido</label>
-                                        <input type="text" class="form-control" name="apellido" required value="">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="curso">Curso</label>
-                                        <input type="text" class="form-control" name="curso" required value="">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nivel">Nivel</label>
-                                        <select class="form-control" id="estado" name="nivel">
-                                            <option value="Básico" >Básico</option>
-                                            <option value="Intermedio" >Intermedio</option>
-                                            <option value="Avanzado" >Avanzado</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">GUARDAR</button>
-                                    <a class="btn btn-default" href="<?php echo HTTP_BASE; ?>/web/ins/list">Volver</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="sub_total">Sub Total</label>
+                    <input type="text" class="form-control" id="sub_total" name="sub_total" required>
                 </div>
-            </div>
-        </section>
+                <button type="submit" class="btn btn-primary">Crear Pedido</button>
+            </form>
+        </div>
     </div>
 </div>
-<?php include ROOT_VIEW . "/template/footer.php"; ?>
+
+<?php
+// Incluir pie de página
+require(ROOT_VIEW . '/templates/footer.php');
+?>

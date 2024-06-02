@@ -48,6 +48,47 @@ try {
                     </tbody>
                 </table>
             </div>
+            <div class="card-footer clearfix">
+                <ul class="pagination">
+                    <?php if ($page > 1) : ?>
+                        <li class="page-item">
+                            <form action="" method="POST">
+                                <input type="hidden" name="page" value="1">
+                                <button type="submit" class="page-link">Primera</button>
+                            </form>
+                        </li>
+                        <li class="page-item">
+                            <form action="" method="POST">
+                                <input type="hidden" name="page" value="<?php echo ($page - 1); ?>">
+                                <button type="submit" class="page-link">&laquo;</button>
+                            </form>
+                        </li>
+                    <?php endif; ?>
+                    <?php for ($i = $start_page; $i <= $end_page; $i++) : ?>
+                        <li class="page-item <?php echo ($page == $i ? 'active' : '') ?>">
+                            <form action="" method="POST">
+                                <input type="hidden" name="page" value="<?php echo ($i); ?>">
+                                <button type="submit" class="page-link"><?php echo ($i); ?></button>
+                            </form>
+                        </li>
+                    <?php endfor; ?>
+                    <?php if ($page < $total_pages) : ?>
+                        <li class="page-item">
+                            <form action="" method="POST">
+                                <input type="hidden" name="page" value="<?php echo ($page + 1); ?>">
+                                <button type="submit" class="page-link">&raquo;</button>
+                            </form>
+                        </li>
+                        <li class="page-item">
+                            <form action="" method="POST">
+                                <input type="hidden" name="page" value="<?php echo $total_pages; ?>">
+                                <button type="submit" class="page-link">Ultima</button>
+                            </form>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </div>
         </div>
     </div>
 </div>

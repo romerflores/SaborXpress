@@ -1,102 +1,91 @@
-<?php include ROOT_VIEW . "/template/header.php"; ?>
 <?php
-$pId = $_GET['id'] ?? null;
+require(ROOT_VIEW . '/templates/header.php');
 
-$record = null;
+$id_cliente = '';
+$razon_social = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $data = [
-        'id' => $_POST['id'],
-        'nombre' => $_POST['nombre'],
-        'apellido' => $_POST['apellido'],
-        'curso' => $_POST['curso'],
-        'nivel' => $_POST['nivel'],
-    ];
-    $context = stream_context_create([
-        'http' => [
-            'method' => 'PUT',
-            'header' => "Content-Type: application/json",
-            'content' => json_encode($data),
-        ]
-    ]);
-    $url = HTTP_BASE . '/controller/InscripcionesController.php';
-    $response = file_get_contents($url, false, $context);
-    $result = json_decode($response, true);
-    if ($result["ESTADO"]) {
-        echo "<script>alert('Operacion realizada con Exito.');</script>";
-    } else {
-        echo "<script>alert('Hubo un problema, se debe contactar con el adminsitrador.');</script>";
-    }
-}
-if ($pId) {
-    $url = HTTP_BASE . '/controller/InscripcionesController.php?ope=filterId&id=' . $pId;
-    $reponse = file_get_contents($url);
-    $reponseData = json_decode($reponse, true);
-    if ($reponseData &&  $reponseData['ESTADO'] == 1 && !empty($reponseData['DATA'])) {
-        $record = $reponseData['DATA'][0];
-    } else {
-        $record = null;
-    }
-}
+    // Obtener datos del formulario
+    $id_cliente = trim($_POST['id_cliente']);
+    $razon_social = trim($_POST['razon_social']);
 
+    // Validar los datos antes de enviarlos
+    if ($id_cliente && $razon_social) {
+        // Preparar la URL para la solicitud POST
+        $url = HTTP_BASE . "/controller/ClienteController.php";
+        
+        // Crear datos para enviar
+        $data = array(
+            'id_cliente' => $id_cliente,
+            'razon_social' => $razon_social,
+            'ope' => 'update' // Operación de actualización
+        );
+
+        // Configurar opciones de la solicitud POST
+        $options = array(
+            'http' => array(
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($data)
+            )
+        );
+
+        // Crear contexto de la solicitud
+        $context  = stream_context_create($options);
+        
+        // Enviar solicitud y obtener respuesta
+        $response = file_get_contents($url, false, $context);
+        
+        // Manejar la respuesta
+        if ($response === FALSE) {
+            echo "Error al actualizar el cliente.";
+        } else {
+            echo "Cliente actualizado exitosamente.";
+        }
+    } else {
+        echo "Todos los campos son obligatorios.";
+    }
+} elseif (isset($_GET['id_cliente'])) {
+    // Obtener datos del cliente para mostrar en el formulario
+    $id_cliente = $_GET['id_cliente'];
+    $url = HTTP_BASE . "/controller/ClienteController.php?ope=get&id_cliente=" . urlencode($id_cliente);
+    $response = file_get_contents($url);
+    $cliente = json_decode($response, true);
+
+    if ($cliente && isset($cliente['DATA'])) {
+        $id_cliente = $cliente['DATA']['id_cliente'];
+        $razon_social = $cliente['DATA']['razon_social'];
+    } else {
+        echo "Error al obtener los datos del cliente.";
+    }
+} else {
+    echo "ID de cliente no especificado.";
+    
+}
 ?>
-<div class="wrapper">
-    <div class="content-wrapper">
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Modificar Inscrito</h1>
-                    </div>
+
+<div class="col-lg-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Editar Cliente</h4>
+            <p class="card-description">
+                <code>Formulario</code>
+            </p>
+            <form method="POST" action="">
+                <div class="form-group">
+                    <label for="id_cliente">ID Cliente</label>
+                    <input type="text" class="form-control" id="id_cliente" name="id_cliente" value="<?= htmlspecialchars($id_cliente) ?>" readonly>
                 </div>
-            </div>
-        </section>
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">Editar Inscrito</h3>
-                            </div>
-                            <form action="" method="post">
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="id">Nro Registro</label>
-                                        <input type="hidden" class="form-control" name="id" value="<?php echo $record['id']; ?>">
-                                        <input type="text" class="form-control" value="<?php echo $record['id']; ?>" disabled>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nombre">Nombre</label>
-                                        <input type="text" class="form-control" name="nombre" required value="<?php echo $record['nombre']; ?>">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="apellido">Apellido</label>
-                                        <input type="text" class="form-control" name="apellido" required value="<?php echo $record['apellido']; ?>">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="curso">Curso</label>
-                                        <input type="text" class="form-control" name="curso" required value="<?php echo $record['curso']; ?>">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nivel">Nivel</label>
-                                        <select class="form-control" id="estado" name="nivel">
-                                            <option value="Básico" <?php echo (isset($record['nivel']) && $record['nivel'] == 'Básico') ? 'selected' : ''; ?>>Básico</option>
-                                            <option value="Intermedio" <?php echo (isset($record['nivel']) && $record['nivel'] == 'Intermedio') ? 'selected' : ''; ?>>Intermedio</option>
-                                            <option value="Avanzado" <?php echo (isset($record['nivel']) && $record['nivel'] == 'Avanzado') ? 'selected' : ''; ?>>Avanzado</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">GUARDAR</button>
-                                    <a class="btn btn-default" href="<?php echo HTTP_BASE; ?>/web/ins/list">Volver</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="razon_social">Razón Social</label>
+                    <input type="text" class="form-control" id="razon_social" name="razon_social" value="<?= htmlspecialchars($razon_social) ?>" required>
                 </div>
-            </div>
-        </section>
+                <button type="submit" class="btn btn-primary">Actualizar Cliente</button>
+            </form>
+        </div>
     </div>
 </div>
-<?php include ROOT_VIEW . "/template/footer.php"; ?>
+
+<?php
+require(ROOT_VIEW . '/templates/footer.php');
+?>
