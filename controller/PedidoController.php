@@ -42,9 +42,9 @@ switch ($method)
     case 'POST':
         insert($input);
         break;
-    // case 'PUT':
-    //     update($input);
-    //     break;
+    case 'PUT':
+         update($input);
+         break;
     // case 'DELETE':
     //     delete($input);
     //     break;

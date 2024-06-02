@@ -13,21 +13,14 @@ $url = HTTP_BASE . "/controller/ProductoController.php?ope=filterSearch&page=" .
 $filter = urldecode($filter);
 $response = file_get_contents($url);
 $responseData = json_decode($response, true);
-
-// Verificación de la respuesta del servidor
-if (isset($responseData['DATA']) && isset($responseData['LENGTH'])) {
-    $records = $responseData['DATA'];
-    $totalItems = $responseData['LENGTH'];
-    try {
-        $total_pages = ceil($totalItems / $items_per_page);
-    } catch (Exception $e) {
-        $total_pages = 1;
-    }
-} else {
-    $records = [];
-    $totalItems = 0;
+$records = $responseData['DATA'];
+$totalItems = $responseData['LENGTH'];
+try {
+    $total_pages = ceil($totalItems / $items_per_page);
+} catch (Exception $e) {
     $total_pages = 1;
 }
+
 
 //paginacion
 $max_links = 5;
@@ -48,7 +41,8 @@ if ($end_page > $total_pages) {
 ?>
 
 <?php require(ROOT_VIEW . '/templates/header.php') ?>
-<div class="col-lg-6 grid-margin stretch-card">
+
+<div class="col-lg-10 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Listado Productos</h4>
@@ -119,7 +113,62 @@ if ($end_page > $total_pages) {
                     <?php endif; ?>
                 </ul>
             </div>
-        </div>
-    </div>
-</div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <!-- Formulario para crear producto -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Crear Producto</h4>
+                            <form method="POST" action="">
+                                <div class="form-group">
+                                    <label for="descripcion_producto">Descripción</label>
+                                    <input type="text" class="form-control" id="descripcion_producto" name="descripcion_producto" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="precio_producto">Precio</label>
+                                    <input type="text" class="form-control" id="precio_producto" name="precio_producto" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="estado_producto">Estado</label>
+                                    <input type="text" class="form-control" id="estado_producto" name="estado_producto" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="categoria_id_categoria">Categoría</label>
+                                    <input type="text" class="form-control" id="categoria_id_categoria" name="categoria_id_categoria" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Crear Producto</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <!-- Formulario para modificar producto -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Modificar Producto</h4>
+                            <form method="POST" action="">
+                                <input type="hidden" name="id_producto" value="<?= htmlspecialchars($producto['id_producto'] ?? '') ?>">
+                                <div class="form-group">
+                                    <label for="descripcion_producto">Descripción</label>
+                                    <input type="text" class="form-control" id="descripcion_producto" name="descripcion_producto" value="<?= htmlspecialchars($producto['descripcion_producto'] ?? '') ?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="precio_producto">Precio</label>
+                                    <input type="text" class="form-control" id="precio_producto" name="precio_producto" value="<?= htmlspecialchars($producto['precio_producto'] ?? '') ?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="estado_producto">Estado</label>
+                                    <input type="text" class="form-control" id="estado_producto" name="estado_producto" value="<?= htmlspecialchars($producto['estado_producto'] ?? '') ?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="categoria_id_categoria">Categoría</label>
+                                    <input type="text" class="form-control" id="categoria_id_categoria" name="categoria_id_categoria" value="<?= htmlspecialchars($producto['categoria_id_categoria'] ?? '') ?>" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Actualizar Producto</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 <?php require(ROOT_VIEW . '/templates/footer.php') ?>

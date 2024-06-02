@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Configurar opciones de la solicitud POST
         $options = array(
             'http' => array(
-                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'header'  => "Content-type: application/x-www-form-urlencoded",
                 'method'  => 'POST',
                 'content' => http_build_query($data)
             )

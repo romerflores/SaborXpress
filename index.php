@@ -65,6 +65,13 @@ if ($segments[0] === 'SaborXpress' || $segments[0]=== 'saborxpress') {
                 
             }
             break;
+        case 'clientes':
+                verificarlogin();
+                require ROOT_VIEW.'/clientes/creaClientes.php';
+                require ROOT_VIEW.'/clientes/deleteClientes.php';
+                require ROOT_VIEW.'/clientes/editClientes.php';
+                require ROOT_VIEW.'/clientes/listarClientes.php';
+                break; 
         case 'productos':
             verificarlogin();
             require ROOT_VIEW.'/productos/creaProductos.php';
@@ -78,14 +85,7 @@ if ($segments[0] === 'SaborXpress' || $segments[0]=== 'saborxpress') {
             require ROOT_VIEW.'/pedidos/deletePedidos.php';
             require ROOT_VIEW.'/pedidos/editPedidos.php';
             require ROOT_VIEW.'/pedidos/listarPedidos.php';
-            break;
-        case 'clientes':
-            verificarlogin();
-            require ROOT_VIEW.'/clientes/creaClientes.php';
-            require ROOT_VIEW.'/clientes/deleteClientes.php';
-            require ROOT_VIEW.'/clientes/editClientes.php';
-            require ROOT_VIEW.'/clientes/listarClientes.php';
-            break;                
+            break;               
         case 'home':
             verificarlogin();
             home();
@@ -101,4 +101,8 @@ if ($segments[0] === 'SaborXpress' || $segments[0]=== 'saborxpress') {
 } else {
     error404();
 }
+
+// Incluir el pie de página después de procesar la solicitud
+require ROOT_VIEW.'/templates/footer.php';
+?>
 

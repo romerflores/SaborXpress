@@ -1,6 +1,4 @@
 <?php
-// Incluir encabezado
-require(ROOT_VIEW . '/templates/header.php');
 
 // Verificar si la solicitud es POST para manejar la actualización del pedido
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -69,30 +67,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<div class="col-lg-6 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Modificar Pedido</h4>
-            <p class="card-description">
-                <code>Formulario</code>
-            </p>
-            <form method="POST" action="">
-                <input type="hidden" name="id_pedido" value="<?= htmlspecialchars($pedido['id_pedido'] ?? '') ?>">
-                <div class="form-group">
-                    <label for="cantidad">Cantidad</label>
-                    <input type="text" class="form-control" id="cantidad" name="cantidad" value="<?= htmlspecialchars($pedido['cantidad'] ?? '') ?>" required>
-                </div>
-                <div class="form-group">
-                    <label for="sub_total">Sub Total</label>
-                    <input type="text" class="form-control" id="sub_total" name="sub_total" value="<?= htmlspecialchars($pedido['sub_total'] ?? '') ?>" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Actualizar Pedido</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-<?php
-// Incluir pie de página
-require(ROOT_VIEW . '/templates/footer.php');
-?>
+<?php require(ROOT_VIEW . '/templates/footer.php');?>
