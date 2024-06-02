@@ -90,7 +90,15 @@ class Detalle_CajaModel extends ModeloBasePDO
         return parent::gselect($sql,$param);
 
     }
+    public function findLast()
+    {
+        $sql = "SELECT id_caja, monto_inicio, monto_final, fecha_inicio, hora_inicio, fecha_fin, hora_fin 
+                FROM detalle_caja 
+                ORDER BY fecha_y_hora_alta DESC 
+                LIMIT 1";
+        $param = array(); // No se necesitan parámetros para esta consulta
     
-
+        return parent::gselect($sql, $param); // Llamada al método de selección de la clase base del modelo
+    }    
     //agregar funcion iniciar caja y cerrar caja
 }
