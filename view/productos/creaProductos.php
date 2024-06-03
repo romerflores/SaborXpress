@@ -10,10 +10,11 @@ $records = $responseData['DATA']; //las categorias estan guardads en records
 // Manejo del método POST y ademaas la creacion de json
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Obtener datos del formulario
-    $descripcion = trim($_POST['descripcion_producto']);
-    $precio = trim($_POST['precio_producto']);
-    $estado = trim($_POST['estado_producto']);
-    $categoria = trim($_POST['categoria_id_categoria']);
+    $descripcion = $_POST['descripcion_producto'];
+    $precio = $_POST['precio_producto'];
+    $estado = $_POST['estado_producto'];
+    $estado= strtoupper($estado);
+    $categoria = $_POST['categoria_id_categoria'];
 
     // Validar los datos antes de enviarlos
     if ($descripcion && $precio && $estado && $categoria) {

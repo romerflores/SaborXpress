@@ -115,7 +115,7 @@ class ProductoModel extends ModeloBasePDO
     {
         //no se borrara como tal, si no que se pondra activo o no activo
         $p_estado_producto = 'INACTIVO';
-        $sql = "UPDATE producto SET estado_producto=':p_estado_producto' WHERE id_producto=:p_id_producto";
+        $sql = "UPDATE producto SET estado_producto=:p_estado_producto WHERE id_producto=:p_id_producto";
         $param = array();
         array_push($param, [':p_id_producto', $p_id_producto, PDO::PARAM_INT]);
         array_push($param, [':p_estado_producto', $p_estado_producto, PDO::PARAM_STR]);
@@ -128,11 +128,11 @@ class ProductoModel extends ModeloBasePDO
     {
         $sql = "UPDATE producto 
         SET
-        descripcion_producto=':p_descripcion_producto',
-        precio_producto=':p_precio_producto',
-        estado_producto=':p_estado_producto',
+        descripcion_producto=:p_descripcion_producto,
+        precio_producto=:p_precio_producto,
+        estado_producto=:p_estado_producto,
         categoria_id_categoria=:p_categoria_id_categoria
-        WHERE id_producto=':p_id_producto'";
+        WHERE id_producto=:p_id_producto";
         $param = array();
 
         array_push($param, [':p_id_producto', $p_id_producto, PDO::PARAM_INT]);

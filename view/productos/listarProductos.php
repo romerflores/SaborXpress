@@ -69,7 +69,16 @@ if ($end_page > $total_pages) {
                                             <td><?= htmlspecialchars($producto['descripcion_producto'] ?? '') ?></td>
                                             <td><?= htmlspecialchars($producto['precio_producto'] ?? '') ?></td>
                                             <td>
-                                                <div class="badge badge-primary"><?= htmlspecialchars($producto['estado_producto'] ?? '') ?></div>
+                                                <?php
+                                                $estado=htmlspecialchars($producto['estado_producto'] ?? '');
+                                                if($estado=='ACTIVO')
+                                                {
+                                                    echo '<div class="badge badge-info">'.$estado.'</div>';
+                                                }
+                                                else{
+                                                    echo '<div class="badge badge-danger">'.$estado.'</div>';
+                                                }
+                                                ?>
                                             </td>
                                             <td><?= htmlspecialchars($producto['nombre_categoria'] ?? '') ?></td>
                                             <td>

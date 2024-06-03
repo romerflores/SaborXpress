@@ -94,7 +94,12 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
                     break;
                 case 'desactivar':
                     verificarLogin();
-                    require ROOT_VIEW . '/productos/deleteProductos.php';
+                    if (isset($segments[3])) {
+                        $_GET['id_producto'] = $segments[3];
+                        require ROOT_VIEW . '/productos/deleteProductos.php';
+                    } else {
+                        error404();
+                    }
                     break;
                 case 'editar':
                     verificarLogin();
@@ -117,13 +122,12 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
             // require ROOT_VIEW . '/pedidos/editPedidos.php';
             // require ROOT_VIEW . '/pedidos/listarPedidos.php';
             break;
-        case 'categoria':
+        case 'categorias':
             verificarlogin();
             switch ($segments[2] ?? '') {
                 case 'listado':
                     verificarlogin();
-                    // require ROOT_VIEW.'/productos/listarCategoria.php';
-                    echo "listar categoria";
+                    require ROOT_VIEW.'/categoria/listarCategorias.php';
                     break;
                 case 'agregar':
                     verificarLogin();

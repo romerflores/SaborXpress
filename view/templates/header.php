@@ -190,33 +190,6 @@
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <div class="d-flex sidebar-profile">
-              <div class="sidebar-profile-image">
-                <img src="/public/AdminCelestial/template/images/faces/face31.jpg" >
-                <span class="sidebar-status-indicator"></span>
-              </div>
-              <div class="sidebar-profile-name">
-                <p class="sidebar-name">
-                  <?php echo $_SESSION['login']['nombre']." ".$_SESSION['login']['apellido']?>
-                </p>
-                <p class="sidebar-designation">
-                <?php echo $_SESSION['login']['rol_usuario']?>
-                </p>
-              </div>
-            </div>
-            <div class="nav-search">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Type to search..." aria-label="search" aria-describedby="search">
-                <div class="input-group-append">
-                  <span class="input-group-text" id="search">
-                    <i class="typcn typcn-zoom"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <p class="sidebar-menu-title">Menu</p>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="<?php echo HTTP_BASE;?>/home">
               <i class="typcn typcn-device-desktop menu-icon"></i>
               <span class="menu-title">Inicio</span>
@@ -225,15 +198,15 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="typcn typcn-briefcase menu-icon"></i>
-              <span class="menu-title">Prodcutos</span>
+              <span class="menu-title">Productos</span>
               <i class="typcn typcn-chevron-right menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos/listado">Listar Productos</a></li>
                 <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos/agregar">Agregar Producto</a></li>
-                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/Categoria/listado">Listar Categorias</a></li>
-                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/Categoria/agregar">Agregar Categorias</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/categorias/listado">Listar Categorias</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/categorias/agregar">Agregar Categorias</a></li>
               </ul>
             </div>
           </li>
