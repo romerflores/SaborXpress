@@ -1,4 +1,3 @@
-
 <?php require(ROOT_VIEW . '/templates/header.php') ?>
 <!-- partial -->
 <div class="main-panel">

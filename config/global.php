@@ -8,8 +8,10 @@ define('ROOT_DIR',RUTA_BASE.'SaborXpress');
 define('ROOT_CORE',RUTA_BASE.'SaborXpress/core');
 define('ROOT_UPLOAD',RUTA_BASE.'SaborXpress/uploads');
 define('ROOT_VIEW',RUTA_BASE.'SaborXpress/view');
-define('ROOT_REPORT',RUTA_BASE.'SaborXpress/reports');
+define('ROOT_MODEL',RUTA_BASE.'SaborXpress/model');
+define('ROOT_REPORT',RUTA_BASE.'SaborXpress/report');
 define('ROOT_REPORT_DOWN',RUTA_BASE.'SaborXpress/reports_download');
+
 
 define("URL_RESOURCES", HTTP_BASE."/public/");
 

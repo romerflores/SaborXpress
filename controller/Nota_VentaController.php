@@ -13,7 +13,6 @@ require_once(ROOT_DIR . "/model/Nota_VentaModel.php");
 
 $method = $_SERVER['REQUEST_METHOD'];
 $input = json_decode(file_get_contents('php://input'), true);
-
 try {
     $Path_Info = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : (isset($_SERVER['ORIG_PATH_INFO']) ? $_SERVER['ORIG_PATH_INFO'] : '');
     $request = explode('/', trim($Path_Info, '/'));
@@ -21,10 +20,9 @@ try {
     echo $e->getMessage();
 }
 switch ($method) {
+    
     case 'GET': //consulta
-
         $p_ope = !empty($input['ope']) ? $input['ope'] : $_GET['ope'];
-        
         if (!empty($p_ope)) {
 
             if ($p_ope == 'filterId' || $p_ope=='filterid') {
@@ -38,13 +36,7 @@ switch ($method) {
 
         break;
     case 'POST': //inserta}
-        $p_ope = !empty($input['ope']) ? $input['ope'] : $_GET['ope'];        
-        if (!empty($p_ope)) {
-
-            if ($p_ope == 'insert') {
-                insert($input);
-            }
-        }
+        insert($input);
         break;
     // case 'PUT': //actualiza
     //     update($input);
@@ -89,7 +81,6 @@ function filterPaginateAll($input)
 
 function insert($input)
 {
-
     $p_total = !empty($input['total']) ? $input['total'] : $_POST['total'];
     $p_cliente_id_cliente = !empty($input['cliente_id_cliente']) ? $input['cliente_id_cliente'] : $_POST['cliente_id_cliente'];
     $p_usuario_ci_usuario = !empty($input['usuario_ci_usuario']) ? $input['usuario_ci_usuario'] : $_POST['usuario_ci_usuario'];

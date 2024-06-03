@@ -33,8 +33,8 @@
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo" href="<?php echo HTTP_BASE; ?>/home">
-          <img src="<?php echo URL_RESOURCES; ?>images/logo.png" alt="logo" style="max-width: 180px; height: auto; border-radius: 100%;" />
-          <h4 style="font-family: 'Arial', sans-serif; font-weight: bold; color: red;">Sabor Xpress</h4>
+          <img src="<?php echo URL_RESOURCES; ?>images/logo.jpg" alt="logo" style="max-width: 55px; height: auto; border-radius: 100%;" />
+          <h2 class="h4">Cafe I</h2>
         </a>
         <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo" style="max-width: 30px; height: auto;" />
         </a>

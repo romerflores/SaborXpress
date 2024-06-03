@@ -90,7 +90,7 @@ function insert($input)
     $p_nota_venta_numero_venta= !empty($input['nota_venta_numero_venta']) ? $input['nota_venta_numero_venta'] : $_POST['nota_venta_numero_venta'];
     $p_producto_id_producto = !empty($input['producto_id_producto']) ? $input['producto_id_producto'] : $_POST['producto_id_producto'];
     $p_producto_categoria_id_categoria = !empty($input['producto_categoria_id_categoria']) ? $input['producto_categoria_id_categoria'] : $_POST['producto_categoria_id_categoria'];
-
+    //var_dump($input);
     $obj_Pedido = new PedidoModel();
     $var = $obj_Pedido->insertar($p_cantidad,$p_sub_total, $p_nota_venta_numero_venta, $p_producto_id_producto,$p_producto_categoria_id_categoria);
     echo json_encode($var);

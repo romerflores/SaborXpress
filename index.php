@@ -256,7 +256,20 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
                     break;
             }
             break;
-
+        case 'reporte':
+            verificarlogin();
+            switch ($segments[2] ?? '') {
+                case 'nota_venta':
+                    verificarlogin();
+                    if (isset($segments[3])) {
+                        $_GET['nro_venta'] = $segments[3];
+                        require ROOT_REPORT. '/Nota_Venta.php';
+                    } else {
+                        error404();
+                    }
+                    break;
+            }
+            break;
         case 'home':
             verificarlogin();
             home();

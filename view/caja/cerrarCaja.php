@@ -69,3 +69,4 @@ require(ROOT_VIEW . '/templates/header.php') ?>
     </div>
 </div>
 <?php require(ROOT_VIEW . '/templates/footer.php') ?>
+
