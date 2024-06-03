@@ -68,7 +68,7 @@ class ClienteModel extends ModeloBasePDO
     public function update($p_id_cliente,$p_razon_social)
     {
 
-        $sql="UPDATE cliente SET razon_social=:p_razon_social WHERE id_cliente=':p_id_cliente'";
+        $sql="UPDATE cliente SET razon_social=:p_razon_social WHERE id_cliente=:p_id_cliente";
         $param=array();
         array_push($param,[':p_id_cliente',$p_id_cliente,PDO::PARAM_STR]);
         array_push($param,[':p_razon_social',$p_razon_social,PDO::PARAM_STR]);
