@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>CelestialUI Admin</title>
+  <title>PollosXpress</title>
   <!-- base:css -->
   <link rel="stylesheet" href="<?php echo URL_RESOURCES; ?>/AdminCelestial/template/vendors/typicons.font/font/typicons.css">
   <link rel="stylesheet" href="<?php echo URL_RESOURCES; ?>/AdminCelestial/template/vendors/css/vendor.bundle.base.css">
@@ -33,8 +33,8 @@
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo" href="<?php echo HTTP_BASE; ?>/home">
-          <img src="<?php echo URL_RESOURCES; ?>images/logo.jpg" alt="logo" style="max-width: 55px; height: auto; border-radius: 100%;" />
-          <h2 class="h4">Cafe I</h2>
+          <img src="<?php echo URL_RESOURCES; ?>images/logo.png" alt="logo" style="max-width: 2000px; height: auto; border-radius: 100%;" />
+          <h2 class="h4">SaborXpress</h2>
         </a>
         <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo" style="max-width: 30px; height: auto;" />
         </a>
@@ -63,88 +63,8 @@
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item d-none d-lg-flex  mr-2">
             <a class="nav-link" href="https://github.com/romerflores">
-              Help
+              Github Proyecto
             </a>
-          </li>
-          <li class="nav-item dropdown d-flex">
-            <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
-              <i class="typcn typcn-message-typing"></i>
-              <span class="count bg-success">2</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-              <p class="mb-0 font-weight-normal float-left dropdown-header">Mensajes</p>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-normal">David Grey
-                  </h6>
-                  <p class="font-weight-light small-text mb-0">
-                    The meeting is cancelled
-                  </p>
-                </div>
-              </a>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
-                  </h6>
-                  <p class="font-weight-light small-text mb-0">
-                    New product launch
-                  </p>
-                </div>
-              </a>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
-                  </h6>
-                  <p class="font-weight-light small-text mb-0">
-                    Upcoming board meeting
-                  </p>
-                </div>
-              </a>
-            </div>
-          </li>
-          <li class="nav-item dropdown  d-flex">
-            <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
-              <i class="typcn typcn-bell mr-0"></i>
-              <span class="count bg-danger">2</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-              <p class="mb-0 font-weight-normal float-left dropdown-header">Notificationes</p>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-success">
-                    <i class="typcn typcn-info-large mx-0"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-normal">Error de Aplicacion</h6>
-                  <p class="font-weight-light small-text mb-0">
-                    Hoy
-                  </p>
-                </div>
-              </a>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-info">
-                    <i class="typcn typcn-user-outline mx-0"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-normal">Nuevo Usuario Registrado</h6>
-                  <p class="font-weight-light small-text mb-0">
-                    hace 2 dias
-                  </p>
-                </div>
-              </a>
-            </div>
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
@@ -200,7 +120,7 @@
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <li class="nav-item">
+          <li class="nav-item mt-4">
             <a class="nav-link" href="<?php echo HTTP_BASE; ?>/home">
               <i class="typcn typcn-device-desktop menu-icon"></i>
               <span class="menu-title">Inicio</span>
@@ -261,7 +181,7 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
               <i class="typcn typcn-compass menu-icon"></i>
               <span class="menu-title">Icons</span>
@@ -298,7 +218,7 @@
                 <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
               </ul>
             </div>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" href="<?php echo HTTP_BASE; ?>/caja/cerrar">
               <!-- <i class="typcn typcn-document-text menu-icon"></i> -->
@@ -322,8 +242,8 @@
           <li>
             <p class="sidebar-menu-title">Redes Sociales</p>
           </li>
-          <li class="nav-item"><a href="https://www.facebook.com/Isabellaelalto" class="nav-link">#Instagram</a></li>
-          <li class="nav-item"><a href="https://www.facebook.com/profile.php?id=61554076509372" class="nav-link">#Facebook</a></li>
+          <li class="nav-item"><a target="_blank" href="https://www.facebook.com/Isabellaelalto" class="nav-link">#Instagram</a></li>
+          <li class="nav-item"><a target="_blank" href="https://www.facebook.com/profile.php?id=61554076509372" class="nav-link">#Facebook</a></li>
           <!-- <li class="nav-item"><a href="#" class="nav-link">Youtube</a></li> -->
         </ul>
       </nav>
