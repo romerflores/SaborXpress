@@ -46,7 +46,6 @@ if ($end_page > $total_pages) {
     }
 }
 
-
 // Verificar si la solicitud es POST para manejar la creación del cliente
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Obtener datos del formulario
@@ -70,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = json_decode($response, true);
         if ($result["ESTADO"]) {
             echo '<script>alert("Registro Guardado Exitosamente.");</script>';
-        }else{
+        } else {
             echo '<script>alert("No se Puede Guardar.");</script>';
         }
     } catch (Exception $e) {
@@ -79,4 +78,69 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<?php require(ROOT_VIEW . '/templates/footer.php');?>
+
+<?php require(ROOT_VIEW . '/templates/header.php');?>
+   <!-- Caja para los formularios -->
+   <div class="container-fluid">
+       <div class="row">
+           <div class="col-lg-12">
+               <div class="card">
+                   <div class="card-body">
+                       <!-- Formularios de Modificar y Crear Cliente -->
+                       <div class="row">
+                           <!-- Crear Cliente -->
+                           <div class="col-lg-6 col-md-6 grid-margin stretch-card">
+                               <div class="card">
+                                   <div class="card-body">
+                                       <h4 class="card-title">Agregar Cliente</h4>
+                                       <p class="card-description">
+                                           <code>Formulario</code>
+                                       </p>
+                                       <form id="form-create-client">
+                                            <div class="form-group">
+                                                <label for="create_id_cliente">ID Cliente</label>
+                                                <input type="text" class="form-control" id="create_id_cliente" name="id_cliente" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="create_razon_social">Razón Social</label>
+                                                <input type="text" class="form-control" id="create_razon_social" name="razon_social" required>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Agregar Cliente</button>
+                                        </form> 
+                                   </div>
+                               </div>
+                           </div>
+
+                           <!-- Modificar Cliente -->
+                           <div class="col-lg-6 col-md-6 grid-margin stretch-card">
+                               <div class="card">
+                                   <div class="card-body">
+                                       <h4 class="card-title">Modificar Cliente</h4>
+                                       <p class="card-description">
+                                           <code>Formulario</code>
+                                       </p>
+                                       <form id="form-update-client">
+                                           <div class="form-group">
+                                               <label for="update_id_cliente">ID Cliente</label>
+                                               <input type="text" class="form-control" id="update_id_cliente" name="id_cliente" readonly>
+                                           </div>
+                                           <div class="form-group">
+                                               <label for="update_razon_social">Razón Social</label>
+                                               <input type="text" class="form-control" id="update_razon_social" name="razon_social" required>
+                                           </div>
+                                           <button type="submit" class="btn btn-primary">Actualizar Cliente</button>
+                                       </form>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <!-- Fin de los formularios -->
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+<?php require(ROOT_VIEW . '/templates/footer.php') ?>
+
+
+
