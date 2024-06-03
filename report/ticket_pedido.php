@@ -47,7 +47,7 @@ if ($result->num_rows > 0) {
 }
 
 // Crear el PDF
-$pdf = new FPDF('P', 'mm', array(80, 90)); // Tamaño ticket 80mm x 150 mm (largo aprox)
+$pdf = new FPDF('P', 'mm', array(80, 86)); // Tamaño ticket 80mm x 150 mm (largo aprox)
 $pdf->AddPage();
 
 // CABECERA
@@ -89,7 +89,7 @@ $pdf->Ln(10);
 // PIE DE PAGINA
 $texto = '"EN CASO DE NO RECIBIR SU PEDIDO USE ESTE TICKET"';
 $pdf->SetFont('Arial', '', 6); // Puedes ajustar el tamaño de la fuente según sea necesario
-$pdf->MultiCell(60, 4, $texto, 0, 'C');
+$pdf->MultiCell(60, 5, $texto, 0, 'C');
 
 $pdf->Output('ticket.pdf', 'I');
 ?>
