@@ -98,8 +98,8 @@ class ProductoModel extends ModeloBasePDO
     public function insert($p_descripcion_producto, $p_precio_producto, $p_estado_producto,$p_categoria_id_categoria)
     {
         //sugiero mandar la categoria por medio de un select, ya que solo asumiremos o bien la categoria o el id
-        $sql = "INSERT INTO `producto`(`descripcion_producto`, `precio_producto`, `estado_producto`, `categoria_id_categoria`) 
-        VALUES (:p_descripcion_producto,:p_precio_producto,:p_estado_producto,:p_categoria_id_categoria";
+        $sql = "INSERT INTO producto(descripcion_producto, precio_producto, estado_producto, categoria_id_categoria) 
+        VALUES (:p_descripcion_producto,:p_precio_producto,:p_estado_producto,:p_categoria_id_categoria)";
         $param = array();
 
         array_push($param, [':p_descripcion_producto', $p_descripcion_producto, PDO::PARAM_STR]);

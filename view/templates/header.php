@@ -135,6 +135,22 @@
                 </a>
               </div>
             </li>
+            <li class="nav-item nav-profile dropdown">
+              <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
+                <i class="typcn typcn-user-outline mr-0"></i>
+                <span class="nav-profile-name"><?php echo $_SESSION['login']['nombre']." ".$_SESSION['login']['apellido']?></span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                <a class="dropdown-item">
+                <i class="typcn typcn-cog text-primary"></i>
+                Ajustes
+                </a>
+                <a class="dropdown-item" href="<?php echo HTTP_BASE;?>/login/logout">
+                <i class="typcn typcn-power text-primary"></i>
+                Cerrar Sesion
+                </a>
+              </div>
+            </li>
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
             <span class="typcn typcn-th-menu"></span>
@@ -209,34 +225,97 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="typcn typcn-briefcase menu-icon"></i>
-              <span class="menu-title">Registros</span>
+              <span class="menu-title">Prodcutos</span>
               <i class="typcn typcn-chevron-right menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos">productos</a></li>
-                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/pedidos">pedidos</a></li>
-                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/clientes">clientes</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos/listado">Listar Productos</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos/agregar">Agregar Producto</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/Categoria/listado">Listar Categorias</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/Categoria/agregar">Agregar Categorias</a></li>
               </ul>
             </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
               <i class="typcn typcn-film menu-icon"></i>
-              <span class="menu-title">Mas elementos</span>
+              <span class="menu-title">Clientes</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Inventario</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?php echo HTTP_BASE;?>/clientes/listado">Listar Clientes</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?php echo HTTP_BASE;?>/clientes/agregar">Agregar Clientes</a></li>
               </ul>
             </div>
           </li>
-
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+              <i class="typcn typcn-chart-pie-outline menu-icon"></i>
+              <span class="menu-title">Charts</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="charts">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+              <i class="typcn typcn-th-small-outline menu-icon"></i>
+              <span class="menu-title">Tables</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="tables">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+              <i class="typcn typcn-compass menu-icon"></i>
+              <span class="menu-title">Icons</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="icons">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Mdi icons</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <i class="typcn typcn-user-add-outline menu-icon"></i>
+              <span class="menu-title">User Pages</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
+              <i class="typcn typcn-globe-outline menu-icon"></i>
+              <span class="menu-title">Error pages</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="error">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
+              </ul>
+            </div>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="pages/documentation/documentation.html">
               <i class="typcn typcn-document-text menu-icon"></i>
-              <span class="menu-title">Documentacion</span>
+              <span class="menu-title">Documentation</span>
             </a>
           </li>
         </ul>
@@ -246,6 +325,6 @@
           </li>
           <li class="nav-item"><a href="https://www.facebook.com/Isabellaelalto" class="nav-link">#Instagram</a></li>
           <li class="nav-item"><a href="https://www.facebook.com/profile.php?id=61554076509372" class="nav-link">#Facebook</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">#Youtube</a></li>
+          <!-- <li class="nav-item"><a href="#" class="nav-link">Youtube</a></li> -->
         </ul>
       </nav>

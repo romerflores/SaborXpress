@@ -8,7 +8,7 @@ header("Content-Type: application/json; charset=UTF-8");
 session_start();
 
 require_once($_SERVER['DOCUMENT_ROOT'] . "/SaborXpress/config/global.php");
-require_once(ROOT_DIR . "/model/Detalle_CajaModelModel.php");
+require_once(ROOT_DIR . "/model/Detalle_CajaModel.php");
 
 
 $method = $_SERVER['REQUEST_METHOD'];
