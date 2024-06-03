@@ -75,5 +75,4 @@ class categoriaModel extends ModeloBasePDO
         return parent::gupdate($sql,$param);
     }
 
-    
 }
