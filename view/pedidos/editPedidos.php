@@ -1,6 +1,6 @@
 <?php
 
-// Verificar si la solicitud es POST para manejar la actualización del pedido
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Obtener datos del formulario
     $id_pedido = trim($_POST['id_pedido']);
