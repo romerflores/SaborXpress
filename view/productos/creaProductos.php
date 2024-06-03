@@ -1,52 +1,13 @@
 <?php
-$page = 1;
-$ope = "filterSearch";
-$filter = "";
-$items_per_page = 10;
-$total_pages = 1;
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $page = isset($_POST['page']) ? $_POST['page'] : 1;
-    $filter = urlencode(trim(isset($_POST['filter']) ? $_POST['filter'] : ''));
-}
 
-$url = HTTP_BASE . "/controller/ProductoController.php?ope=filterSearch&page=" . $page . "&filter=" . $filter;
-$filter = urldecode($filter);
+//listado de las categorias
+$url = HTTP_BASE . "/controller/CategoriaController.php?ope=filterall";
 $response = file_get_contents($url);
 $responseData = json_decode($response, true);
+$records = $responseData['DATA']; //las categorias estan guardads en records
 
-// Verificación de la respuesta del servidor
-if (isset($responseData['DATA']) && isset($responseData['LENGTH'])) {
-    $records = $responseData['DATA'];
-    $totalItems = $responseData['LENGTH'];
-    try {
-        $total_pages = ceil($totalItems / $items_per_page);
-    } catch (Exception $e) {
-        $total_pages = 1;
-    }
-} else {
-    $records = [];
-    $totalItems = 0;
-    $total_pages = 1;
-}
 
-//paginacion
-$max_links = 5;
-$half_max_link = floor($max_links / 2);
-$start_page = $page - $half_max_link;
-$end_page = $page + $half_max_link;
-if ($start_page < 1) {
-    $end_page += abs($start_page) + 1;
-    $start_page = 1;
-}
-if ($end_page > $total_pages) {
-    $start_page -= ($end_page - $total_pages);
-    $end_page = $total_pages;
-    if ($start_page < 1) {
-        $start_page = 1;
-    }
-}
-
-// Manejo del método POST
+// Manejo del método POST y ademaas la creacion de json
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Obtener datos del formulario
     $descripcion = trim($_POST['descripcion_producto']);
@@ -58,42 +19,88 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($descripcion && $precio && $estado && $categoria) {
         // Preparar la URL para la solicitud POST
         $url = HTTP_BASE . "/controller/ProductoController.php";
-        
+
         // Crear datos para enviar
         $data = array(
+            'ope' => 'insert', // Operación de inserción
             'descripcion_producto' => $descripcion,
             'precio_producto' => $precio,
             'estado_producto' => $estado,
             'categoria_id_categoria' => $categoria,
-            'ope' => 'insert' // Operación de inserción
         );
-
-        // Configurar opciones de la solicitud POST
-        $options = array(
-            'http' => array(
-                'header'  => "Content-type: application/json\r\n",
-                'method'  => 'POST',
-                'content' => json_encode($data)
-            )
-        );
-
-        // Crear contexto de la solicitud
-        $context  = stream_context_create($options);
-        
-        // Enviar solicitud y obtener respuesta
+        $context = stream_context_create([
+            'http' => [
+                'method' => 'POST',
+                'header' => "Content-Type: application/json",
+                'content' => json_encode($data),
+            ]
+        ]);
         $response = file_get_contents($url, false, $context);
-        
+        $result = json_decode($response, true);
+        //var_dump($result);
         // Manejar la respuesta
-        if ($response === FALSE) {
-            echo "Error al crear el producto.";
+        if ($result["ESTADO"]) {
+            echo '<script>alert("Producto agregado exitosamente.");</script>';
         } else {
-            echo "Producto creado exitosamente.";
+            echo '<script>alert("Ha ocurrido un error.");</script>';
         }
     } else {
-        echo "Todos los campos son obligatorios.";
+        echo '<script>alert("Todos los campos son obligatorios");</script>';
     }
 }
 
-require(ROOT_VIEW . '/templates/footer.php');
 ?>
+<?php require(ROOT_VIEW . '/templates/header.php') ?>
 
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Agregar Producto</h4>
+                        <p class="card-description">
+                            Rellena los detalles con cada campo Obligatorio
+                        </p>
+                        <form class="forms-sample" action="" method="POST">
+                            <div class="form-group">
+                                <label for="exampleInputName1">Descripcion Producto</label>
+                                <input type="text" class="form-control" id="exampleInputName1" placeholder="Descripcion Producto" name="descripcion_producto" required>
+                            </div>
+                            <div class="form-group" style="max-width: 300px;">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Bs</span>
+                                    </div>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">0.00</span>
+                                    </div>
+                                    <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" name="precio_producto" required>
+                                </div>
+                            </div>
+                            <div class="form-group" style="max-width: 200px;">
+                                <label for="exampleSelectEstado">Estado</label>
+                                <select class="form-control" id="exampleSelectEstado" name="estado_producto" required>
+                                    <option>Activo</option>
+                                    <option>Inactivo</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="max-width: 500px;">
+                                <label for="exampleFormControlCategoria">Categoria</label>
+                                <select class="form-control form-control-sm" id="exampleFormControlCategoria" name="categoria_id_categoria" required>
+                                    <?php foreach ($records as $module) : ?>
+                                        <option value="<?= htmlspecialchars($module['id_categoria']) ?>"><?= htmlspecialchars($module['nombre_categoria']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary mr-2">Crear Producto</button>
+                            <button class="btn btn-light" type="reset">Reiniciar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<?php require(ROOT_VIEW . '/templates/footer.php') ?>

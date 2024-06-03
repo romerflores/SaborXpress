@@ -7,42 +7,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Obtener datos del formulario
     $id_cliente = trim($_POST['id_cliente']);
     $razon_social = trim($_POST['razon_social']);
-
-    // Validar los datos antes de enviarlos
-    if ($id_cliente && $razon_social) {
-        // Preparar la URL para la solicitud POST
-        $url = HTTP_BASE . "/controller/ClienteController.php";
-        
-        // Crear datos para enviar
+    try {
         $data = array(
+            'ope' => 'create',
             'id_cliente' => $id_cliente,
             'razon_social' => $razon_social,
-            'ope' => 'create' // Operación de creación
         );
-
-        // Configurar opciones de la solicitud POST
-        $options = array(
-            'http' => array(
-                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method'  => 'POST',
-                'content' => http_build_query($data)
-            )
-        );
-
-        // Crear contexto de la solicitud
-        $context  = stream_context_create($options);
-        
-        // Enviar solicitud y obtener respuesta
+        $context = stream_context_create([
+            'http' => [
+                'method' => 'POST',
+                'header' => "Content-Type: application/json",
+                'content' => json_encode($data),
+            ]
+        ]);
+        $url = HTTP_BASE . "/controller/ClienteController.php";
         $response = file_get_contents($url, false, $context);
-        
-        // Manejar la respuesta
-        if ($response === FALSE) {
-            echo "Error al crear el cliente.";
-        } else {
-            echo "Cliente creado exitosamente.";
+        $result = json_decode($response, true);
+        if ($result["ESTADO"]) {
+            echo '<script>alert("Registro Guardado Exitosamente.");</script>';
+        }else{
+            echo '<script>alert("No se Puede Guardar.");</script>';
         }
-    } else {
-        echo "Todos los campos son obligatorios.";
+    } catch (Exception $e) {
+        echo '<script>alert("Ocurrió un error al guardar.");</script>';
     }
 }
 ?>

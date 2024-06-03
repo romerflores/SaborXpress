@@ -42,7 +42,7 @@ try {
                         <?php foreach ($records as $producto) : ?>
                             <tr>
                                 <td><?= htmlspecialchars($producto['id_cliente']) ?></td>
-                                <td><?= htmlspecialchars($producto['razon_social']) ?></td>                                
+                                <td><?= htmlspecialchars($producto['razon_social']) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -89,7 +89,7 @@ try {
                 </ul>
             </div>
         </div>
-        </div>
     </div>
+</div>
 </div>
 <?php require(ROOT_VIEW . '/templates/footer.php') ?>
