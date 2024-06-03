@@ -1,4 +1,5 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'] . "/SaborXpress/config/global.php");
 include(ROOT_CORE . "/fpdf/fpdf.php");
 
 // Definir constantes y configuraciones
@@ -56,7 +57,7 @@ $pdf->Cell(60, 7, 'Hora: ' . $venta[0]['hora_venta'], 0, 1);
 $pdf->Cell(130, 7, 'Razon Social: ' . $venta[0]['razon_social'], 0, 0);
 $pdf->Cell(130, 7, 'CI/NIT/CEX: ' . $venta[0]['usuario_ci_usuario'], 0, 1);
 
-$pdf->Cell(130, 7, 'TOTAL VENTA: ' . $venta[0]['total']." Bs", 0, 1);
+
 
 
 
@@ -82,6 +83,6 @@ foreach ($venta as $row) {
     $pdf->Cell(30, 10, number_format($row['precio_producto'], 2) . ' ' . BOLIVIANOS, 1, 0, 'C');
     $pdf->Cell(30, 10, number_format($row['sub_total'], 2) . ' ' . BOLIVIANOS, 1, 1, 'C');
 }
-
+$pdf->Cell(130, 7, 'TOTAL VENTA: ' . $venta[0]['total']." Bs", 0, 1);
 $pdf->Output('nota_venta.pdf', 'I');
 ?>
