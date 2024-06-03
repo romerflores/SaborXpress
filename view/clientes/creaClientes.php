@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'http' => [
                 'method' => 'POST',
                 'header' => "Content-Type: application/json",
-                'content' => json_encode($Data),
+                'content' => json_encode($data),
             ]
         ]);
         $url = HTTP_BASE . "/controller/ClienteController.php";
