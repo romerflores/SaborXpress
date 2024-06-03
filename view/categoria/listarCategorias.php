@@ -46,6 +46,16 @@ if ($end_page > $total_pages) {
     <div class="content-wrapper">
         <div class="row">
             <div class="container">
+                <form action="" method="POST">
+                    <div class="form-group" style="max-width: 500px;">
+                        <div class="input-group">
+                            <input type="filter" class="form-control" placeholder="Buscar" aria-label="Recipient's username" value="<?php echo $filter; ?>" name="filter">
+                            <div class="input-group-append">
+                                <button class="btn btn-sm btn-primary" type="submit">Buscar Categoria</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Categorias</h4>
@@ -68,7 +78,7 @@ if ($end_page > $total_pages) {
                                                 <a href="<?= HTTP_BASE . '/categorias/editar/' . $categoria['id_categoria'] ?>" class="btn btn-warning">Modificar</a>
                                             </td>
                                             <td>
-                                                
+
                                                 <a href="<?= HTTP_BASE . '/categorias/filtrarCategoria/' . $categoria['id_categoria'] ?>" class="btn btn-info">Mostrar productos</a>
                                             </td>
                                         </tr>

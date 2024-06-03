@@ -38,8 +38,13 @@ switch ($method) {
 
         break;
     case 'POST': //inserta}
-        
-        insert($input);
+        $p_ope = !empty($input['ope']) ? $input['ope'] : $_GET['ope'];        
+        if (!empty($p_ope)) {
+
+            if ($p_ope == 'insert') {
+                insert($input);
+            }
+        }
         break;
     // case 'PUT': //actualiza
     //     update($input);
@@ -84,11 +89,10 @@ function filterPaginateAll($input)
 
 function insert($input)
 {
-    $p_total = !empty($input['p_total']) ? $input['p_total'] : $_POST['p_total'];
+
+    $p_total = !empty($input['total']) ? $input['total'] : $_POST['total'];
     $p_cliente_id_cliente = !empty($input['cliente_id_cliente']) ? $input['cliente_id_cliente'] : $_POST['cliente_id_cliente'];
     $p_usuario_ci_usuario = !empty($input['usuario_ci_usuario']) ? $input['usuario_ci_usuario'] : $_POST['usuario_ci_usuario'];
-   
-
     $obj_Nota_Venta = new Nota_VentaModel();
     $var = $obj_Nota_Venta->insert($p_total, $p_cliente_id_cliente, $p_usuario_ci_usuario);
     echo json_encode($var);
