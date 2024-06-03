@@ -1,8 +1,8 @@
 <?php
 $page = 1;
 $ope = "filterSearch";
-$filter = $_GET['id_categoria']??'';
-$items_per_page = 10;
+$filter = $_GET['id_categoria'] ?? '';
+$items_per_page = 5;
 $total_pages = 1;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $page = isset($_POST['page']) ? $_POST['page'] : 1;
@@ -23,7 +23,7 @@ try {
 
 
 //paginacion
-$max_links = 5; 
+$max_links = 5;
 $half_max_links = floor($max_links / 2);
 
 $start_page = $page - $half_max_links;
@@ -49,6 +49,16 @@ if ($end_page > $total_pages) {
     <div class="content-wrapper">
         <div class="row">
             <div class="container">
+                <form action="" method="POST">
+                    <div class="form-group" style="max-width: 500px;">
+                        <div class="input-group">
+                            <input type="filter" class="form-control" placeholder="Buscar" aria-label="Recipient's username" value="<?php echo $filter; ?>" name="filter">
+                            <div class="input-group-append">
+                                <button class="btn btn-sm btn-primary" type="submit">Buscar Producto</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Productos</h4>

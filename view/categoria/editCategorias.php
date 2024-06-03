@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = json_decode($response, true);
         if ($result["ESTADO"]) {
             echo '<script>alert("Categoria agregada exitosamente.");</script>';
-            echo '<script>window.location.href ="' . HTTP_BASE . '/categorias/listado"</script>';
+            echo '<script>window.location.href ="' . HTTP_BASE . '/categorias/cat-listado"</script>';
         } else {
             echo '<script>alert("Ha ocurrido un error.");</script>';
         }
