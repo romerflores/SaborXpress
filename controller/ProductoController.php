@@ -23,7 +23,6 @@ try {
 
     echo $e->getMessage();
 }
-
 //aca haremos un switch case para los metodos que tendremos
 switch ($method)
 {
@@ -47,11 +46,7 @@ switch ($method)
         }
         break;
     case 'PUT':
-        $p_ope = !empty($input['ope']) ? $input['ope'] : $_GET['ope'];
-        if(!empty($p_ope) && $p_ope == 'update')
-        {
-            update($input);
-        }
+        update($input);
         break;
     case 'DELETE':
         delete($input);

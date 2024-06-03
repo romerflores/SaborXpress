@@ -67,7 +67,7 @@ class categoriaModel extends ModeloBasePDO
     public function update($p_id_categoria,$p_nombre_categoria)
     {
 
-        $sql="UPDATE categoria SET nombre_categoria=:p_nombre_categoria WHERE id_categoria=':p_id_categoria'";
+        $sql="UPDATE categoria SET nombre_categoria=:p_nombre_categoria WHERE id_categoria=:p_id_categoria";
         $param=array();
         array_push($param,[':p_id_categoria',$p_id_categoria,PDO::PARAM_STR]);
         array_push($param,[':p_nombre_categoria',$p_nombre_categoria,PDO::PARAM_STR]);
