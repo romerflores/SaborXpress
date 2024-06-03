@@ -168,7 +168,7 @@ if ($end_page > $total_pages) {
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-10 grid-margin stretch-card">
+                <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Eliminar Pedidos</h4>

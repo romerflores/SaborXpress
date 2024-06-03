@@ -12,7 +12,7 @@ $pdf->AddPage();
 
 // CABECERA
 $pdf->SetFont('Helvetica', 'B', 12);
-$pdf->Cell(60, 4, 'Cierre de Caja', 0, 1, 'C');
+$pdf->Cell(60, 4, 'PEDIDO NRO ', 0, 1, 'C');
 $pdf->SetFont('Helvetica', '', 8);
 $pdf->Cell(60, 4, 'SaborXpress', 0, 1, 'C');
 $pdf->Cell(60, 4, 'Av. Portugal Z. Rectangular #345', 0, 1, 'C');

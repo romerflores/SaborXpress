@@ -1,5 +1,19 @@
 <?php
-require(ROOT_VIEW . '/templates/header.php');
+$page = 1;
+$ope = "filterSearch";
+$filter = "";
+$items_per_page = 10;
+$total_pages = 1;
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $page = isset($_POST['page']) ? $_POST['page'] : 1;
+    $filter = urlencode(trim(isset($_POST['filter']) ? $_POST['filter'] : ''));
+}
+
+
+$url = HTTP_BASE . "/controller/ClienteController.php?ope=filterSearch&page=" . $page . "&filter=" . $filter;
+$filter = urldecode($filter);
+$response = file_get_contents($url);
+$responseData = json_decode($response, true);
 
 $id_cliente = '';
 $razon_social = '';
@@ -64,28 +78,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<div class="col-lg-6 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Editar Cliente</h4>
-            <p class="card-description">
-                <code>Formulario</code>
-            </p>
-            <form method="POST" action="">
-                <div class="form-group">
-                    <label for="id_cliente">ID Cliente</label>
-                    <input type="text" class="form-control" id="id_cliente" name="id_cliente" value="<?= htmlspecialchars($id_cliente) ?>" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="razon_social">Razón Social</label>
-                    <input type="text" class="form-control" id="razon_social" name="razon_social" value="<?= htmlspecialchars($razon_social) ?>" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Actualizar Cliente</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-<?php
-require(ROOT_VIEW . '/templates/footer.php');
-?>
+<?php require(ROOT_VIEW . '/templates/footer.php');?>
