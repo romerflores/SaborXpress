@@ -16,3 +16,5 @@ define("URL_RESOURCES", HTTP_BASE."/public/");
 define('SECRET_KEY','SABORXPRESS.jksdfwonfeaSDGMSDM345Lgomsda435lkfnsdalfASD7MGSDL2345FJSADOGJsadf232');
 define('ALGORITHM','HS256');
 ;
+
+?>
