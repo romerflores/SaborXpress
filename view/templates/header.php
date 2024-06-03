@@ -203,10 +203,10 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos/listado">Listar Productos</a></li>
-                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos/agregar">Agregar Producto</a></li>
-                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/categorias/listado">Listar Categorias</a></li>
-                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/categorias/agregar">Agregar Categorias</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos/prod-listado">Listar Productos</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos/prod-agregar">Agregar Producto</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/categorias/cat-listado">Listar Categorias</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/categorias/cat-agregar">Agregar Categorias</a></li>
               </ul>
             </div>
           </li>
@@ -218,20 +218,23 @@
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="<?php echo HTTP_BASE;?>/clientes/listado">Listar Clientes</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?php echo HTTP_BASE;?>/clientes/agregar">Agregar Clientes</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?php echo HTTP_BASE;?>/clientes/cli-listado">Listar Clientes</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?php echo HTTP_BASE;?>/clientes/cli-agregar">Agregar Clientes</a></li>
               </ul>
             </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
               <i class="typcn typcn-chart-pie-outline menu-icon"></i>
-              <span class="menu-title">Charts</span>
+              <span class="menu-title">Pedidos</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/pedidos/listado">Listar Pedidos</a></li>
+              </ul>
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/pedidos/editar">Modificar Pedidos</a></li>
               </ul>
             </div>
           </li>

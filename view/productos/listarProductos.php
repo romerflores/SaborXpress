@@ -1,7 +1,7 @@
 <?php
 $page = 1;
 $ope = "filterSearch";
-$filter = "";
+$filter = $_GET['id_categoria']??'';
 $items_per_page = 10;
 $total_pages = 1;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

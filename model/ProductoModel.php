@@ -43,7 +43,7 @@ class ProductoModel extends ModeloBasePDO
         ON 
         p.categoria_id_categoria = c.id_categoria
         WHERE 
-        p.id_producto = :p_id_producto;";
+        p.id_producto = :p_id_producto";
         $param = array();
         //aca adicionamos el array de parametros, donde pdo::param_int es para protegernos de sqlinjetion
         array_push($param, [':p_id_producto', $p_id_producto, PDO::PARAM_INT]);
@@ -65,8 +65,8 @@ class ProductoModel extends ModeloBasePDO
         categoria c 
         ON 
         p.categoria_id_categoria = c.id_categoria
-        WHERE upper(concat(IFNULL(id_producto,''),IFNULL(descripcion_producto,''),IFNULL(precio_producto,''),IFNULL(estado_producto,''),IFNULL(c.nombre_categoria,''))) 
-        like concat('%',upper(IFNULL(:p_filtro,'')),'%') 
+        WHERE upper(concat(IFNULL(id_producto,''),IFNULL(descripcion_producto,''),IFNULL(precio_producto,''),IFNULL(estado_producto,''),IFNULL(c.nombre_categoria,''),IFNULL(c.id_categoria,''))) 
+        like concat('%',upper(IFNULL(:p_filtro,'')),'%')  
         limit :p_limit
         offset :p_offset"; //limit es para la cantidad de registros que se mostrara, y el offset es para decir desde que numero empezara la consulta
         $param = array();

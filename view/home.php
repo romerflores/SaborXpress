@@ -12,7 +12,6 @@
             <div class="col-lg-12 d-flex grid-margin stretch-card">
             </div>
         </div>
-        ///aqui hacer el crud
         <hr>
         <div class="row">
             <div class="col-lg-4 d-flex grid-margin stretch-card">
@@ -200,13 +199,6 @@
         </div>
     </div>
     <!-- content-wrapper ends -->
-    <!-- partial:partials/_footer.html -->
-    <footer class="footer">
-        <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-center text-sm-left d-block d-sm-inline-block">Copyright © <a href="" target="_blank">AdminCelestial</a> 2024</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><a href="" target="_blank">BootstrapDashboard</a></span>
-        </div>
-    </footer>
     <!-- partial -->
 </div>
 <!-- main-panel ends -->

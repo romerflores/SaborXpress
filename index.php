@@ -64,7 +64,7 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
         case 'clientes':
             verificarlogin();
             switch ($segments[2] ?? '') {
-                case 'agregar':
+                case 'cli-agregar':
                     verificarLogin();
                     require ROOT_VIEW . '/clientes/creaClientes.php';
                     break;
@@ -72,7 +72,7 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
                     verificarLogin();
                     require ROOT_VIEW . '/clientes/editClientes.php';
                     break;
-                case 'listado':
+                case 'cli-listado':
                     verificarLogin();
                     require ROOT_VIEW . '/clientes/listarClientes.php';
                     break;
@@ -84,11 +84,11 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
         case 'productos':
             verificarlogin();
             switch ($segments[2] ?? '') {
-                case 'listado':
+                case 'prod-listado':
                     verificarlogin();
                     require ROOT_VIEW . '/productos/listarProductos.php';
                     break;
-                case 'agregar':
+                case 'prod-agregar':
                     verificarLogin();
                     require ROOT_VIEW . '/productos/creaProductos.php';
                     break;
@@ -117,6 +117,39 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
             break;
         case 'pedidos':
             verificarlogin();
+            switch ($segments[2] ?? '') {
+                case 'listado':
+                    verificarlogin();
+                    require ROOT_VIEW . '/pedidos/listarPedidos.php';
+                    break;
+                case 'agregar':
+                    verificarLogin();
+                    require ROOT_VIEW . '/pedidos/creaPedidos.php';
+                    break;
+                case 'delete':
+                    verificarLogin();
+                    if (isset($segments[3])) {
+                        $_GET['id_pedido'] = $segments[3];
+                        require ROOT_VIEW . '/pedidos/deletePedidos.php';
+                    } else {
+                        error404();
+                    }
+                    break;
+                case 'editar':
+                    verificarLogin();
+                    if (isset($segments[3])) {
+                        $_GET['id_pedido'] = $segments[3];
+                        require ROOT_VIEW . '/pedidos/editPedido.php';
+                    } else {
+                        error404();
+                    }
+                    break;
+                default:
+                    error404();
+                    break;
+            }
+            break;
+            verificarlogin();
             // require ROOT_VIEW . '/pedidos/creaPedidos.php';
             // require ROOT_VIEW . '/pedidos/deletePedidos.php';
             // require ROOT_VIEW . '/pedidos/editPedidos.php';
@@ -125,11 +158,11 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
         case 'categorias':
             verificarlogin();
             switch ($segments[2] ?? '') {
-                case 'listado':
+                case 'cat-listado':
                     verificarlogin();
                     require ROOT_VIEW.'/categoria/listarCategorias.php';
                     break;
-                case 'agregar':
+                case 'cat-agregar':
                     verificarLogin();
                     require ROOT_VIEW.'/categoria/agregarCategorias.php';
                     break;
@@ -138,6 +171,15 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
                     if (isset($segments[3])) {
                         $_GET['id_categoria'] = $segments[3];
                         require ROOT_VIEW . '/categoria/editCategorias.php';
+                    } else {
+                        error404();
+                    }
+                    break;
+                case 'filtrarCategoria':
+                    verificarLogin();
+                    if (isset($segments[3])) {
+                        $_GET['id_categoria'] = $segments[3];
+                        require ROOT_VIEW . '/productos/listarProductos.php';
                     } else {
                         error404();
                     }

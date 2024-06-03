@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         //var_dump($result);
         if ($result["ESTADO"]) {
             echo '<script>alert("Registro Guardado  Exitosamente.");</script>';
-            echo '<script>window.location.href ="' . HTTP_BASE . '/productos/listado"</script>';
+            echo '<script>window.location.href ="' . HTTP_BASE . '/productos/prod-listado"</script>';
         } else {
             echo '<script>alert("No se Puede Guardar.");</script>';
         }

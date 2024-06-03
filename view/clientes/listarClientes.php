@@ -2,7 +2,7 @@
 $page = 1;
 $ope = "filterSearch";
 $filter = "";
-$items_per_page = 10;
+$items_per_page = 1;
 $total_pages = 1;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

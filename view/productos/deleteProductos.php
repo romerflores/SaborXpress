@@ -18,7 +18,7 @@ $response = file_get_contents(HTTP_BASE . '/controller/ProductoController.php', 
 $result = json_decode($response, true);
 if ($result["ESTADO"]) {
     echo '<script>alert("Desctivado Correctamente.");</script>';
-    echo '<script>window.location.href ="' . HTTP_BASE . '/productos/listado"</script>';
+    echo '<script>window.location.href ="' . HTTP_BASE . '/productos/prod-listado"</script>';
 } else {
     echo '<script>alert("No se Puedo desactivar");</script>';
 }

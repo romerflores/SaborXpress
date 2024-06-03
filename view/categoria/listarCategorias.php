@@ -56,6 +56,7 @@ if ($end_page > $total_pages) {
                                         <th>Id</th>
                                         <th>Nombre Categoria</th>
                                         <th>Editar Categoria</th>
+                                        <th>Mostrar Productos</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -65,6 +66,10 @@ if ($end_page > $total_pages) {
                                             <td><?= htmlspecialchars($categoria['nombre_categoria'] ?? '') ?></td>
                                             <td>
                                                 <a href="<?= HTTP_BASE . '/categorias/editar/' . $categoria['id_categoria'] ?>" class="btn btn-warning">Modificar</a>
+                                            </td>
+                                            <td>
+                                                
+                                                <a href="<?= HTTP_BASE . '/categorias/filtrarCategoria/' . $categoria['id_categoria'] ?>" class="btn btn-info">Mostrar productos</a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
