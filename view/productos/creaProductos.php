@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Manejar la respuesta
         if ($result["ESTADO"]) {
             echo '<script>alert("Producto agregado exitosamente.");</script>';
-            echo '<script>window.location.href ="' . HTTP_BASE . '/productos/listado"</script>';
+            echo '<script>window.location.href ="' . HTTP_BASE . '/productos/prod-listado"</script>';
         } else {
             echo '<script>alert("Ha ocurrido un error.");</script>';
         }

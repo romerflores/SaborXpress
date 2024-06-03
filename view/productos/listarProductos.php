@@ -63,7 +63,7 @@ if ($end_page > $total_pages) {
                     <div class="card-body">
                         <h4 class="card-title">Productos</h4>
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
@@ -150,6 +150,6 @@ if ($end_page > $total_pages) {
             </div>
         </div>
     </div>
+</div>
 
-
-    <?php require(ROOT_VIEW . '/templates/footer.php') ?>
+<?php require(ROOT_VIEW . '/templates/footer.php') ?>
