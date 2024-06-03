@@ -263,10 +263,14 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
                     verificarlogin();
                     if (isset($segments[3])) {
                         $_GET['nro_venta'] = $segments[3];
-                        require ROOT_REPORT. '/Nota_Venta.php';
+                        require ROOT_REPORT . '/Nota_Venta.php';
                     } else {
                         error404();
                     }
+                    break;
+                case 'filtrarVentas':
+                    verificarlogin();
+                    require ROOT_REPORT . '/rpt_Notas_Venta.php';
                     break;
             }
             break;

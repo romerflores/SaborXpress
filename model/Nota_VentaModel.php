@@ -53,6 +53,17 @@ class Nota_VentaModel extends ModeloBasePDO
 
         return parent::gselect($sql, $param);
     }
+    public function filterDate($p_fecha_inicio, $p_fecha_fin)
+    {
+        $sql = "SELECT nro_venta, fecha_venta, hora_venta, total, cliente_id_cliente, usuario_ci_usuario
+        FROM nota_venta
+        WHERE (fecha_venta BETWEEN :p_fecha_inicio AND :p_fecha_fin)";
+        $param = array();
+        array_push($param, [':p_fecha_inicio', $p_fecha_inicio, PDO::PARAM_STR]);
+        array_push($param, [':p_fecha_fin', $p_fecha_fin, PDO::PARAM_STR]);
+        return parent::gselect($sql, $param);
+    }
+
     public function findpaginateall($p_filtro, $p_limit, $p_offset)
     {
         $sql = "SELECT 
@@ -104,16 +115,16 @@ class Nota_VentaModel extends ModeloBasePDO
         array_push($param, [':p_total', $p_total, PDO::PARAM_STR]);
         array_push($param, [':p_cliente_id_cliente', $p_cliente_id_cliente, PDO::PARAM_STR]);
         array_push($param, [':p_usuario_ci_usuario', $p_usuario_ci_usuario, PDO::PARAM_STR]);
-        $var=parent::ginsert($sql, $param);
+        $var = parent::ginsert($sql, $param);
 
         //para optener el ultimo id:
-        $sql="SELECT nro_venta, fecha_venta, hora_venta, total, cliente_id_cliente, usuario_ci_usuario
+        $sql = "SELECT nro_venta, fecha_venta, hora_venta, total, cliente_id_cliente, usuario_ci_usuario
         FROM nota_venta
         ORDER BY nro_venta DESC
         LIMIT 1;";
         $param = array();
-        $var1=parent::gselect($sql,$param);
-        $var['nro_venta']=$var1['DATA'][0]['nro_venta'];
+        $var1 = parent::gselect($sql, $param);
+        $var['nro_venta'] = $var1['DATA'][0]['nro_venta'];
 
         return $var;
     }
