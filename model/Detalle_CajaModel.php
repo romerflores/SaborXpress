@@ -56,6 +56,7 @@ class Detalle_CajaModel extends ModeloBasePDO
         array_push($param, [':p_monto_inicio', $p_monto_inicio, PDO::PARAM_STR]);
         return parent::ginsert($sql, $param);
     }
+
     public function cerrarCaja( $p_id_detalle,$p_monto_final)//cerrar caja
     {
         $sql = "UPDATE `detalle_caja` 
@@ -69,6 +70,9 @@ class Detalle_CajaModel extends ModeloBasePDO
         array_push($param, [':p_monto_fin', $p_monto_final, PDO::PARAM_STR]);
         return parent::gupdate($sql, $param);
     }
+
+    
+
     public function findDate($p_inicio,$p_fin) //filtrar por un rango de fechas
     {
         $sql="SELECT 
@@ -99,6 +103,6 @@ class Detalle_CajaModel extends ModeloBasePDO
         $param = array(); // No se necesitan parámetros para esta consulta
     
         return parent::gselect($sql, $param); // Llamada al método de selección de la clase base del modelo
-    }    
-    //agregar funcion iniciar caja y cerrar caja
+    }
+        
 }

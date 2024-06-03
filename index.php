@@ -270,7 +270,6 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
                     break;
             }
             break;
-
         case 'home':
             verificarlogin();
             home();

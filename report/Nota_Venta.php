@@ -4,7 +4,6 @@ include(ROOT_CORE . "/fpdf/fpdf.php");
 // Definir constantes y configuraciones
 define('BOLIVIANOS', 'Bs.'); // Constante con el símbolo de Bolivianos
 
-
 $nro_venta = $_GET['nro_venta'];
 
 $nro_venta = $_GET['nro_venta']??'';
@@ -22,7 +21,6 @@ if ($nro_venta) {
         $venta = null;
     }
 }
-
 
 // Crear el PDF
 $pdf = new FPDF('P', 'mm', 'A4'); // Tamaño A4
@@ -42,6 +40,7 @@ function convertxt($text, $x, $y) {
 }
 
 // Llamada a la función convertxt()
+
 convertxt("Fecha de Emisión: " . ($venta[0]['fecha_venta']), 0, 1);
 
 
@@ -49,6 +48,7 @@ convertxt("Fecha de Emisión: " . ($venta[0]['fecha_venta']), 0, 1);
 
 
 $pdf->SetFont('Arial', '', 12);
+
 $pdf->Cell(130, 7, 'ID Venta: ' . $venta[0]['nro_venta'], 0, 0);
 $pdf->Cell(60, 7, 'Fecha: ' . $venta[0]['fecha_venta'], 0, 1); // Cambiado a fecha_venta
 $pdf->Cell(60, 7, 'Hora: ' . $venta[0]['hora_venta'], 0, 1);
