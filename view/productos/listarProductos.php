@@ -23,14 +23,17 @@ try {
 
 
 //paginacion
-$max_links = 5;
-$half_max_link = floor($max_links / 2);
-$start_page = $page - $half_max_link;
-$end_page = $page + $half_max_link;
+$max_links = 5; 
+$half_max_links = floor($max_links / 2);
+
+$start_page = $page - $half_max_links;
+$end_page = $page + $half_max_links;
+
 if ($start_page < 1) {
     $end_page += abs($start_page) + 1;
     $start_page = 1;
 }
+
 if ($end_page > $total_pages) {
     $start_page -= ($end_page - $total_pages);
     $end_page = $total_pages;
@@ -70,34 +73,73 @@ if ($end_page > $total_pages) {
                                             <td><?= htmlspecialchars($producto['precio_producto'] ?? '') ?></td>
                                             <td>
                                                 <?php
-                                                $estado=htmlspecialchars($producto['estado_producto'] ?? '');
-                                                if($estado=='ACTIVO')
-                                                {
-                                                    echo '<div class="badge badge-info">'.$estado.'</div>';
-                                                }
-                                                else{
-                                                    echo '<div class="badge badge-danger">'.$estado.'</div>';
+                                                $estado = htmlspecialchars($producto['estado_producto'] ?? '');
+                                                if ($estado == 'ACTIVO') {
+                                                    echo '<div class="badge badge-info">' . $estado . '</div>';
+                                                } else {
+                                                    echo '<div class="badge badge-danger">' . $estado . '</div>';
                                                 }
                                                 ?>
                                             </td>
                                             <td><?= htmlspecialchars($producto['nombre_categoria'] ?? '') ?></td>
                                             <td>
-                                                <a href="<?= HTTP_BASE . '/productos/editar/'. $producto['id_producto'] ?>" class="btn btn-secondary">Editar</a>
+                                                <a href="<?= HTTP_BASE . '/productos/editar/' . $producto['id_producto'] ?>" class="btn btn-secondary">Editar</a>
                                             </td>
                                             <td>
-                                            <a href="<?= HTTP_BASE . '/productos/desactivar/'. $producto['id_producto'] ?>" class="btn btn-danger">Desactivar</a>
+                                                <a href="<?= HTTP_BASE . '/productos/desactivar/' . $producto['id_producto'] ?>" class="btn btn-danger">Desactivar</a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
+                            <div class="card-footer clearfix">
+                                <ul class="pagination">
+                                    <?php if ($page > 1) : ?>
+                                        <li class="page-item">
+                                            <form action="" method="POST">
+                                                <input type="hidden" name="page" value="1">
+                                                <button type="submit" class="page-link">Primera</button>
+                                            </form>
+                                        </li>
+                                        <li class="page-item">
+                                            <form action="" method="POST">
+                                                <input type="hidden" name="page" value="<?= $page - 1 ?>">
+                                                <button type="submit" class="page-link">&laquo;</button>
+                                            </form>
+                                        </li>
+                                    <?php endif; ?>
+
+                                    <?php for ($i = $start_page; $i <= $end_page; $i++) : ?>
+                                        <li class="page-item <?= ($page == $i) ? 'active' : '' ?>">
+                                            <form action="" method="POST">
+                                                <input type="hidden" name="page" value="<?= $i ?>">
+                                                <button type="submit" class="page-link"><?= $i ?></button>
+                                            </form>
+                                        </li>
+                                    <?php endfor; ?>
+
+                                    <?php if ($page < $total_pages) : ?>
+                                        <li class="page-item">
+                                            <form action="" method="POST">
+                                                <input type="hidden" name="page" value="<?= $page + 1 ?>">
+                                                <button type="submit" class="page-link">&raquo;</button>
+                                            </form>
+                                        </li>
+                                        <li class="page-item">
+                                            <form action="" method="POST">
+                                                <input type="hidden" name="page" value="<?= $total_pages ?>">
+                                                <button type="submit" class="page-link">Última</button>
+                                            </form>
+                                        </li>
+                                    <?php endif; ?>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
-<?php require(ROOT_VIEW . '/templates/footer.php') ?>
+    <?php require(ROOT_VIEW . '/templates/footer.php') ?>
