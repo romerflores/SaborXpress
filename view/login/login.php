@@ -94,7 +94,8 @@ if($_SERVER['REQUEST_METHOD']== 'POST')
                   <a class="auth-link text-black">¿Olvidaste la contraseña?</a>
                 </div>
                 <div class="text-center mt-4 font-weight-light">
-                  Quieres crear cuenta?<a href="<?php echo HTTP_BASE;?>/login/register" class="text-primary">Crear Cuenta</a>
+                  Quieres crear cuenta?
+                  <a href="<?php echo HTTP_BASE; ?>/login/register" class="text-primary" >Crear Cuenta</a>
                 </div>
               </form>
             </div>
