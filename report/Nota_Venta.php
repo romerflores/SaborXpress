@@ -1,6 +1,6 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/SaborXpress/config/global.php");
-require_once(ROOT_DIR . "/model/PedidoModel.php");
+require_once(ROOT_DIR . "/model/Nota_VentaModel.php");
 require_once(ROOT_DIR . "/core/conexionDB.php"); // Ajusta la ruta según corresponda
 include(ROOT_CORE . "/fpdf/fpdf.php");
 
@@ -26,10 +26,14 @@ if (!isset($_GET['id_venta'])) {
 $id_venta = $_GET['id_venta'];
 
 // Consulta para obtener los detalles de la venta
-$query = "SELECT v.id_venta, v.fecha_venta, v.total_venta, c.nombre AS cliente_nombre
-        FROM venta v
-        JOIN cliente c ON v.cliente_id_cliente = c.id_cliente
-        WHERE v.id_venta = ?";
+$query = "SELECT nv.nro_venta, nv.fecha_venta, nv.hora_venta, nv.total,
+c.razon_social AS cliente_nombre,
+GROUP_CONCAT(CONCAT(p.descripcion_producto, ' (', pe.cantidad, ' x ', p.precio_producto, ' ', 'Bs.)') SEPARATOR ', ') AS productos
+FROM nota_venta nv
+JOIN cliente c ON nv.cliente_id_cliente = c.id_cliente
+JOIN pedido pe ON pe.nota_venta_nro_venta = nv.nro_venta
+JOIN producto p ON pe.producto_id_producto = p.id_producto
+WHERE nv.nro_venta = ?";
 
 // Usar prepared statement para ejecutar la consulta
 $stmt = $mysqli->prepare($query);
@@ -48,16 +52,33 @@ if ($result->num_rows > 0) {
 $pdf = new FPDF('P', 'mm', 'A4'); // Tamaño A4
 $pdf->AddPage();
 
+
 // CABECERA
 $pdf->SetFont('Arial', 'B', 16);
 $pdf->Cell(190, 10, 'NOTA DE VENTA', 0, 1, 'C');
+// Encabezado
+$pdf->SetFont('Arial', 'B', 16);
+$pdf->Cell(190, 10, 'SaborXpress', 0, 1, 'C'); // Nombre de la empresa
+$pdf->SetFont('Arial', '', 12);
+// Definición de la función convertxt()
+function convertxt($text, $x, $y) {
+    // Código para convertir el texto según sea necesario
+}
+
+// Llamada a la función convertxt()
+convertxt("Fecha de Emisión: " . ($venta['fecha_venta']), 0, 1);
+
+
+
+
 
 $pdf->SetFont('Arial', '', 12);
-$pdf->Cell(130, 7, 'ID Venta: ' . $venta['id_venta'], 0, 0);
-$pdf->Cell(60, 7, 'Fecha: ' . $venta['fecha_venta'], 0, 1);
+$pdf->Cell(130, 7, 'ID Venta: ' . $venta['nro_venta'], 0, 0);
+$pdf->Cell(60, 7, 'Fecha: ' . $venta['fecha_venta'], 0, 1); // Cambiado a fecha_venta
 
 $pdf->Cell(130, 7, 'Cliente: ' . $venta['cliente_nombre'], 0, 0);
-$pdf->Cell(60, 7, 'Total: ' . number_format($venta['total_venta'], 2) . ' ' . BOLIVIANOS, 0, 1);
+$pdf->Cell(60, 7, 'Total: ' . number_format($venta['total'], 2) . ' ' . BOLIVIANOS, 0, 1); // Cambiado a total
+
 
 $pdf->Ln(10);
 
@@ -73,8 +94,10 @@ $pdf->Cell(40, 10, 'Precio Unitario', 1, 0, 'C');
 $pdf->Cell(40, 10, 'Subtotal', 1, 1, 'C');
 
 // Consulta para obtener los productos de la venta
-$query_detalle = "SELECT ";
-
+$query_detalle = "SELECT p.descripcion_producto AS producto, pe.cantidad, p.precio_producto AS precio_unitario, pe.sub_total AS subtotal
+                  FROM producto p
+                  INNER JOIN pedido pe ON p.id_producto = pe.producto_id_producto
+                  WHERE pe.nota_venta_nro_venta = ?";
 
 $stmt_detalle = $mysqli->prepare($query_detalle);
 $stmt_detalle->bind_param('i', $id_venta);
