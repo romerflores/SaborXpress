@@ -19,7 +19,6 @@ class ModeloBasePDO {
     function loadparam($result, $param) {
         foreach ($param as $value) {
             if(isset($value[2]))
-
             {
                 $result->bindValue($value[0], $value[1], $value[2]);
             }

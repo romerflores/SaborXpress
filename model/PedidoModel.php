@@ -17,18 +17,18 @@ class PedidoModel extends ModeloBasePDO
         $param = array();
         return parent::gselect($sql, $param);
     }
-    public function findid($p_id_pedido)//buscar por carnet
+    public function findid($p_id_pedido) //buscar por carnet
     {
-        $sql="SELECT id_pedido, cantidad, sub_total, nota_venta_nro_venta, producto.descripcion_producto, categoria.nombre_categoria 
+        $sql = "SELECT id_pedido, cantidad, sub_total, nota_venta_nro_venta, producto.descripcion_producto, categoria.nombre_categoria 
         FROM pedido 
         INNER JOIN producto 
         ON producto_id_producto= producto.id_producto 
         INNER JOIN categoria 
         ON categoria.id_categoria=producto_categoria_id_categoria
         WHERE id_pedido=:p_id_pedido";
-        $param= array();
+        $param = array();
         //tenemos el atributo como string ya que el id(carnet o nit) puede tener complemento
-        array_push($param,[':p_id_pedido',$p_id_pedido,PDO::PARAM_STR]);
+        array_push($param, [':p_id_pedido', $p_id_pedido, PDO::PARAM_STR]);
         return parent::gselect($sql, $param);
     }
     public function findpaginateall($p_filtro, $p_limit, $p_offset)
@@ -65,19 +65,18 @@ class PedidoModel extends ModeloBasePDO
         $var['LENGTH'] = $var1['DATA'][0]['cant'];
         return $var;
     }
-    public function insertar($p_cantidad,$p_sub_total,$p_nota_venta_nro_venta,$p_producto_id_producto,$p_producto_categoria_id_categoria) //crear pedido
+    public function insertar($p_cantidad, $p_sub_total, $p_nota_venta_nro_venta, $p_producto_id_producto, $p_producto_categoria_id_categoria) //crear pedido
     {
-        $p_estado='ACTIVO';
-        $sql="INSERT INTO pedido(cantidad, sub_total, nota_venta_nro_venta, producto_id_producto, producto_categoria_id_categoria) 
+        $p_estado = 'ACTIVO';
+        $sql = "INSERT INTO pedido(cantidad, sub_total, nota_venta_nro_venta, producto_id_producto, producto_categoria_id_categoria) 
         VALUES (:p_cantidad,:p_sub_total,:p_nota_venta_nro_venta,:p_producto_id_producto,:p_producto_categoria_id_categoria)";
-        $param=array();
-        array_push($param,[':p_cantidad',$p_cantidad,PDO::PARAM_INT]);
-        array_push($param,[':p_sub_total',$p_sub_total,PDO::PARAM_STR]);
-        array_push($param,[':p_nota_venta_nro_venta',$p_nota_venta_nro_venta,PDO::PARAM_INT]);
-        array_push($param,[':p_producto_id_producto',$p_producto_id_producto,PDO::PARAM_INT]);
-        array_push($param,[':p_producto_categoria_id_categoria',$p_producto_categoria_id_categoria,PDO::PARAM_STR]);
+        $param = array();
+        array_push($param, [':p_cantidad', $p_cantidad, PDO::PARAM_INT]);
+        array_push($param, [':p_sub_total', $p_sub_total, PDO::PARAM_STR]);
+        array_push($param, [':p_nota_venta_nro_venta', $p_nota_venta_nro_venta, PDO::PARAM_INT]);
+        array_push($param, [':p_producto_id_producto', $p_producto_id_producto, PDO::PARAM_INT]);
+        array_push($param, [':p_producto_categoria_id_categoria', $p_producto_categoria_id_categoria, PDO::PARAM_STR]);
 
         return parent::ginsert($sql, $param);
     }
-
 }
