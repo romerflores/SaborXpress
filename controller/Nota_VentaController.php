@@ -20,17 +20,19 @@ try {
     echo $e->getMessage();
 }
 switch ($method) {
-    
+
     case 'GET': //consulta
         $p_ope = !empty($input['ope']) ? $input['ope'] : $_GET['ope'];
         if (!empty($p_ope)) {
 
-            if ($p_ope == 'filterId' || $p_ope=='filterid') {
+            if ($p_ope == 'filterId' || $p_ope == 'filterid') {
                 filterId($input);
             } elseif ($p_ope == 'filterSearch') {
                 filterPaginateAll($input);
             } elseif ($p_ope ==  'filterall') {
                 filterAll($input);
+            } elseif ($p_ope ==  'filterbyDate'|| $p_ope ==  'filterbydate') {
+                filterbyDate($input);
             }
         }
 
@@ -38,12 +40,12 @@ switch ($method) {
     case 'POST': //inserta}
         insert($input);
         break;
-    // case 'PUT': //actualiza
-    //     update($input);
-    //     break;
-    // case 'DELETE': //elimina
-    //     delete($input);
-    //     break;
+        // case 'PUT': //actualiza
+        //     update($input);
+        //     break;
+        // case 'DELETE': //elimina
+        //     delete($input);
+        //     break;
     default: //metodo NO soportado
         echo 'METODO NO SOPORTADO';
         break;
@@ -51,7 +53,7 @@ switch ($method) {
 
 function filterAll($input)
 {
-    $obj_Nota_Venta=new Nota_VentaModel();
+    $obj_Nota_Venta = new Nota_VentaModel();
     $var = $obj_Nota_Venta->findall();
     echo json_encode($var);
 }
@@ -64,19 +66,28 @@ function filterId($input)
     $var = $obj_Nota_Venta->findid($p_nro_venta);
     echo json_encode($var);
 }
+
+function filterbyDate($input)
+{
+    $p_fecha_inicio = !empty($input['fecha_inicio']) ? $input['fecha_inicio'] : $_GET['fecha_inicio'];
+    $p_fecha_fin = !empty($input['fecha_fin']) ? $input['fecha_fin'] : $_GET['fecha_fin'];
+    $obj_Nota_Venta = new Nota_VentaModel();
+    $var = $obj_Nota_Venta->filterDate($p_fecha_inicio, $p_fecha_fin);
+    echo json_encode($var);
+}
+
 function filterPaginateAll($input)
 {
     $page = !empty($input['page']) ? $input['page'] : $_GET['page'];
     $filter = !empty($input['filter']) ? $input['filter'] : $_GET['filter'];
     $nro_record_page = 10;
     $p_limit = 10;
-    $p_offset=0;
-    $p_offset=abs(($page-1)* $nro_record_page);
+    $p_offset = 0;
+    $p_offset = abs(($page - 1) * $nro_record_page);
 
     $obj_Nota_Venta = new Nota_VentaModel();
-    $var = $obj_Nota_Venta->findpaginateall($filter,$p_limit,$p_offset);
+    $var = $obj_Nota_Venta->findpaginateall($filter, $p_limit, $p_offset);
     echo json_encode($var);
-
 }
 
 function insert($input)
@@ -88,4 +99,3 @@ function insert($input)
     $var = $obj_Nota_Venta->insert($p_total, $p_cliente_id_cliente, $p_usuario_ci_usuario);
     echo json_encode($var);
 }
-?>
