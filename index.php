@@ -131,8 +131,16 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
                     break;
                 case 'agregar':
                     verificarLogin();
-                    // require ROOT_VIEW.'/productos/addCategoria.php';
-                    echo "agregar categoria";
+                    require ROOT_VIEW.'/categoria/agregarCategorias.php';
+                    break;
+                case 'editar':
+                    verificarLogin();
+                    if (isset($segments[3])) {
+                        $_GET['id_categoria'] = $segments[3];
+                        require ROOT_VIEW . '/categoria/editCategorias.php';
+                    } else {
+                        error404();
+                    }
                     break;
                 default:
                     error404();
