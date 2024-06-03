@@ -33,8 +33,8 @@
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo" href="<?php echo HTTP_BASE; ?>/home">
-          <img src="<?php echo URL_RESOURCES; ?>images/logo.jpg" alt="logo" style="max-width: 55px; height: auto; border-radius: 100%;" />
-          <h2 class="h4">Cafe I</h2>
+          <img src="<?php echo URL_RESOURCES; ?>images/logo.png" alt="logo" style="max-width: 55px; height: auto; border-radius: 100%;" />
+          <h2 class="h4">Sabor Xpress</h2>
         </a>
         <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo" style="max-width: 30px; height: auto;" />
         </a>
@@ -276,7 +276,7 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <i class="typcn typcn-user-add-outline menu-icon"></i>
-              <span class="menu-title">User Pages</span>
+              <span class="menu-title">Pagina Usuarios</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="auth">
@@ -289,7 +289,7 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
               <i class="typcn typcn-globe-outline menu-icon"></i>
-              <span class="menu-title">Error pages</span>
+              <span class="menu-title">Errores</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="error">

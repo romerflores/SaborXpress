@@ -1,63 +1,31 @@
+
+
 <?php
-$page = 1;
-$ope = "filterSearch";
-$filter = "";
-$items_per_page = 10;
-$total_pages = 1;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $page = isset($_POST['page']) ? $_POST['page'] : 1;
-    $filter = urlencode(trim(isset($_POST['filter']) ? $_POST['filter'] : ''));
-}
-
-$url = HTTP_BASE . "/controller/ClienteController.php?ope=filterSearch&page=" . $page . "&filter=" . $filter;
-$filter = urldecode($filter);
+// Listado de las categorías
+$url = HTTP_BASE . "/controller/ClienteController.php?ope=filterall";
 $response = file_get_contents($url);
 $responseData = json_decode($response, true);
-// Verificación de la respuesta del servidor
-if (isset($responseData['DATA']) && isset($responseData['LENGTH'])) {
-    $records = $responseData['DATA'];
-    $totalItems = $responseData['LENGTH'];
-    try {
-        $total_pages = ceil($totalItems / $items_per_page);
-    } catch (Exception $e) {
-        $total_pages = 1;
-    }
-} else {
-    $records = [];
-    $totalItems = 0;
-    $total_pages = 1;
-}
+$records = $responseData['DATA']; // Las categorías están guardadas en $records
 
-//paginacion
-$max_links = 5;
-$half_max_link = floor($max_links / 2);
-$start_page = $page - $half_max_link;
-$end_page = $page + $half_max_link;
-if ($start_page < 1) {
-    $end_page += abs($start_page) + 1;
-    $start_page = 1;
-}
-if ($end_page > $total_pages) {
-    $start_page -= ($end_page - $total_pages);
-    $end_page = $total_pages;
-    if ($start_page < 1) {
-        $start_page = 1;
-    }
-}
-
-
-// Verificar si la solicitud es POST para manejar la creación del cliente
+// Manejo del método POST y además la creación de JSON
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Obtener datos del formulario
-    $id_cliente = trim($_POST['id_cliente']);
-    $razon_social = trim($_POST['razon_social']);
-    try {
+    $id_cliente = $_POST['id_cliente'];
+    $razon_social = $_POST['razon_social'];
+
+    // Validar los datos antes de enviarlos
+    if ($id_cliente && $razon_social) {
+        // Preparar la URL para la solicitud POST
+        $url = HTTP_BASE . "/controller/ClienteController.php";
+
+        // Crear datos para enviar
         $data = array(
-            'ope' => 'create',
+            'ope' => 'insert', // Operación de inserción
             'id_cliente' => $id_cliente,
             'razon_social' => $razon_social,
         );
+
         $context = stream_context_create([
             'http' => [
                 'method' => 'POST',
@@ -65,18 +33,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'content' => json_encode($data),
             ]
         ]);
-        $url = HTTP_BASE . "/controller/ClienteController.php";
+
         $response = file_get_contents($url, false, $context);
         $result = json_decode($response, true);
+
+        // Manejar la respuesta
         if ($result["ESTADO"]) {
-            echo '<script>alert("Registro Guardado Exitosamente.");</script>';
-        }else{
-            echo '<script>alert("No se Puede Guardar.");</script>';
+            echo '<script>alert("Cliente agregado exitosamente.");</script>';
+            echo '<script>window.location.href ="' . HTTP_BASE . '/productos/prod-listado"</script>';
+        } else {
+            echo '<script>alert("Ha ocurrido un error.");</script>';
         }
-    } catch (Exception $e) {
-        echo '<script>alert("Ocurrió un error al guardar.");</script>';
+    } else {
+        echo '<script>alert("Todos los campos son obligatorios");</script>';
     }
 }
+
 ?>
 
-<?php require(ROOT_VIEW . '/templates/footer.php');?>
+<?php require(ROOT_VIEW . '/templates/header.php') ?>
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="container">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Crear Nuevo Cliente</h3>
+                        <form action="<?= HTTP_BASE ?>/productos/prod-crear" method="POST">
+                            <div class="form-group">
+                                <label for="id_cliente">ID Cliente:</label>
+                                <input type="text" class="form-control" id="id_cliente" name="id_cliente" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="razon_social">Razón Social:</label>
+                                <input type="text" class="form-control" id="razon_social" name="razon_social" required>
+                            </div>
+                            <!-- Otros campos del cliente -->
+                            <button type="submit" class="btn btn-primary">Crear Cliente</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php require(ROOT_VIEW . '/templates/footer.php') ?>
+
+

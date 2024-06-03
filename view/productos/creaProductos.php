@@ -103,6 +103,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </div>
-
 </div>
 <?php require(ROOT_VIEW . '/templates/footer.php') ?>
