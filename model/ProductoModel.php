@@ -35,7 +35,8 @@ class ProductoModel extends ModeloBasePDO
         p.descripcion_producto, 
         p.precio_producto, 
         p.estado_producto, 
-        c.nombre_categoria 
+        c.nombre_categoria,
+        categoria_id_categoria
         FROM 
         producto p
         JOIN 
@@ -58,7 +59,8 @@ class ProductoModel extends ModeloBasePDO
         p.descripcion_producto, 
         p.precio_producto, 
         p.estado_producto, 
-        c.nombre_categoria 
+        c.nombre_categoria,
+        p.categoria_id_categoria
         FROM 
         producto p
         JOIN 

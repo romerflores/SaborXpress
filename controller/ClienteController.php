@@ -38,7 +38,6 @@ switch ($method) {
 
         break;
     case 'POST': //inserta}
-        
         insert($input);
         break;
     case 'PUT': //actualiza

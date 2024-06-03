@@ -26,7 +26,7 @@ class Nota_VentaModel extends ModeloBasePDO
         JOIN pedido p ON nv.nro_venta = p.nota_venta_nro_venta
         JOIN producto pr ON p.producto_id_producto = pr.id_producto;";
         $param = array();
-        return parent::gselect($sql,$param);
+        return parent::gselect($sql, $param);
     }
     public function findid($p_nro_venta)
     {
@@ -35,7 +35,8 @@ class Nota_VentaModel extends ModeloBasePDO
         nv.fecha_venta, 
         nv.hora_venta, 
         nv.total, 
-        nv.cliente_id_cliente, 
+        nv.cliente_id_cliente,
+        cli.razon_social,
         nv.usuario_ci_usuario,
         p.id_pedido, 
         p.cantidad, 
@@ -45,11 +46,12 @@ class Nota_VentaModel extends ModeloBasePDO
         FROM nota_venta nv
         JOIN pedido p ON nv.nro_venta = p.nota_venta_nro_venta
         JOIN producto pr ON p.producto_id_producto = pr.id_producto
+        JOIN cliente cli ON cli.id_cliente = nv.cliente_id_cliente
         WHERE nv.nro_venta=:p_nro_venta";
         $param = array();
-        array_push($param,[':p_nro_venta',$p_nro_venta,PDO::PARAM_INT]);
+        array_push($param, [':p_nro_venta', $p_nro_venta, PDO::PARAM_INT]);
 
-        return parent::gselect($sql,$param);
+        return parent::gselect($sql, $param);
     }
     public function findpaginateall($p_filtro, $p_limit, $p_offset)
     {
@@ -95,18 +97,24 @@ class Nota_VentaModel extends ModeloBasePDO
 
     public function insert($p_total, $p_cliente_id_cliente, $p_usuario_ci_usuario) //crear nota de venta
     {
-        $sql="INSERT 
-        INTO nota_venta( fecha_venta, hora_venta, total, cliente_id_cliente, usuario_ci_usuario) 
-        VALUES (CURDATE(),CURTIME(),:p_total,:p_cliente_id_cliente,:p_usuario_ci_usuario)";
-
+        $sql = "INSERT INTO nota_venta(fecha_venta, hora_venta, total, cliente_id_cliente, usuario_ci_usuario) 
+        VALUES (CURDATE(),CURTIME(),:p_total,:p_cliente_id_cliente,:p_usuario_ci_usuario);";
         $param = array();
 
-        array_push($param,[':p_total'],$p_total,PDO::PARAM_STR);
-        array_push($param,[':p_cliente_id_cliente'],$p_cliente_id_cliente,PDO::PARAM_STR);
-        array_push($param,[':p_usuario_ci_usuario'],$p_usuario_ci_usuario,PDO::PARAM_STR);
+        array_push($param, [':p_total', $p_total, PDO::PARAM_STR]);
+        array_push($param, [':p_cliente_id_cliente', $p_cliente_id_cliente, PDO::PARAM_STR]);
+        array_push($param, [':p_usuario_ci_usuario', $p_usuario_ci_usuario, PDO::PARAM_STR]);
+        $var=parent::ginsert($sql, $param);
 
-        return parent::ginsert($sql,$param);
+        //para optener el ultimo id:
+        $sql="SELECT nro_venta, fecha_venta, hora_venta, total, cliente_id_cliente, usuario_ci_usuario
+        FROM nota_venta
+        ORDER BY nro_venta DESC
+        LIMIT 1;";
+        $param = array();
+        $var1=parent::gselect($sql,$param);
+        $var['nro_venta']=$var1['DATA'][0]['nro_venta'];
+
+        return $var;
     }
-    //borrar nota de venta
-    
 }

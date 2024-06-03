@@ -79,6 +79,9 @@ try {
                                                 <div class="input-group">
                                                     <input type="hidden" class="form-control" name="precio_producto" value="<?= htmlspecialchars($producto['precio_producto'] ?? '') ?>">
                                                 </div>
+                                                <div class="input-group">
+                                                    <input type="hidden" class="form-control" name="categoria_id_categoria" value="<?= htmlspecialchars($producto['categoria_id_categoria'] ?? '') ?>">
+                                                </div>
                                                 <td>
                                                     <div class="form-group">
                                                         <div class="input-group">
