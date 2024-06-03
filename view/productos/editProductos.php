@@ -1,18 +1,14 @@
 <?php
-$page = 1;
-$ope = "filterSearch";
-$filter = "";
-$items_per_page = 10;
-$total_pages = 1;
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $page = isset($_POST['page']) ? $_POST['page'] : 1;
-    $filter = urlencode(trim(isset($_POST['filter']) ? $_POST['filter'] : ''));
-}
 
-$url = HTTP_BASE . "/controller/ProductoController.php?ope=filterSearch&page=" . $page . "&filter=" . $filter;
-$filter = urldecode($filter);
+//listado de las categorias
+$url = HTTP_BASE . "/controller/CategoriaController.php?ope=filterall";
 $response = file_get_contents($url);
 $responseData = json_decode($response, true);
+$records = $responseData['DATA']; //las categorias estan guardads en records
+
+
+$id_producto = $_GET['id_producto'] ?? null;
+$data = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Obtener datos del formulario
@@ -26,63 +22,110 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($id_producto && $descripcion && $precio && $estado && $categoria) {
         // Preparar la URL para la solicitud POST
         $url = HTTP_BASE . "/controller/ProductoController.php";
-        
+
         // Crear datos para enviar
-        $data = array(
+        $updateData = [
+            'ope' => 'update', // Operación de actualización
             'id_producto' => $id_producto,
             'descripcion_producto' => $descripcion,
             'precio_producto' => $precio,
             'estado_producto' => $estado,
             'categoria_id_categoria' => $categoria,
-            'ope' => 'update' // Operación de actualización
-        );
 
-        // Configurar opciones de la solicitud POST
-        $options = array(
-            'http' => array(
-                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method'  => 'POST',
-                'content' => http_build_query($data)
-            )
-        );
+        ];
 
-        // Crear contexto de la solicitud
-        $context  = stream_context_create($options);
-        
-        // Enviar solicitud y obtener respuesta
+        $context = stream_context_create([
+            'http' => [
+                'method' => 'PUT',
+                'header' => "Content-Type: application/json",
+                'content' => json_encode($updateData),
+            ]
+        ]);
         $response = file_get_contents($url, false, $context);
-        
-        // Manejar la respuesta
-        if ($response === FALSE) {
-            echo "Error al actualizar el producto.";
+        $result = json_decode($response, true);
+        //var_dump($result);
+        if ($result["ESTADO"]) {
+            echo '<script>alert("Registro Guardado  Exitosamente.");</script>';
         } else {
-            echo "Producto actualizado exitosamente.";
+            echo '<script>alert("No se Puede Guardar.");</script>';
         }
     } else {
-        echo "Todos los campos son obligatorios.";
-    }
-} else {
-    // Obtener el ID del producto a editar de la URL
-    $id_producto = isset($_GET['id_producto']) ? $_GET['id_producto'] : '';
-
-    // Validar si se ha proporcionado un ID
-    if ($id_producto) {
-        // Preparar la URL para obtener los detalles del producto
-        $url = HTTP_BASE . "/controller/ProductoController.php?ope=filterId&id_producto=" . $id_producto;
-
-        // Obtener detalles del producto
-        $response = file_get_contents($url);
-        $producto = json_decode($response, true);
-
-        // Validar si se encontró el producto y si la clave 'id_producto' está definida
-        if (!$producto || !isset($producto['id_producto'])) {
-            echo "ID de producto no proporcionado o producto no encontrado.";
-            exit;
-        }
-    } else {
-        echo "ID de producto no proporcionado.";
+        echo '<script>alert("Todos los campos son obligatorios");</script>';
     }
 }
 
-// Incluir pie de página
-require(ROOT_VIEW . '/templates/footer.php'); ?>
+// Validar si se ha proporcionado un ID
+if ($id_producto) {
+    // Preparar la URL para obtener los detalles del producto
+    $url = HTTP_BASE . "/controller/ProductoController.php?ope=filterId&id_producto=" . $id_producto;
+
+    // Obtener detalles del producto
+    $response = file_get_contents($url);
+    $responseData = json_decode($response, true);
+
+    // Validar si se encontró el producto y si la clave 'id_producto' está definida
+    if ($responseData && $responseData['ESTADO'] == 1 && !empty($responseData['DATA'])) {
+        $datos_producto = $responseData['DATA'][0];
+    } else {
+        $datos_producto = null;
+    }
+}
+?>
+<?php require(ROOT_VIEW . '/templates/header.php') ?>
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Editar Producto</h4>
+                        <p class="card-description">
+                            Rellena los detalles con cada campo Obligatorio
+                        </p>
+                        <form class="forms-sample" action="" method="POST">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="exampleInputName0" placeholder="Id" name="id_producto" value="<?php echo $datos_producto['id_producto'] ?? ''; ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName1">Descripcion Producto</label>
+                                <input type="text" class="form-control" id="exampleInputName1" placeholder="Descripcion Producto" name="descripcion_producto" value="<?php echo $datos_producto['descripcion_producto'] ?? ''; ?>" required>
+                            </div>
+                            <div class="form-group" style="max-width: 300px;">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Bs</span>
+                                    </div>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">0.00</span>
+                                    </div>
+                                    <input type="number" class="form-control" name="precio_producto" value="<?php echo $datos_producto['precio_producto'] ?? ''; ?>" required>
+                                </div>
+                            </div>
+                            <div class="form-group" style="max-width: 200px;">
+                                <label for="exampleSelectEstado">Estado</label>
+                                <select class="form-control" id="exampleSelectEstado" name="estado_producto" required>
+                                    <option>Activo</option>
+                                    <option>Inactivo</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="max-width: 500px;">
+                                <label for="exampleFormControlCategoria">Categoria</label>
+                                <select class="form-control form-control-sm" id="exampleFormControlCategoria" name="categoria_id_categoria" required>
+                                    <?php foreach ($records as $categoria) : ?>
+                                        <option value="<?= htmlspecialchars($categoria['id_categoria']) ?>"><?= htmlspecialchars($categoria['nombre_categoria']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary mr-2">Actualizar Producto</button>
+                            <button class="btn btn-light" type="reset">Reiniciar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<?php require(ROOT_VIEW . '/templates/footer.php'); ?>

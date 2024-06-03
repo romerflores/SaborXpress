@@ -40,10 +40,18 @@ switch ($method)
         }
         break;
     case 'POST':
-        insert($input);
+        $p_ope = !empty($input['ope']) ? $input['ope'] : $_GET['ope'];
+        if(!empty($p_ope) && $p_ope == 'insert')
+        {
+            insert($input);
+        }
         break;
     case 'PUT':
-        update($input);
+        $p_ope = !empty($input['ope']) ? $input['ope'] : $_GET['ope'];
+        if(!empty($p_ope) && $p_ope == 'update')
+        {
+            update($input);
+        }
         break;
     case 'DELETE':
         delete($input);
