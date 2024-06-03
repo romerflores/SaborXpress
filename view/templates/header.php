@@ -135,6 +135,22 @@
                 </a>
               </div>
             </li>
+            <li class="nav-item nav-profile dropdown">
+              <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
+                <i class="typcn typcn-user-outline mr-0"></i>
+                <span class="nav-profile-name"><?php echo $_SESSION['login']['nombre']." ".$_SESSION['login']['apellido']?></span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                <a class="dropdown-item">
+                <i class="typcn typcn-cog text-primary"></i>
+                Ajustes
+                </a>
+                <a class="dropdown-item" href="<?php echo HTTP_BASE;?>/login/logout">
+                <i class="typcn typcn-power text-primary"></i>
+                Cerrar Sesion
+                </a>
+              </div>
+            </li>
           </ul>
           <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
             <span class="typcn typcn-th-menu"></span>
@@ -207,15 +223,42 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link collapsed" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+              <!-- <i class="typcn typcn-chart-pie-outline menu-icon"></i> -->
+              <span class="menu-title">Productos</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="charts" style="">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos/listar">Listar Productos</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos/agregar">Agregar Productos</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/categoria/listar">Mostrar Categoria</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/categoria/agregar">Agregar Categoria</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="typcn typcn-briefcase menu-icon"></i>
-              <span class="menu-title">Registros</span>
+              <span class="menu-title">Clientes</span>
               <i class="typcn typcn-chevron-right menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos">productos</a></li>
-                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/pedidos">pedidos</a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/clientes/listar">Listar Clientes</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="typcn typcn-briefcase menu-icon"></i>
+              <span class="menu-title">Reportes</span>
+              <i class="typcn typcn-chevron-right menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/productos"></a></li>
+                <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/pedidos">Pedidos</a></li>
                 <li class="nav-item"> <a class="nav-link" href="<?php echo HTTP_BASE;?>/clientes">clientes</a></li>
               </ul>
             </div>
@@ -232,13 +275,6 @@
               </ul>
             </div>
           </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="pages/documentation/documentation.html">
-              <i class="typcn typcn-document-text menu-icon"></i>
-              <span class="menu-title">Documentacion</span>
-            </a>
-          </li>
         </ul>
         <ul class="sidebar-legend">
           <li>
@@ -246,6 +282,6 @@
           </li>
           <li class="nav-item"><a href="https://www.facebook.com/Isabellaelalto" class="nav-link">#Instagram</a></li>
           <li class="nav-item"><a href="https://www.facebook.com/profile.php?id=61554076509372" class="nav-link">#Facebook</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">#Youtube</a></li>
+          <!-- <li class="nav-item"><a href="#" class="nav-link">Youtube</a></li> -->
         </ul>
       </nav>
