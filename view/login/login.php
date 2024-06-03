@@ -78,8 +78,8 @@ if($_SERVER['REQUEST_METHOD']== 'POST')
               <div class="brand-logo">
                 <img src="<?php echo URL_RESOURCES;?>AdminCelestial/template/images/logo.svg" alt="logo">
               </div>
-              <h4>Hello! let's get started</h4>
-              <h6 class="font-weight-light">Sign in to continue.</h6>
+              <h4>Hola Vamos a Empezar!!</h4>
+              <h6 class="font-weight-light">Iniciar Sesion</h6>
               <form class="pt-3" method="POST" action="">
                 <div class="form-group">
                   <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Carnet de Identidad" name="ci_usuario">
