@@ -31,13 +31,6 @@ function verificarLogin()
         echo '<script>window.location.href="' . HTTP_BASE . '/login/login"</script>';
     }
 }
-function verificarRegister()
-{
-    if (isset($_SESSION['login']['ci_usuario']) && ($_SESSION['login']['rol_usuario'] == 'Admin')) {
-        echo '<script>alert("Solo en Administrador puede crear una Cuenta");</script>';
-        echo '<script>window.location.href="' . HTTP_BASE . '/login/login"</script>';
-    }
-}
 function verificarLoginActivo()
 {
     http_response_code(302);
@@ -56,7 +49,7 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
                     require ROOT_VIEW . '/login/login.php';
                     break;
                 case 'register':
-                    verificarRegister();
+                    verificarLogin();
                     require ROOT_VIEW . '/login/register.php';
                     break;
                 case 'logout':
@@ -68,56 +61,10 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
                     break;
             }
             break;
-        case 'ventas':
-            verificarLogin();
-            switch ($segments[2] ?? '') {
-                case 'ventas':
-                    verificarLogin();
-                    require ROOT_VIEW . '/nota_venta/ventas.php';
-                    break;
-                case 'nuevaVenta':
-                    verificarLogin();
-                    require ROOT_VIEW . '/nota_venta/nuevaVenta.php';
-                    break;
-                case 'seleccionarCategoria':
-                    verificarLogin();
-
-                    require ROOT_VIEW . '/nota_venta/seleccionarCategoria.php';
-                    break;
-                case 'seleccionarProducto':
-                    verificarLogin();
-                    if (isset($segments[3])) {
-                        $_GET['id_categoria'] = $segments[3];
-                        require ROOT_VIEW . '/nota_venta/seleccionarProductos.php';
-                    } else {
-                        error404();
-                    }
-                    break;
-                case 'agregarProducto':
-                    verificarLogin();
-                    require ROOT_VIEW . '/nota_venta/agregarProducto.php';
-                    break;
-                case 'llenarDatos':
-                    verificarLogin();
-                    require ROOT_VIEW . '/nota_venta/llenadoDatos.php';
-                    break;
-                case 'cliente':
-                    verificarLogin();
-                    require ROOT_VIEW . '/nota_venta/cliente.php';
-                    break;
-                case 'terminar':
-                    verificarLogin();
-                    require ROOT_VIEW . '/nota_venta/finalizar.php';
-                    break;
-                default:
-                    error404();
-                    break;
-            }
-            break;
         case 'clientes':
             verificarlogin();
             switch ($segments[2] ?? '') {
-                case 'agregar':
+                case 'cli-agregar':
                     verificarLogin();
                     require ROOT_VIEW . '/clientes/creaClientes.php';
                     break;
@@ -125,7 +72,7 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
                     verificarLogin();
                     require ROOT_VIEW . '/clientes/editClientes.php';
                     break;
-                case 'listado':
+                case 'cli-listado':
                     verificarLogin();
                     require ROOT_VIEW . '/clientes/listarClientes.php';
                     break;
@@ -137,17 +84,22 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
         case 'productos':
             verificarlogin();
             switch ($segments[2] ?? '') {
-                case 'listado':
+                case 'prod-listado':
                     verificarlogin();
                     require ROOT_VIEW . '/productos/listarProductos.php';
                     break;
-                case 'agregar':
+                case 'prod-agregar':
                     verificarLogin();
                     require ROOT_VIEW . '/productos/creaProductos.php';
                     break;
                 case 'desactivar':
                     verificarLogin();
-                    require ROOT_VIEW . '/productos/deleteProductos.php';
+                    if (isset($segments[3])) {
+                        $_GET['id_producto'] = $segments[3];
+                        require ROOT_VIEW . '/productos/deleteProductos.php';
+                    } else {
+                        error404();
+                    }
                     break;
                 case 'editar':
                     verificarLogin();
@@ -165,30 +117,54 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
             break;
         case 'pedidos':
             verificarlogin();
+            switch ($segments[2] ?? '') {
+                case 'listado':
+                    verificarlogin();
+                    require ROOT_VIEW . '/pedidos/listarPedidos.php';
+                    break;
+                case 'agregar':
+                    verificarLogin();
+                    require ROOT_VIEW . '/pedidos/creaPedidos.php';
+                    break;
+                case 'delete':
+                    verificarLogin();
+                    if (isset($segments[3])) {
+                        $_GET['id_pedido'] = $segments[3];
+                        require ROOT_VIEW . '/pedidos/deletePedidos.php';
+                    } else {
+                        error404();
+                    }
+                    break;
+                case 'editar':
+                    verificarLogin();
+                    if (isset($segments[3])) {
+                        $_GET['id_pedido'] = $segments[3];
+                        require ROOT_VIEW . '/pedidos/editPedido.php';
+                    } else {
+                        error404();
+                    }
+                    break;
+                default:
+                    error404();
+                    break;
+            }
+            break;
+            verificarlogin();
             // require ROOT_VIEW . '/pedidos/creaPedidos.php';
             // require ROOT_VIEW . '/pedidos/deletePedidos.php';
             // require ROOT_VIEW . '/pedidos/editPedidos.php';
             // require ROOT_VIEW . '/pedidos/listarPedidos.php';
             break;
-        case 'categoria':
+        case 'categorias':
             verificarlogin();
             switch ($segments[2] ?? '') {
-                case 'listado':
+                case 'cat-listado':
                     verificarlogin();
-<<<<<<< Updated upstream
-                    // require ROOT_VIEW.'/productos/listarCategoria.php';
-                    echo "listar categoria";
-=======
-                    require ROOT_VIEW . '/categoria/listarCategorias.php';
->>>>>>> Stashed changes
+                    require ROOT_VIEW.'/categoria/listarCategorias.php';
                     break;
-                case 'agregar':
+                case 'cat-agregar':
                     verificarLogin();
-<<<<<<< Updated upstream
-                    // require ROOT_VIEW.'/productos/addCategoria.php';
-                    echo "agregar categoria";
-=======
-                    require ROOT_VIEW . '/categoria/agregarCategorias.php';
+                    require ROOT_VIEW.'/categoria/agregarCategorias.php';
                     break;
                 case 'editar':
                     verificarLogin();
@@ -207,28 +183,12 @@ if ($segments[0] === 'SaborXpress' || $segments[0] === 'saborxpress') {
                     } else {
                         error404();
                     }
->>>>>>> Stashed changes
                     break;
                 default:
                     error404();
                     break;
             }
             break;
-
-        case 'caja':
-            verificarlogin();
-            switch ($segments[2] ?? '') {
-                case 'cerrar':
-                    verificarlogin();
-                    require ROOT_VIEW . '/caja/cerrarCaja.php';
-                    break;
-                case 'abrir':
-                    verificarLogin();
-                    require ROOT_VIEW . '/caja/abrirCaja.php';
-                    break;
-            }
-            break;
-
         case 'home':
             verificarlogin();
             home();
